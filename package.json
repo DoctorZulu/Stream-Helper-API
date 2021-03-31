@@ -1,0 +1,29 @@
+{
+  "name": "stream-helper-api",
+  "version": "1.0.0",
+  "description": "backend for Stream Helper",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DoctorZulu/Stream-Helper-API.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DoctorZulu/Stream-Helper-API/issues"
+  },
+  "homepage": "https://github.com/DoctorZulu/Stream-Helper-API#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "concurrently": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "prisma": "^2.20.1"
+  }
+}
