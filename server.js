@@ -1,7 +1,7 @@
 import express from "express";
 import prisma from "@prisma/client";
 import cors from "cors";
-
+import { ApolloServer } from "apollo-server";
 const app = express();
 
 const db = new prisma.PrismaClient({
@@ -17,8 +17,19 @@ const PORT = process.env.PORT || 4000;
 app.use(express.json());
 app.use(cors());
 
-//routes incoming requests
+//Apollo GQL Server
 
-app.listen(PORT, function () {
-  console.log(`Server is live on ${PORT}`);
+const server = new ApolloServer({
+  resolvers,
+  typeDefs,
+  context: ({ req }) => ({ req }),
+});
+
+server.listen({ port: 4025 }).then(() => {
+  console.log(`
+  Server is running
+  Listening on port 4025
+  http://localhost:4025
+  studio.apollographql.com/dev`);
+  console.log(resolvers.Query.allUsers);
 });
