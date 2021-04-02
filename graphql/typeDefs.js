@@ -36,7 +36,7 @@ const typeDefs = gql`
   # Top level
   type Query {
     allMovies: [Movie]
-    user: User
+    user(userId: ID!): User
     movie: Movie
   }
   type Mutation {

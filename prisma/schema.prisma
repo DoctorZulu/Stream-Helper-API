@@ -14,12 +14,12 @@ generator client {
 
 // USERS
 model User {
-  id        Int    @id @default(autoincrement())
-  firstname String
-  lastname  String
-  username  String @unique
-  email     String @unique
-  password  String
+  id        Int     @id @default(autoincrement())
+  firstname String?
+  lastname  String?
+  username  String? @unique
+  email     String? @unique
+  password  String?
 
 
   movies Movie[]

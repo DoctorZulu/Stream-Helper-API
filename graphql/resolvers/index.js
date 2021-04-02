@@ -6,6 +6,5 @@ export default {
   },
   Mutation: {
     ...usersResolvers.Mutation,
-    ...movieResolvers.Mutation,
   },
 };

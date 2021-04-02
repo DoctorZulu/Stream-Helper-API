@@ -2,6 +2,8 @@ import express from "express";
 import prisma from "@prisma/client";
 import cors from "cors";
 import { ApolloServer } from "apollo-server";
+import typeDefs from "./graphql/typeDefs.js";
+import resolvers from "./graphql/resolvers/index.js";
 const app = express();
 
 const db = new prisma.PrismaClient({
