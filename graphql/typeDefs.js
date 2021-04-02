@@ -22,6 +22,7 @@ const typeDefs = gql`
       release_date: String
       runetime: Int
       vote_average: Int
+      overview: String
       image: String
       genres: [Genre]
       user: User
@@ -37,7 +38,9 @@ const typeDefs = gql`
 
   # Top level
   type Query {
-      allMovies
+      allMovies: [Movie]
+      user: User
+      movie: Movie
 
   }
   type Mutation {
