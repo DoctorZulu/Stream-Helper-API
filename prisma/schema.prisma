@@ -1,6 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
+// TO HIT IMAGE URL https://www.themoviedb.org/t/p/w300_and_h450_bestv2/{FILE.JPG}
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -14,14 +14,13 @@ generator client {
 
 // USERS
 model User {
-  id        Int       @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   firstname String
   lastname  String
-  username  String    @unique
-  bio       String?
-  email     String    @unique
+  username  String @unique
+  email     String @unique
   password  String
-  DOB       DateTime?
+
 
   movies Movie[]
 
