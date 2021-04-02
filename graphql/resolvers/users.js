@@ -19,7 +19,7 @@ export default {
       try {
         const user = db.user.findUnique({
           where: { id: Number(userId) },
-          /* include: { movies: true }, */
+          include: { movies: true },
         });
 
         if (user) {
