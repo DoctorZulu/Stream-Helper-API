@@ -2,6 +2,8 @@ import express from "express";
 import prisma from "@prisma/client";
 import cors from "cors";
 import { ApolloServer } from "apollo-server";
+import cookieSession from "cookie-session";
+
 const app = express();
 
 const db = new prisma.PrismaClient({
@@ -13,9 +15,15 @@ const db = new prisma.PrismaClient({
 const PORT = process.env.PORT || 4000;
 
 //Middleware
-
+app.set("trust proxy", true);
 app.use(express.json());
 app.use(cors());
+app.use(
+  cookieSession({
+    signed: false,
+    secure: true,
+  }),
+);
 
 //Apollo GQL Server
 
