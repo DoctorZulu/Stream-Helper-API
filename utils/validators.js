@@ -16,6 +16,10 @@ const validateRegisterInput = (email, password, firstname) => {
 };
 const validateLoginInput = (email, password) => {
   const errors = {};
+<<<<<<< HEAD
+=======
+
+>>>>>>> dfeee61a80ff24e2ec71d55cb4f090424e9bf833
   if (email.trim() === "") {
     errors.email = "Email must not be empty";
   }
