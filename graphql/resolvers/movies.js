@@ -17,6 +17,7 @@ export default {
     },
     movie: async (parent, { movieId }) => {
       try {
+        console.log(movieId);
         const movie = db.movie.findUnique({
           where: { id: Number(movieId) },
         });

@@ -28,10 +28,10 @@ model User {
 
 model Movie {
   id                Int      @id
-  title             String
-  original_language String
-  release_date      String
-  vote_average      Float
+  title             String?
+  original_language String?
+  release_date      String?
+  vote_average      Float?
   image             String?
   overview          String?
   saved             Boolean? @default(false)
@@ -43,8 +43,8 @@ model Movie {
 }
 
 model Genre {
-  id      Int    @id
-  name    String
-  Movie   Movie? @relation(fields: [movieId], references: [id])
+  id      Int     @id
+  name    String?
+  Movie   Movie?  @relation(fields: [movieId], references: [id])
   movieId Int?
 }

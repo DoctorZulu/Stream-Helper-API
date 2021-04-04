@@ -33,5 +33,4 @@ server.listen({ port: 4025 }).then(() => {
   Listening on port 4025
   http://localhost:4025
   studio.apollographql.com/dev`);
-  console.log(resolvers.Query.allUsers);
 });

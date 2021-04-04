@@ -7,6 +7,8 @@ const db = new prisma.PrismaClient({
 
 async function main() {
   const shawshank = await db.movie.upsert({
+    where: { id: 278 },
+    update: {},
     create: {
       id: 278,
       title: `The Shawshank Redemption`,
