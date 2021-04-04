@@ -1,5 +1,4 @@
 import prisma from "@prisma/client";
-import prisma from "@prisma/client";
 import checkAuth from "../../utils/check-auth.js";
 
 const db = new prisma.PrismaClient({

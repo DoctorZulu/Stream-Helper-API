@@ -27,16 +27,18 @@ model User {
 }
 
 model Movie {
-  id                Int     @id
+  id                Int      @id
   title             String
   original_language String
   release_date      String
-  runtime           Int
   vote_average      Int
   image             String?
   overview          String?
+  saved             Boolean? @default(false)
+  disliked          Boolean? @default(false)
+  watched           Boolean? @default(false)
   genres            Genre[]
-  User              User?   @relation(fields: [userId], references: [id])
+  User              User?    @relation(fields: [userId], references: [id])
   userId            Int?
 }
 
