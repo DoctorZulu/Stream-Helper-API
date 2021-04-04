@@ -41,7 +41,7 @@ const typeDefs = gql`
   }
   type Mutation {
     signupUser(signupInput: SignupInput): User!
-    signinUser(email: String!, pass: String!): User!
+    signinUser(email: String!, password: String!): User!
     updateUser(username: String, firstname: String, email: String): User
     addMovie(movieId: ID!, userId: ID!): User!
     discardMovie(movieId: ID!, userId: ID!): User!

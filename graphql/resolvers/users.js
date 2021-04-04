@@ -35,13 +35,13 @@ export default {
   Mutation: {
     signupUser: async (
       parent,
-      { signupInput: { email, password, firstname, lastname } }
+      { signupInput: { email, password, firstname, lastname } },
     ) => {
       try {
         const { valid, errors } = validateRegisterInput(
           firstname,
           email,
-          password
+          password,
         );
         if (!valid) {
           throw new UserInputError("Errors", { errors });
@@ -70,7 +70,7 @@ export default {
       }
     },
 
-    signinUser: async (parent, { email, password }) => {
+    signinUser: async (parent, { email, password }, { req }) => {
       const { errors, valid } = validateLoginInput(email, password);
       if (!valid) {
         throw new UserInputError("Errors", { error });
@@ -78,7 +78,7 @@ export default {
       const foundUser = await db.user.findUnique({
         where: { email },
       });
-      console.log(foundUser);
+      // console.log(foundUser);
       if (!foundUser) {
         errors.general = "User not found";
         throw new UserInputError("User not found", { errors });
@@ -89,14 +89,16 @@ export default {
         throw new UserInputError("Incorrect credentials", { errors });
       }
       const token = generateToken(foundUser.id);
-      console.log(token);
-      return { ...foundUser, id: foundUser.id, token: token };
+
+      // cookies
+      req.session = { token: token };
+      return { ...foundUser, token: token };
     },
 
     updateUser: async (
       parent,
       { firstname, email, username, bio },
-      context
+      context,
     ) => {
       const user = checkAuth(context);
       try {
