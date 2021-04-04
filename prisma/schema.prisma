@@ -31,7 +31,7 @@ model Movie {
   title             String
   original_language String
   release_date      String
-  vote_average      Int
+  vote_average      Float
   image             String?
   overview          String?
   saved             Boolean? @default(false)
