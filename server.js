@@ -42,13 +42,6 @@ async function startApolloServer() {
   server.applyMiddleware({ app, path: "/graphql" });
   await new Promise((resolve) => app.listen({ port: 4025 }, resolve));
   console.log(`
-<<<<<<< HEAD
-  Server is running
-  Listening on port 4025
-  http://localhost:4025
-  studio.apollographql.com/dev`);
-});
-=======
     Server is running
     Listening on port 4025
     http://localhost:4025/graphql
@@ -56,4 +49,3 @@ async function startApolloServer() {
   return { server, app };
 }
 startApolloServer();
->>>>>>> dfeee61a80ff24e2ec71d55cb4f090424e9bf833
