@@ -35,13 +35,13 @@ export default {
   Mutation: {
     signupUser: async (
       parent,
-      { signupInput: { email, password, firstname, lastname } },
+      { signupInput: { email, username, password } }
     ) => {
       try {
         const { valid, errors } = validateRegisterInput(
-          firstname,
+          username,
           email,
-          password,
+          password
         );
         if (!valid) {
           throw new UserInputError("Errors", { errors });
@@ -60,8 +60,7 @@ export default {
         return db.user.create({
           data: {
             email: email,
-            firstname: firstname,
-            lastname: lastname,
+            username: username,
             password: password,
           },
         });
@@ -98,7 +97,7 @@ export default {
     updateUser: async (
       parent,
       { firstname, email, username, bio },
-      context,
+      context
     ) => {
       const user = checkAuth(context);
       try {
@@ -132,64 +131,20 @@ export default {
         const foundMovie = await db.movie.findUnique({
           where: { id: Number(movieId) },
         });
-        const newMovie = await db.user.upsert({
+        const newMovie = await db.user.update({
           where: { id: user.id },
-          update: {
-            /* data: { */
-            movie: {
-              id: foundMovie.id,
-              title: foundMovie.title,
-              original_language: foundMovie.original_language,
-              release_date: foundMovie.release_date,
-              vote_average: foundMovie.vote_average,
-              image: foundMovie.image,
-              overview: foundMovie.overview,
-              saved: foundMovie.saved,
-              disliked: foundMovie.disliked,
-              watched: foundMovie.watched,
-              /* genres: {
-                  create: [
-                    {
-                      id: id,
-                      name: name,
-                    },
-                    {
-                      id: id,
-                      name: name,
-                    },
-                  ],
-                }, */
-            },
-            /* }, */
+          data: {
+            id: foundMovie.id,
+            title: foundMovie.title,
+            original_language: foundMovie.original_language,
+            release_date: foundMovie.release_date,
+            vote_average: foundMovie.vote_average,
+            image: foundMovie.image,
+            overview: foundMovie.overview,
+            saved: foundMovie.saved,
+            disliked: foundMovie.disliked,
+            watched: foundMovie.watched,
           },
-          /* create: {
-            data: {
-              movie: {
-                id: foundMovie.id,
-                title: foundMovie.title,
-                original_language: foundMovie.original_language,
-                release_date: foundMovie.release_date,
-                vote_average: foundMovie.vote_average,
-                image: foundMovie.image,
-                overview: foundMovie.overview,
-                saved: foundMovie.saved,
-                disliked: foundMovie.disliked,
-                watched: foundMovie.watched,
-                 genres: {
-                  create: [
-                    {
-                      id: id,
-                      name: name,
-                    },
-                    {
-                      id: id,
-                      name: name,
-                    },
-                  ],
-                }, 
-              },
-            },
-          }, */
         });
         return newMovie;
       } catch (error) {
