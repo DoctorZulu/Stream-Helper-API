@@ -24,9 +24,19 @@ async function startApolloServer() {
   //Middleware
   // app.set("trust proxy", true);
 
+  const whitelist = [
+    "https://studio.apollographql.com",
+    "http://localhost:3000",
+    "http:localhost:4025/graphql",
+  ];
+
   // Disable until depolyment, ill create a check later ---Sean
   const corsOptions = {
+<<<<<<< HEAD
     origin: "https://studio.apollographql.com",
+=======
+    origin: whitelist,
+>>>>>>> d4a88403e5638845f2cf59a3d7bdc7cd5fbaf07a
     credentials: true,
   };
   app.use(express.json());

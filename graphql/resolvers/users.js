@@ -35,7 +35,7 @@ export default {
   Mutation: {
     signupUser: async (
       parent,
-      { signupInput: { email, username, password } }
+      { signupInput: { email, password, username } }
     ) => {
       try {
         const { valid, errors } = validateRegisterInput(
@@ -92,6 +92,7 @@ export default {
 
       // cookies
       req.session = { token: token };
+      // console.log(req.cookie);
       // res.cookie("token", token);
       // res.cookie("token", token, { httpOnly: true });
       // res.json({ token });
