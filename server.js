@@ -24,13 +24,13 @@ async function startApolloServer() {
   // app.set("trust proxy", true);
 
   // Disable until depolyment, ill create a check later ---Sean
-  /*   const corsOptions = {
+  const corsOptions = {
     origin: "http://localhost:3000", //change with your own client URL
     credentials: true,
-  }; */
+  };
 
   app.use(express.json());
-  app.use(cors(/* corsOptions */));
+  app.use(cors(corsOptions));
   app.use(
     cookieSession({
       signed: false,
