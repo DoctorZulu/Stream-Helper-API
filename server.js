@@ -26,7 +26,7 @@ async function startApolloServer() {
 
   // Disable until depolyment, ill create a check later ---Sean
   const corsOptions = {
-    origin: "http://localhost:3000", //change with your own client URL
+    origin: "https://studio.apollographql.com",
     credentials: true,
   };
   app.use(express.json());
