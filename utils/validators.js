@@ -1,7 +1,7 @@
-const validateRegisterInput = (email, password, firstname) => {
+const validateRegisterInput = (email, password, username) => {
   const errors = {};
-  if (firstname.trim() === "") {
-    errors.firstname = "Name must not be empty";
+  if (username.trim() === "") {
+    errors.username = "Name must not be empty";
   }
   if (email.trim() === "") {
     errors.email = "Email must not be empty";

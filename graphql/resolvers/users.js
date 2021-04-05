@@ -35,11 +35,11 @@ export default {
   Mutation: {
     signupUser: async (
       parent,
-      { signupInput: { email, password, firstname, lastname } },
+      { signupInput: { email, password, username } },
     ) => {
       try {
         const { valid, errors } = validateRegisterInput(
-          firstname,
+          username,
           email,
           password,
         );
@@ -60,8 +60,7 @@ export default {
         return db.user.create({
           data: {
             email: email,
-            firstname: firstname,
-            lastname: lastname,
+            username: username,
             password: password,
           },
         });
@@ -93,6 +92,7 @@ export default {
 
       // cookies
       req.session = { token: token };
+      // console.log(req.cookie);
       // res.cookie("token", token);
       // res.cookie("token", token, { httpOnly: true });
       // res.json({ token });
