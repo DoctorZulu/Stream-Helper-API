@@ -70,6 +70,7 @@ export default {
     },
 
     signinUser: async (parent, { email, password }, { req }) => {
+      console.log("attempted sign in");
       const { errors, valid } = validateLoginInput(email, password);
       if (!valid) {
         throw new UserInputError("Errors", { error });
@@ -77,7 +78,7 @@ export default {
       const foundUser = await db.user.findUnique({
         where: { email },
       });
-      // console.log(foundUser);
+      console.log(foundUser);
       if (!foundUser) {
         errors.general = "User not found";
         throw new UserInputError("User not found", { errors });
@@ -91,6 +92,9 @@ export default {
 
       // cookies
       req.session = { token: token };
+      // res.cookie("token", token);
+      // res.cookie("token", token, { httpOnly: true });
+      // res.json({ token });
       return { ...foundUser, token: token };
     },
 

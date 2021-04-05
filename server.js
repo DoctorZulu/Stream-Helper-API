@@ -3,6 +3,7 @@ import prisma from "@prisma/client";
 import cors from "cors";
 import { ApolloServer } from "apollo-server-express";
 import cookieSession from "cookie-session";
+import cookieParser from "cookie-parser";
 
 import typeDefs from "./graphql/typeDefs.js";
 import resolvers from "./graphql/resolvers/index.js";
@@ -24,13 +25,13 @@ async function startApolloServer() {
   // app.set("trust proxy", true);
 
   // Disable until depolyment, ill create a check later ---Sean
-  /*   const corsOptions = {
+  const corsOptions = {
     origin: "http://localhost:3000", //change with your own client URL
     credentials: true,
-  }; */
-
+  };
   app.use(express.json());
-  app.use(cors(/* corsOptions */));
+  app.use(cors(corsOptions));
+  app.use(cookieParser());
   app.use(
     cookieSession({
       signed: false,
@@ -39,7 +40,7 @@ async function startApolloServer() {
   );
 
   await server.start();
-  server.applyMiddleware({ app, path: "/graphql" });
+  server.applyMiddleware({ app, path: "/graphql", cors: false });
   await new Promise((resolve) => app.listen({ port: 4025 }, resolve));
   console.log(`
     Server is running
