@@ -124,5 +124,81 @@ export default {
         throw new Error(error);
       }
     },
+
+    addMovieToUser: async (parent, { movieId, userId }, context) => {
+      const user = checkAuth(context);
+      try {
+        console.log(user);
+        if (!user) {
+          errors.general = "User not found";
+          throw new UserInputError("User not found", { errors });
+        }
+        const foundMovie = await db.movie.findUnique({
+          where: { id: Number(movieId) },
+        });
+        const newMovie = await db.user.upsert({
+          where: { id: user.id },
+          update: {
+            /* data: { */
+            movie: {
+              id: foundMovie.id,
+              title: foundMovie.title,
+              original_language: foundMovie.original_language,
+              release_date: foundMovie.release_date,
+              vote_average: foundMovie.vote_average,
+              image: foundMovie.image,
+              overview: foundMovie.overview,
+              saved: foundMovie.saved,
+              disliked: foundMovie.disliked,
+              watched: foundMovie.watched,
+              /* genres: {
+                  create: [
+                    {
+                      id: id,
+                      name: name,
+                    },
+                    {
+                      id: id,
+                      name: name,
+                    },
+                  ],
+                }, */
+            },
+            /* }, */
+          },
+          /* create: {
+            data: {
+              movie: {
+                id: foundMovie.id,
+                title: foundMovie.title,
+                original_language: foundMovie.original_language,
+                release_date: foundMovie.release_date,
+                vote_average: foundMovie.vote_average,
+                image: foundMovie.image,
+                overview: foundMovie.overview,
+                saved: foundMovie.saved,
+                disliked: foundMovie.disliked,
+                watched: foundMovie.watched,
+                 genres: {
+                  create: [
+                    {
+                      id: id,
+                      name: name,
+                    },
+                    {
+                      id: id,
+                      name: name,
+                    },
+                  ],
+                }, 
+              },
+            },
+          }, */
+        });
+        return newMovie;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
   },
 };

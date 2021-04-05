@@ -4,11 +4,11 @@ const typeDefs = gql`
   scalar Date
 
   type User {
-    id: ID!
+    id: ID
     firstname: String
     lastname: String
     username: String
-    email: String!
+    email: String
     token: String
     password: String
 
@@ -37,15 +37,13 @@ const typeDefs = gql`
   type Query {
     allMovies: [Movie]
     user(userId: ID!): User
-    movie: Movie
+    movie(movieId: ID!): Movie
   }
   type Mutation {
     signupUser(signupInput: SignupInput): User!
     signinUser(email: String!, password: String!): User!
     updateUser(username: String, firstname: String, email: String): User
-    addMovie(movieId: ID!, userId: ID!): User!
-    discardMovie(movieId: ID!, userId: ID!): User!
-    saveMovie(movieId: ID!, userId: ID!): User!
+    addMovieToUser(movieId: ID!, userId: ID!): User!
   }
   input SignupInput {
     email: String!

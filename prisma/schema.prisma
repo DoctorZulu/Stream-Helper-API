@@ -27,22 +27,24 @@ model User {
 }
 
 model Movie {
-  id                Int     @id
-  title             String
-  original_language String
-  release_date      String
-  runtime           Int
-  vote_average      Int
+  id                Int      @id
+  title             String?
+  original_language String?
+  release_date      String?
+  vote_average      Float?
   image             String?
   overview          String?
+  saved             Boolean? @default(false)
+  disliked          Boolean? @default(false)
+  watched           Boolean? @default(false)
   genres            Genre[]
-  User              User?   @relation(fields: [userId], references: [id])
+  User              User?    @relation(fields: [userId], references: [id])
   userId            Int?
 }
 
 model Genre {
-  id      Int    @id
-  name    String
-  Movie   Movie? @relation(fields: [movieId], references: [id])
+  id      Int     @id
+  name    String?
+  Movie   Movie?  @relation(fields: [movieId], references: [id])
   movieId Int?
 }
