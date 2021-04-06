@@ -11,8 +11,12 @@ const typeDefs = gql`
     email: String
     token: String
     password: String
+    movies: [UserMovieConnection]
+  }
 
-    movies: [Movie]
+  type UserMovieConnection {
+    id: ID
+    User: [User]
   }
 
   type Movie {
@@ -25,7 +29,7 @@ const typeDefs = gql`
     overview: String
     image: String
     genres: [Genre]
-    user: User
+    user: [User]
   }
   type Genre {
     id: ID!
@@ -43,12 +47,13 @@ const typeDefs = gql`
     signupUser(signupInput: SignupInput): User!
     signinUser(email: String!, password: String!): User!
     updateUser(username: String, firstname: String, email: String): User
-    addMovieToUser(movieId: ID!, userId: ID!): User!
+    addMovieToUser(movieId: ID!): User!
   }
   input SignupInput {
     email: String!
-    firstname: String!
-    lastname: String
+    username: String!
+    # firstname: String!
+    # lastname: String
     password: String!
   }
 `;
