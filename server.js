@@ -4,9 +4,11 @@ import cors from "cors";
 import { ApolloServer } from "apollo-server-express";
 import cookieSession from "cookie-session";
 import cookieParser from "cookie-parser";
+import fetch from "node-fetch";
 
 import typeDefs from "./graphql/typeDefs.js";
 import resolvers from "./graphql/resolvers/index.js";
+/* import iterateThroughPages from "./controllers/megaSeed.js"; */
 
 async function startApolloServer() {
   const app = express();
@@ -32,11 +34,7 @@ async function startApolloServer() {
 
   // Disable until depolyment, ill create a check later ---Sean
   const corsOptions = {
-<<<<<<< HEAD
-    origin: "https://studio.apollographql.com",
-=======
     origin: whitelist,
->>>>>>> d4a88403e5638845f2cf59a3d7bdc7cd5fbaf07a
     credentials: true,
   };
   app.use(express.json());
@@ -59,4 +57,33 @@ async function startApolloServer() {
     studio.apollographql.com/dev`);
   return { server, app };
 }
+
+let URL = `https://api.themoviedb.org/3/movie/top_rated?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US&page=1`;
+let fetchURL = fetch(URL)
+  .then((res) => res.json())
+  .then((json) => {
+    return json;
+  });
+
+let promises = [];
+for (let i = 1; i <= 300; i++) {
+  promises.push(
+    fetch(
+      `https://api.themoviedb.org/3/movie/top_rated?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US&page=${i}`
+    )
+  );
+}
+Promise.all(promises)
+  .then(function handleData(data) {
+    return fetch("example.api") // should be returned 1 time
+      .then((response) => {
+        if (response.ok) return response.json();
+        throw new Error(response.statusText);
+      });
+  })
+  .catch(function handleError(error) {
+    console.log("Error" + error);
+  });
+
 startApolloServer();
+/* iterateThroughPages(); */
