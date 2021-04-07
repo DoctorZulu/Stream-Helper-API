@@ -8,7 +8,7 @@ import fetch from "node-fetch";
 
 import typeDefs from "./graphql/typeDefs.js";
 import resolvers from "./graphql/resolvers/index.js";
-/* import iterateThroughPages from "./controllers/megaSeed.js"; */
+import megaSeed from "./controllers/megaSeed.js";
 
 async function startApolloServer() {
   const app = express();
@@ -58,22 +58,7 @@ async function startApolloServer() {
   return { server, app };
 }
 
-let URL = `https://api.themoviedb.org/3/movie/top_rated?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US&page=1`;
-let fetchURL = fetch(URL)
-  .then((res) => res.json())
-  .then((json) => {
-    return json;
-  });
-
-let promises = [];
-for (let i = 1; i <= 300; i++) {
-  promises.push(
-    fetch(
-      `https://api.themoviedb.org/3/movie/top_rated?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US&page=${i}`
-    )
-  );
-}
-Promise.all(promises)
+/* Promise.all(promises)
   .then(function handleData(data) {
     return fetch("example.api") // should be returned 1 time
       .then((response) => {
@@ -83,7 +68,7 @@ Promise.all(promises)
   })
   .catch(function handleError(error) {
     console.log("Error" + error);
-  });
-
+  }); */
+megaSeed();
 startApolloServer();
 /* iterateThroughPages(); */

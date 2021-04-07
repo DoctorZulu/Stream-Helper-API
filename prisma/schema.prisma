@@ -42,13 +42,13 @@ model Movie {
   saved             Boolean? @default(false)
   disliked          Boolean? @default(false)
   watched           Boolean? @default(false)
-  genres            Genre[]
+  genres            Int?
 
 }
 
-model Genre {
-  id      Int     @id
-  name    String?
-  Movie   Movie?  @relation(fields: [movieId], references: [id])
-  movieId Int?
-}
+// model Genre {
+// id      Int     @id
+//  name    String?
+//  Movie   Movie?  @relation(fields: [movieId], references: [id])
+//  movieId Int?
+//}
