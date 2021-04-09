@@ -1,7 +1,6 @@
 import express from "express";
 import prisma from "@prisma/client";
 import fetch from "node-fetch";
-import flatten from "array-flatten";
 
 const db = new prisma.PrismaClient({
   log: ["info", "warn"],
@@ -57,24 +56,28 @@ const megaSeed = () => {
 
     newMergedData.forEach(movie => {
   const mainAddMovie = async () => {
-      let newMovie =  await db.movie.create({
-       data: {
-     
-        id: movie.id,
-        title: movie.title,
-        original_language: movie.original_language,
-        release_date: movie.release_date,
-        vote_average: movie.vote_average,
-        image: movie.poster_path,
-        overview: movie.overview,
-      
-       
-     
-       }
+      let newMovie =  await db.movie.upsert({
+        create: {
+         
+        
+           id: movie.id,
+           title: movie.title,
+           original_language: movie.original_language,
+           release_date: movie.release_date,
+           vote_average: movie.vote_average,
+           image: movie.poster_path,
+           overview: movie.overview,
+          
+        },
+        update: {},
+        where: {
+          id: movie.id,
+        },
      })
      return newMovie
     };
     mainAddMovie()
+    console.log("sdfsd")
   });
 
 
