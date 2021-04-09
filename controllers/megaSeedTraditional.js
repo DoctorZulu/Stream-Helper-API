@@ -19,15 +19,19 @@ const megaSeed = () => {
     }
   };
 
+  var obj;
   urlArray();
-  let data = [];
+  const fetchAll = () => {
+    let jsonData = [];
+    for (let i = 0; i < urls.length; i++) {
+      fetch(urls[i])
+        .then((res) => res.json())
+        .then((data) => (obj = data))
+        .then(() => console.log(obj));
+    }
+  };
 
-  let promises = urls.map((url) => fetch(url).then((res) => res.json()));
-
-  Promise.all(promises).then((json) => {
-    return data.push(json);
-  });
-  console.log(data);
+  fetchAll();
 };
 
 export default megaSeed;
