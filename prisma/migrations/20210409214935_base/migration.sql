@@ -30,7 +30,7 @@ CREATE TABLE "Movie" (
     "saved" BOOLEAN DEFAULT false,
     "disliked" BOOLEAN DEFAULT false,
     "watched" BOOLEAN DEFAULT false,
-    "genres" INTEGER NOT NULL,
+    "genres" INTEGER,
 
     PRIMARY KEY ("id")
 );
