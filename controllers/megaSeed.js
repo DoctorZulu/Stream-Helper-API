@@ -8,6 +8,12 @@ const db = new prisma.PrismaClient({
   errorFormat: "pretty",
 });
 
+
+
+
+ 
+
+
 const megaSeed = () => {
   let urls = [];
   let pageTotal = 430;
@@ -23,38 +29,84 @@ const megaSeed = () => {
 
   let promises = urls.map((url) => fetch(url).then((res) => res.json()));
 
+  
+
+
   Promise.all(promises).then((json) => {
-    let dataArray = [];
+
     let deconstructed = [];
     let fullData = [];
     let newMergedData;
 
+
+
+
+
     for (let i = 0; i < 3; i++) {
       /* dataArray.push(json[i]); */
-
       deconstructed = json[i].results.map((movie) => {
         return movie;
       });
-
+      
       fullData.push(deconstructed);
     }
     newMergedData = [].concat.apply([], fullData);
-    console.log(newMergedData);
 
-    /*     let createdMovie = db.movie.createMany({
+
+
+
+    newMergedData.forEach(movie => {
+  const mainAddMovie = async () => {
+      let newMovie =  await db.movie.create({
+       data: {
+     
+        id: movie.id,
+        title: movie.title,
+        original_language: movie.original_language,
+        release_date: movie.release_date,
+        vote_average: movie.vote_average,
+        image: movie.poster_path,
+        overview: movie.overview,
+      
+       
+     
+       }
+     })
+     return newMovie
+    };
+    mainAddMovie()
+  });
+
+
+    
+     
+    
+
+
+
+
+
+
+ 
+    
+    console.log(newMergedData.length)
+    
+  
+
+      /*   let createdMovie = db.movie.createMany({
       data: [
         {
-          id: json[0].results[0].id,
-          title: json[0].results[0].title,
-          original_language: json[0].results[0].original_language,
-          overview: json[0].results[0].overview,
-          release_date: json[0].results[0].release_date,
-          image: json[0].results[0].poster_path,
-          vote_average: json[0].results[0].vote_average,
-          genres: json[0].results[0].genre_ids[0],
-        },
+          id: movie.id,
+          title: movie.title,
+          original_language: movie.original_language,
+          overview: movie.overview,
+          release_date: movie.release_date,
+          image: movie.poster_path,
+          vote_average: movie.vote_average,
+          genres: movie.genre_ids[0],
+        },]}) */
+
        
- */
   });
 };
 
