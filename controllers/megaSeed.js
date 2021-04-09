@@ -1,12 +1,17 @@
 import express, { json } from "express";
 import prisma from "@prisma/client";
 import fetch from "node-fetch";
-import flatten from "array-flatten";
 
 const db = new prisma.PrismaClient({
   log: ["info", "warn"],
   errorFormat: "pretty",
 });
+
+
+
+
+ 
+
 
 const megaSeed = () => {
   let urls = [];
@@ -24,8 +29,92 @@ const megaSeed = () => {
 
   let promises = urls.map((url) => fetch(url).then((res) => res.json()));
 
+  
+
+
   Promise.all(promises).then((json) => {
+<<<<<<< HEAD
     return data.push(json);
+=======
+
+    let deconstructed = [];
+    let fullData = [];
+    let newMergedData;
+
+
+
+
+
+    for (let i = 0; i < 3; i++) {
+      /* dataArray.push(json[i]); */
+      deconstructed = json[i].results.map((movie) => {
+        return movie;
+      });
+      
+      fullData.push(deconstructed);
+    }
+    newMergedData = [].concat.apply([], fullData);
+
+
+
+
+    newMergedData.forEach(movie => {
+  const mainAddMovie = async () => {
+      let newMovie =  await db.movie.upsert({
+        create: {
+         
+        
+           id: movie.id,
+           title: movie.title,
+           original_language: movie.original_language,
+           release_date: movie.release_date,
+           vote_average: movie.vote_average,
+           image: movie.poster_path,
+           overview: movie.overview,
+          
+        },
+        update: {},
+        where: {
+          id: movie.id,
+        },
+     })
+     return newMovie
+    };
+    mainAddMovie()
+    console.log("sdfsd")
+  });
+
+
+    
+     
+    
+
+
+
+
+
+
+ 
+    
+    console.log(newMergedData.length)
+    
+  
+
+      /*   let createdMovie = db.movie.createMany({
+      data: [
+        {
+          id: movie.id,
+          title: movie.title,
+          original_language: movie.original_language,
+          overview: movie.overview,
+          release_date: movie.release_date,
+          image: movie.poster_path,
+          vote_average: movie.vote_average,
+          genres: movie.genre_ids[0],
+        },]}) */
+
+       
+>>>>>>> 0d6cbb53aa926c083f5ccc441bafbfae3335172f
   });
   console.log(data);
 };
