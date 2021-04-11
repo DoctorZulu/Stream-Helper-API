@@ -8,9 +8,33 @@ const db = new prisma.PrismaClient({
 
 export default {
   Query: {
-    allMovies: async () => {
+    allMovies: async (_, { take, skip, myCursor }) => {
       try {
-        return db.movie.findMany();
+        const opArgs = {
+          take: take,
+          skip: skip,
+          cursor: {
+            id: myCursor,
+          },
+          orderBy: [
+            {
+              vote_average: "desc",
+            },
+          ],
+        };
+        return db.movie.findMany(opArgs);
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    lastMovie: async (_, args) => {
+      try {
+        const allMovie = await db.movie.findFirst({
+          orderBy: {
+            id: "desc",
+          },
+        });
+        return allMovie;
       } catch (error) {
         throw new Error(error);
       }
