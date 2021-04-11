@@ -128,7 +128,6 @@ export default {
     ) => {
       const user = checkAuth(context);
       try {
-        console.log(user);
         if (!user) {
           errors.general = "User not found";
           throw new UserInputError("User not found", { errors });
@@ -157,11 +156,28 @@ export default {
       }
     },
 
-    // likes and dislikes
+    removeMovieToUser: async (_, { movieId }, context) => {
+      console.log(movieId);
+      const user = checkAuth(context);
+      try {
+        if (!user) {
+          errors.general = "User not found";
+          throw new UserInputError("User not found", { errors });
+        }
+        const foundUser = await db.user.findUnique({
+          where: { id: user.id },
+        });
 
-    // saved
+        const deleteMovie = await db.userMovieConnection.delete({
+          where: {
+            id: Number(movieId),
+          },
+        });
 
-    // remove from list
-    //  and change or update likes or watched status
+        return deleteMovie;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
   },
 };
