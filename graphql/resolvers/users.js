@@ -92,10 +92,6 @@ export default {
 
       // cookies
       req.session = { token: token };
-      // console.log(req.cookie);
-      // res.cookie("token", token);
-      // res.cookie("token", token, { httpOnly: true });
-      // res.json({ token });
       return { ...foundUser, token: token };
     },
 
@@ -125,7 +121,11 @@ export default {
       }
     },
 
-    addMovieToUser: async (parent, { movieId }, context) => {
+    addMovieToUser: async (
+      parent,
+      { movieId, saved, watched, liked },
+      context,
+    ) => {
       const user = checkAuth(context);
       try {
         console.log(user);
@@ -140,20 +140,15 @@ export default {
         const movieData = {
           id: Number(movieId),
           userId: foundUser.id,
+          watched: watched,
+          saved: saved,
+          liked: liked,
         };
-
-        const newMovie = await db.userMovieConnection.create({
-          data: {
+        const newMovie = await db.userMovieConnection.upsert({
+          where: { id: Number(movieId) },
+          update: { ...movieData },
+          create: {
             ...movieData,
-            title: foundMovie.title,
-            original_language: foundMovie.original_language,
-            release_date: foundMovie.release_date,
-            vote_average: foundMovie.vote_average,
-            image: foundMovie.image,
-            overview: foundMovie.overview,
-            saved: foundMovie.saved,
-            disliked: foundMovie.disliked,
-            watched: foundMovie.watched,
           },
         });
         return newMovie;
@@ -162,6 +157,11 @@ export default {
       }
     },
 
-    // remove from lis and change or update likes or watched status
+    // likes and dislikes
+
+    // saved
+
+    // remove from list
+    //  and change or update likes or watched status
   },
 };

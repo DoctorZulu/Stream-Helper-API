@@ -13,6 +13,7 @@ const checkAuth = (context) => {
     if (token) {
       try {
         const user = jwt.verify(token, process.env.JWT_SECRET);
+        console.log("user", user);
         return user;
       } catch (err) {
         throw new AuthenticationError("Invalid token");
