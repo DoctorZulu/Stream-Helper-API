@@ -43,6 +43,7 @@ const typeDefs = gql`
   # Top level
   type Query {
     allMovies(take: Int, skip: Int, myCursor: Int): [Movie]
+    lastMovie: Movie
     user(userId: ID!): User
     movie(movieId: ID!): Movie
   }
