@@ -35,13 +35,13 @@ export default {
   Mutation: {
     signupUser: async (
       parent,
-      { signupInput: { email, password, username } }
+      { signupInput: { email, password, username } },
     ) => {
       try {
         const { valid, errors } = validateRegisterInput(
           username,
           email,
-          password
+          password,
         );
         if (!valid) {
           throw new UserInputError("Errors", { errors });
@@ -102,7 +102,7 @@ export default {
     updateUser: async (
       parent,
       { firstname, email, username, bio },
-      context
+      context,
     ) => {
       const user = checkAuth(context);
       try {
@@ -143,21 +143,25 @@ export default {
         };
 
         const newMovie = await db.userMovieConnection.create({
-          data: movieData,
-          /*               title: foundMovie.title,
-              original_language: foundMovie.original_language,
-              release_date: foundMovie.release_date,
-              vote_average: foundMovie.vote_average,
-              image: foundMovie.image,
-              overview: foundMovie.overview,
-              saved: foundMovie.saved,
-              disliked: foundMovie.disliked,
-              watched: foundMovie.watched, */
+          data: {
+            ...movieData,
+            title: foundMovie.title,
+            original_language: foundMovie.original_language,
+            release_date: foundMovie.release_date,
+            vote_average: foundMovie.vote_average,
+            image: foundMovie.image,
+            overview: foundMovie.overview,
+            saved: foundMovie.saved,
+            disliked: foundMovie.disliked,
+            watched: foundMovie.watched,
+          },
         });
         return newMovie;
       } catch (error) {
         throw new Error(error);
       }
     },
+
+    // remove from lis and change or update likes or watched status
   },
 };
