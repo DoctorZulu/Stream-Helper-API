@@ -14,15 +14,20 @@ generator client {
 
 // USERS
 model User {
-  id        Int     @id @default(autoincrement())
+  id        Int                   @id @default(autoincrement())
   firstname String?
   lastname  String?
-  username  String? @unique
-  email     String? @unique
+  username  String?               @unique
+  email     String?               @unique
   password  String?
+  movies    UserMovieConnection[]
 
+}
 
-  movies Movie[]
+model UserMovieConnection {
+  id     Int   @id
+  User   User? @relation(fields: [userId], references: [id])
+  userId Int?
 
 }
 
@@ -37,14 +42,13 @@ model Movie {
   saved             Boolean? @default(false)
   disliked          Boolean? @default(false)
   watched           Boolean? @default(false)
-  genres            Genre[]
-  User              User?    @relation(fields: [userId], references: [id])
-  userId            Int?
+  genres            Int?
+
 }
 
-model Genre {
-  id      Int     @id
-  name    String?
-  Movie   Movie?  @relation(fields: [movieId], references: [id])
-  movieId Int?
-}
+// model Genre {
+// id      Int     @id
+//  name    String?
+//  Movie   Movie?  @relation(fields: [movieId], references: [id])
+//  movieId Int?
+//}

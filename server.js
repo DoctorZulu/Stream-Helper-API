@@ -4,9 +4,11 @@ import cors from "cors";
 import { ApolloServer } from "apollo-server-express";
 import cookieSession from "cookie-session";
 import cookieParser from "cookie-parser";
+import fetch from "node-fetch";
 
 import typeDefs from "./graphql/typeDefs.js";
 import resolvers from "./graphql/resolvers/index.js";
+import megaSeed from "./controllers/megaSeed.js";
 
 async function startApolloServer() {
   const app = express();
@@ -43,7 +45,7 @@ async function startApolloServer() {
       name: "cookie",
       signed: false,
       secure: false,
-    }),
+    })
   );
 
   await server.start();
@@ -56,4 +58,18 @@ async function startApolloServer() {
     studio.apollographql.com/dev`);
   return { server, app };
 }
+
+/* Promise.all(promises)
+  .then(function handleData(data) {
+    return fetch("example.api") // should be returned 1 time
+      .then((response) => {
+        if (response.ok) return response.json();
+        throw new Error(response.statusText);
+      });
+  })
+  .catch(function handleError(error) {
+    console.log("Error" + error);
+  }); */
+megaSeed();
 startApolloServer();
+/* iterateThroughPages(); */
