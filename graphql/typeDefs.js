@@ -27,7 +27,7 @@ const typeDefs = gql`
     original_language: String
     release_date: String
     runetime: Int
-    vote_average: Int
+    vote_average: Float
     overview: String
     image: String
     genres: [Genre]
