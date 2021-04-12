@@ -31,6 +31,19 @@ export default {
         throw new Error(error);
       }
     },
+    movieUserConnection: async (parent, { movieId }) => {
+      try {
+        const foundUser = await db.user.findUnique({
+          where: { id: user.id },
+        });
+        const userMovieConnection = db.movieUserConnection.findUnique({
+          where: { id: Number(movieId), userId: foundUser.id },
+        });
+        return userMovieConnection;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
   },
   Mutation: {
     signupUser: async (
@@ -92,10 +105,6 @@ export default {
 
       // cookies
       req.session = { token: token };
-      // console.log(req.cookie);
-      // res.cookie("token", token);
-      // res.cookie("token", token, { httpOnly: true });
-      // res.json({ token });
       return { ...foundUser, token: token };
     },
 
@@ -125,10 +134,13 @@ export default {
       }
     },
 
-    addMovieToUser: async (parent, { movieId }, context) => {
+    addMovieToUser: async (
+      parent,
+      { movieId, saved, watched, liked },
+      context
+    ) => {
       const user = checkAuth(context);
       try {
-        console.log(user);
         if (!user) {
           errors.general = "User not found";
           throw new UserInputError("User not found", { errors });
@@ -140,21 +152,42 @@ export default {
         const movieData = {
           id: Number(movieId),
           userId: foundUser.id,
+          watched: watched,
+          saved: saved,
+          liked: liked,
         };
-
-        const newMovie = await db.userMovieConnection.create({
-          data: movieData,
-          /*               title: foundMovie.title,
-              original_language: foundMovie.original_language,
-              release_date: foundMovie.release_date,
-              vote_average: foundMovie.vote_average,
-              image: foundMovie.image,
-              overview: foundMovie.overview,
-              saved: foundMovie.saved,
-              disliked: foundMovie.disliked,
-              watched: foundMovie.watched, */
+        const newMovie = await db.userMovieConnection.upsert({
+          where: { id: Number(movieId) },
+          update: { ...movieData },
+          create: {
+            ...movieData,
+          },
         });
         return newMovie;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
+    removeMovieToUser: async (_, { movieId }, context) => {
+      console.log(movieId);
+      const user = checkAuth(context);
+      try {
+        if (!user) {
+          errors.general = "User not found";
+          throw new UserInputError("User not found", { errors });
+        }
+        const foundUser = await db.user.findUnique({
+          where: { id: user.id },
+        });
+
+        const deleteMovie = await db.userMovieConnection.delete({
+          where: {
+            id: Number(movieId),
+          },
+        });
+
+        return deleteMovie;
       } catch (error) {
         throw new Error(error);
       }
