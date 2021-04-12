@@ -26,6 +26,7 @@ const typeDefs = gql`
 
   type Movie {
     id: ID!
+    categoryId: ID
     title: String
     original_language: String
     release_date: String
