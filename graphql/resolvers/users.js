@@ -101,7 +101,7 @@ export default {
 
     updateUser: async (
       parent,
-      { firstname, email, username, bio },
+      { firstname, lastname, email, username, bio },
       context,
     ) => {
       const user = checkAuth(context);
@@ -114,6 +114,7 @@ export default {
           where: { id: user.id },
           data: {
             firstname: firstname,
+            lastname: lastname,
             email: email,
             username: username,
             bio: bio,
