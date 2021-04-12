@@ -14,15 +14,15 @@ export default {
           take: take,
           skip: skip,
           cursor: {
-            id: myCursor,
+            categoryId: myCursor,
           },
           orderBy: [
             {
-              vote_average: "desc",
+              categoryId: "asc",
             },
           ],
         };
-        return db.movie.findMany(opArgs);
+        return await db.movie.findMany(opArgs);
       } catch (error) {
         throw new Error(error);
       }
@@ -31,7 +31,7 @@ export default {
       try {
         const allMovie = await db.movie.findFirst({
           orderBy: {
-            id: "desc",
+            categoryId: "asc",
           },
         });
         return allMovie;
