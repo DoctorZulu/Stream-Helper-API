@@ -36,7 +36,8 @@ model UserMovieConnection {
 }
 
 model Movie {
-  id                Int      @id
+  categoryId Int @id @default(autoincrement())
+  id                Int @unique
   title             String?
   original_language String?
   release_date      String?
