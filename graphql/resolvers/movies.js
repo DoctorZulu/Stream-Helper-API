@@ -8,6 +8,11 @@ const db = new prisma.PrismaClient({
 
 export default {
   Query: {
+    /**
+     * @param {} _
+     * @param {Take: int, skip: int, myCursor: int} param1
+     * @returns ALL MOVIES IN DB
+     */
     allMovies: async (_, { take, skip, myCursor }) => {
       try {
         const opArgs = {
@@ -27,6 +32,12 @@ export default {
         throw new Error(error);
       }
     },
+    /**
+     * ===============================LAST MOVIE IS DONZO ==================================
+     * @param {} _
+     * @param {*} args
+     * @returns LAST MOVIE IN LIST
+     */
     lastMovie: async (_, args) => {
       try {
         const allMovie = await db.movie.findFirst({
@@ -39,6 +50,35 @@ export default {
         throw new Error(error);
       }
     },
+
+    /**
+     * @param {} _
+     * @param {Take: int, skip: int, myCursor: int} param1
+     * @returns WATCHED MOVIES IN DB
+     */
+    watchedMovies: async (_ /* { take, skip, myCursor } */) => {
+      try {
+        const opArgs = {
+          where: { watched: true },
+          // select: { movies: true },
+          /* include: { User: true }, */
+          // take: take,
+          // skip: skip,
+          // cursor: {
+          //   categoryId: myCursor,
+          // },
+          // orderBy: [
+          //   {
+          //     categoryId: "asc",
+          //   },
+          // ],
+        };
+        return await db.userMovieConnection.findMany(opArgs);
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
     movie: async (parent, { movieId }) => {
       try {
         console.log(movieId);
