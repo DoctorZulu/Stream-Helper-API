@@ -141,7 +141,7 @@ export default {
 
     addMovieToUser: async (
       parent,
-      { movieId, saved, watched, liked },
+      { movieId, saved, watched, disliked },
       context
     ) => {
       const user = checkAuth(context);
@@ -157,17 +157,17 @@ export default {
         const foundMovie = await db.movie.findUnique({
           where: { id: Number(movieId) },
         });
-        console.log(foundMovie);
+
         const { id, title, image } = foundMovie;
 
         const movieData = {
-          id: id,
+          id,
           userId: foundUser.id,
           title,
           image,
           watched: watched,
           saved: saved,
-          liked: liked,
+          disliked: disliked,
         };
         const newMovie = await db.userMovieConnection.upsert({
           where: { id: Number(movieId) },

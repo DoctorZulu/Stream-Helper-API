@@ -32,7 +32,7 @@ model UserMovieConnection {
   userId Int?
   title String?
   image String?
-  liked Boolean? @default(false)
+  disliked Boolean? @default(false)
   saved Boolean? @default(false)
   watched Boolean? @default(false)
 }

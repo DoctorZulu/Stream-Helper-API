@@ -61,7 +61,7 @@ const typeDefs = gql`
     updateUser(username: String, firstname: String, email: String): User
     addMovieToUser(
       movieId: ID
-      liked: Boolean
+      disliked: Boolean
       saved: Boolean
       watched: Boolean
     ): User!
