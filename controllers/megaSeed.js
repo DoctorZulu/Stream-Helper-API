@@ -57,7 +57,7 @@ const megaSeed = () => {
         return newMovie;
       };
       mainAddMovie();
-      console.log("sdfsd");
+      // console.log("sdfsd");
     });
 
     console.log(newMergedData.length);
