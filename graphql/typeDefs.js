@@ -49,7 +49,7 @@ const typeDefs = gql`
     lastMovie: Movie
     user(userId: ID!): User
     movie(movieId: ID!): Movie
-    movieUserConnection(movieId: ID!): Movie
+    userMovieConnection(movieId: ID!): Movie
   }
   type Mutation {
     signupUser(signupInput: SignupInput): User!

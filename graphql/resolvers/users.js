@@ -31,13 +31,15 @@ export default {
         throw new Error(error);
       }
     },
-    movieUserConnection: async (parent, { movieId }) => {
+    userMovieConnection: async (parent, { movieId }, context) => {
+      console.log(movieId);
+      const user = checkAuth(context);
       try {
         const foundUser = await db.user.findUnique({
           where: { id: user.id },
         });
-        const userMovieConnection = db.movieUserConnection.findUnique({
-          where: { id: Number(movieId), userId: foundUser.id },
+        const userMovieConnection = db.userMovieConnection.findUnique({
+          where: { id: Number(movieId), userId: Number(foundUser.id) },
         });
         return userMovieConnection;
       } catch (error) {
