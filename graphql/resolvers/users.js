@@ -139,9 +139,17 @@ export default {
           where: { id: user.id },
         });
 
+        const foundMovie = await db.movie.findUnique({
+          where: { id: Number(movieId) },
+        });
+        console.log(foundMovie);
+        const { id, title, image } = foundMovie;
+
         const movieData = {
-          id: Number(movieId),
+          id: id,
           userId: foundUser.id,
+          title,
+          image,
           watched: watched,
           saved: saved,
           liked: liked,

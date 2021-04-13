@@ -18,6 +18,8 @@ const typeDefs = gql`
     id: ID
     user: [User]
     movies: [Movie]
+    title: String
+    image: String
     liked: Boolean
     watched: Boolean
     saved: Boolean

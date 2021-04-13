@@ -1,4 +1,6 @@
 import prisma from "@prisma/client";
+import { UserInputError } from "apollo-server-errors";
+
 import checkAuth from "../../utils/check-auth.js";
 
 const db = new prisma.PrismaClient({
@@ -56,12 +58,15 @@ export default {
      * @param {Take: int, skip: int, myCursor: int} param1
      * @returns WATCHED MOVIES IN DB
      */
-    watchedMovies: async (_ /* { take, skip, myCursor } */) => {
+    watchedMovies: async (_, args, context /* { take, skip, myCursor } */) => {
+      const user = checkAuth(context);
       try {
+        if (!user) {
+          errors.general = "User not found";
+          throw new UserInputError("User not found", { errors });
+        }
         const opArgs = {
-          where: { watched: true },
-          // select: { movies: true },
-          /* include: { User: true }, */
+          where: { watched: true, userId: user.id },
           // take: take,
           // skip: skip,
           // cursor: {
