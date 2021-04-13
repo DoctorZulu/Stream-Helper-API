@@ -16,7 +16,10 @@ const typeDefs = gql`
 
   type UserMovieConnection {
     id: ID
-    User: [User]
+    user: [User]
+    movies: [Movie]
+    title: String
+    image: String
     liked: Boolean
     watched: Boolean
     saved: Boolean
@@ -44,6 +47,7 @@ const typeDefs = gql`
   # Top level
   type Query {
     allMovies(take: Int, skip: Int, myCursor: Int): [Movie]
+    watchedMovies: [UserMovieConnection]
     lastMovie: Movie
     user(userId: ID!): User
     movie(movieId: ID!): Movie
