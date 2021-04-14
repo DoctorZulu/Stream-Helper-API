@@ -1,4 +1,4 @@
-import express from "express";
+import express, { json } from "express";
 import prisma from "@prisma/client";
 import fetch from "node-fetch";
 
@@ -11,14 +11,15 @@ const megaSeed = () => {
   let urls = [];
   let pageTotal = 430;
   const urlArray = () => {
-    for (let i = 1; i < 4; i++) {
+    for (let i = 1; i < 401; i++) {
       urls.push(
-        `https://api.themoviedb.org/3/movie/top_rated?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US&page=${i}`,
+        `https://api.themoviedb.org/3/movie/top_rated?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US&page=${i}`
       );
     }
   };
 
   urlArray();
+  let data = [];
 
   let promises = urls.map((url) => fetch(url).then((res) => res.json()));
 
@@ -27,7 +28,7 @@ const megaSeed = () => {
     let fullData = [];
     let newMergedData;
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 400; i++) {
       /* dataArray.push(json[i]); */
       deconstructed = json[i].results.map((movie) => {
         return movie;
@@ -57,7 +58,6 @@ const megaSeed = () => {
         return newMovie;
       };
       mainAddMovie();
-      // console.log("sdfsd");
     });
 
     console.log(newMergedData.length);
@@ -75,6 +75,7 @@ const megaSeed = () => {
           genres: movie.genre_ids[0],
         },]}) */
   });
+  console.log(data);
 };
 
 export default megaSeed;

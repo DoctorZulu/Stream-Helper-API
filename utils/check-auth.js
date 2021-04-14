@@ -5,9 +5,10 @@ import jwt from "jsonwebtoken";
 dotenv.config();
 
 const checkAuth = (context) => {
-  const authHeader = context.req.session.token;
+  const authHeader =
+    context.req.session.token || context.req.headers.authorization;
   // const authHeader = context.req.headers.authorization;
-  // console.log(authHeader);
+  console.log(authHeader);
   if (authHeader) {
     console.log("auth Header", authHeader);
     const token = authHeader.split(" ")[1];

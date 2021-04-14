@@ -15,6 +15,8 @@ CREATE TABLE "UserMovieConnection" (
     "id" SERIAL NOT NULL,
     "movieId" INTEGER,
     "userId" INTEGER,
+    "title" TEXT,
+    "image" TEXT,
     "liked" BOOLEAN DEFAULT false,
     "saved" BOOLEAN DEFAULT false,
     "watched" BOOLEAN DEFAULT false,
@@ -24,8 +26,8 @@ CREATE TABLE "UserMovieConnection" (
 
 -- CreateTable
 CREATE TABLE "Movie" (
-    "id" INTEGER NOT NULL,
     "categoryId" SERIAL NOT NULL,
+    "id" INTEGER NOT NULL,
     "title" TEXT,
     "original_language" TEXT,
     "release_date" TEXT,

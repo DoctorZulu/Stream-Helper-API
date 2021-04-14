@@ -31,17 +31,32 @@ export default {
         throw new Error(error);
       }
     },
+    userMovieConnection: async (parent, { movieId }, context) => {
+      console.log(movieId);
+      const user = checkAuth(context);
+      try {
+        const foundUser = await db.user.findUnique({
+          where: { id: user.id },
+        });
+        const userMovieConnection = db.userMovieConnection.findUnique({
+          where: { id: Number(movieId), userId: Number(foundUser.id) },
+        });
+        return userMovieConnection;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
   },
   Mutation: {
     signupUser: async (
       parent,
-      { signupInput: { email, password, username } },
+      { signupInput: { email, password, username } }
     ) => {
       try {
         const { valid, errors } = validateRegisterInput(
           username,
           email,
-          password,
+          password
         );
         if (!valid) {
           throw new UserInputError("Errors", { errors });
@@ -100,8 +115,8 @@ export default {
 
     updateUser: async (
       parent,
-      { firstname, lastname, email, username, bio },
-      context,
+      { firstname, email, username, bio },
+      context
     ) => {
       const user = checkAuth(context);
       try {
@@ -127,8 +142,8 @@ export default {
 
     addMovieToUser: async (
       parent,
-      { movieId, saved, watched, liked },
-      context,
+      { movieId, saved, watched, disliked },
+      context
     ) => {
       const user = checkAuth(context);
       try {
@@ -140,12 +155,20 @@ export default {
           where: { id: user.id },
         });
 
+        const foundMovie = await db.movie.findUnique({
+          where: { id: Number(movieId) },
+        });
+
+        const { id, title, image } = foundMovie;
+
         const movieData = {
-          id: Number(movieId),
+          id,
           userId: foundUser.id,
+          title,
+          image,
           watched: watched,
           saved: saved,
-          liked: liked,
+          disliked: disliked,
         };
         const newMovie = await db.userMovieConnection.upsert({
           where: { id: Number(movieId) },
