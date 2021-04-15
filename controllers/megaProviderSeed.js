@@ -2013,7 +2013,7 @@ const ids = [
   4232,
 ];
 
-const megaDetailSeed = () => {
+const megaProviderSeed = () => {
   let urls = [];
 
   const urlArray = () => {
@@ -2040,8 +2040,10 @@ const megaDetailSeed = () => {
     newMergedData = [].concat.apply([], fullData);
     console.log(newMergedData);
 
-    let index = 0;
+    let index = -1;
     newMergedData.forEach((movie) => {
+      index++;
+      console.log(ids[index]);
       const mainAddMovie = async () => {
         let newMovie = await db.watchProvider.upsert({
           create: {
@@ -2050,10 +2052,10 @@ const megaDetailSeed = () => {
           },
           update: {},
           where: {
-            movieId: ids[index],
+            id: index,
           },
         });
-        index++;
+
         return newMovie;
       };
       mainAddMovie();
@@ -2061,4 +2063,4 @@ const megaDetailSeed = () => {
   });
 };
 
-export default megaDetailSeed;
+export default megaProviderSeed;
