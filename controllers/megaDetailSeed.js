@@ -2032,37 +2032,32 @@ const megaDetailSeed = () => {
     let newMergedData;
 
     for (let i = 0; i < 9; i++) {
-      console.log(json[i]);
-      /*       deconstructed = json[i].results.map((movie) => {
-        return movie;
-      }); */
-
-      fullData.push(deconstructed);
+      deconstructed.push(json[i].results.US);
     }
+
+    fullData.push(deconstructed);
+
     newMergedData = [].concat.apply([], fullData);
     console.log(newMergedData);
 
-    /* newMergedData.forEach((movie) => {
+    let index = 0;
+    newMergedData.forEach((movie) => {
       const mainAddMovie = async () => {
-        let newMovie = await db.movie.upsert({
+        let newMovie = await db.watchProvider.upsert({
           create: {
-            id: movie.id,
-            title: movie.title,
-            original_language: movie.original_language,
-            release_date: movie.release_date,
-            vote_average: movie.vote_average,
-            image: movie.poster_path,
-            overview: movie.overview,
+            movieId: ids[index],
+            providers: movie,
           },
           update: {},
           where: {
-            id: movie.id,
+            movieId: ids[index],
           },
         });
+        index++;
         return newMovie;
       };
       mainAddMovie();
-    });  */
+    });
   });
 };
 
