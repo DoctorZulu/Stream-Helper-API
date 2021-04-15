@@ -183,6 +183,22 @@ export default {
       }
     },
 
+    checkCurrentUser: async (_, args, context) => {
+      const user = checkAuth(context);
+      try {
+        if (!user) {
+          errors.general = "User not found";
+          throw new UserInputError("User not found", { errors });
+        }
+        const foundUser = await db.user.findUnique({
+          where: { id: user.id },
+        });
+        return foundUser;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
     removeMovieToUser: async (_, { movieId }, context) => {
       console.log(movieId);
       const user = checkAuth(context);

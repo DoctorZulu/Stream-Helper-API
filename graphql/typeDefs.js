@@ -65,6 +65,7 @@ const typeDefs = gql`
       saved: Boolean
       watched: Boolean
     ): User!
+    checkCurrentUser: User!
     removeMovieToUser(movieId: ID): User!
   }
   input SignupInput {
