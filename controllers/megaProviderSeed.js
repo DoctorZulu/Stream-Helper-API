@@ -34,7 +34,6 @@ const megaProviderSeed = () => {
     fullData.push(deconstructed);
 
     newMergedData = [].concat.apply([], fullData);
-    console.log(newMergedData);
 
     let index = -1;
     newMergedData.forEach((movie) => {
