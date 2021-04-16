@@ -73,8 +73,9 @@ async function startApolloServer() {
   .catch(function handleError(error) {
     console.log("Error" + error);
   }); */
-/* megaSeed();
-megaProviderSeed(); */
-megaCreditSeed();
+
+megaSeed();
+megaProviderSeed();
+/* megaCreditSeed(); */
 startApolloServer();
 /* iterateThroughPages(); */

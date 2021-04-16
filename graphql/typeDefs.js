@@ -39,11 +39,24 @@ const typeDefs = gql`
     image: String
     genres: [Genre]
     user: [User]
+    credits: [Credits]
+    providers: [WatchProvider]
   }
   type Genre {
     id: ID!
     name: String
     movies: [Movie]
+  }
+
+  type Credits {
+    id: ID!
+    movie: Movie
+    cast: String
+  }
+  type WatchProvider {
+    id: ID!
+    movie: Movie
+    providers: String
   }
 
   # Top level

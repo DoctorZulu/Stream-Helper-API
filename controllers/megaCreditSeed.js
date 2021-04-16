@@ -8,11 +8,16 @@ const db = new prisma.PrismaClient({
   errorFormat: "pretty",
 });
 
+const result = await db.$queryRaw(
+  'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;'
+);
+
 const megaCreditSeed = () => {
   let urls = [];
+  console.log(result);
 
   const urlArray = () => {
-    for (let i = 1; i < 2; i++) {
+    for (let i = 1; i < 60; i++) {
       urls.push(
         `https://api.themoviedb.org/3/movie/${ids[i]}/credits?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US`
       );
@@ -27,7 +32,7 @@ const megaCreditSeed = () => {
     let fullData = [];
     let newMergedData;
 
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 59; i++) {
       deconstructed.push(json[i]);
     }
 
@@ -35,16 +40,14 @@ const megaCreditSeed = () => {
 
     newMergedData = [].concat.apply([], fullData);
 
-    console.log(newMergedData);
-
     let index = -1;
     newMergedData.forEach((movie) => {
       index++;
 
-      const mainAddMovie = async () => {
-        let newMovie = await db.credits.upsert({
+      const mainAddCredit = async () => {
+        let newCredit = await db.credits.upsert({
           create: {
-            movieId: ids[index],
+            movieId: result[index],
             cast: movie,
           },
           update: {},
@@ -53,9 +56,9 @@ const megaCreditSeed = () => {
           },
         });
 
-        return newMovie;
+        return newCredit;
       };
-      mainAddMovie();
+      mainAddCredit();
     });
   });
 };
