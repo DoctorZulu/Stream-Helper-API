@@ -1,6 +1,6 @@
 import express, { json } from "express";
 import prisma from "@prisma/client";
-
+import movieIDFetch from "./movieIDFetch.js";
 import fetch from "node-fetch";
 import ids from "../data/movieID.js";
 
@@ -9,13 +9,13 @@ const db = new prisma.PrismaClient({
   errorFormat: "pretty",
 });
 
-const megaProviderSeed = () => {
+const megaCreditSeed = () => {
   let urls = [];
 
   const urlArray = () => {
     for (let i = 1; i < 10; i++) {
       urls.push(
-        `https://api.themoviedb.org/3/movie/${ids[i]}/watch/providers?api_key=999a045dba2d80d839d8ed4db5942fae`
+        `https://api.themoviedb.org/3/movie/${ids}/credits?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US`
       );
     }
   };
@@ -59,4 +59,4 @@ const megaProviderSeed = () => {
   });
 };
 
-export default megaProviderSeed;
+export default megaCreditSeed;
