@@ -67,7 +67,7 @@ const typeDefs = gql`
     user(userId: ID!): User
     movie(movieId: ID!): Movie
     userMovieConnection(movieId: ID!): Movie
-    getCast(movieId: ID!): Movie
+    getCast(movieId: ID!): Credits
     getProviders(movieId: ID!): Movie
   }
   type Mutation {

@@ -87,8 +87,9 @@ export default {
     getCast: async (_, args, { movieId }) => {
       try {
         const cast = db.credits.findUnique({
-          where: { movieId: Number(movieId) },
+          where: { movieId: Number(args.movieId) },
         });
+
         if (cast) {
           return cast;
         } else {
