@@ -47,7 +47,7 @@ const megaCreditSeed = () => {
         let newCredit = await db.credits.create({
           data: {
             movieId: result[index].id,
-            cast: movie,
+            cast: JSON.stringify(movie),
           },
         });
 

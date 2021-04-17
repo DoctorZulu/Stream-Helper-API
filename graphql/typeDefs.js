@@ -39,8 +39,8 @@ const typeDefs = gql`
     image: String
     genres: [Genre]
     user: [User]
-    credits: [Credits]
-    providers: [WatchProvider]
+    credits: Credits
+    providers: WatchProvider
   }
   type Genre {
     id: ID!
@@ -70,6 +70,8 @@ const typeDefs = gql`
     user(userId: ID!): User
     movie(movieId: ID!): Movie
     userMovieConnection(movieId: ID!): Movie
+    getCast(movieId: ID!): Credits
+    getProviders(movieId: ID!): Movie
   }
   type Mutation {
     signupUser(signupInput: SignupInput): User!

@@ -41,14 +41,13 @@ const megaProviderSeed = () => {
     let index = -1;
 
     newMergedData.forEach((movie) => {
-      console.log(movie);
       index++;
 
       const mainAddProvider = async () => {
         let newProvider = await db.watchProvider.create({
           data: {
             movieId: result[index].id,
-            providers: movie,
+            providers: JSON.stringify(movie),
           },
         });
 
