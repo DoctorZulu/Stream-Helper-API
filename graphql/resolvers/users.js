@@ -115,7 +115,7 @@ export default {
 
     updateUser: async (
       parent,
-      { firstname, email, username, bio },
+      { firstname, lastname, email, username },
       context
     ) => {
       const user = checkAuth(context);
@@ -128,9 +128,10 @@ export default {
           where: { id: user.id },
           data: {
             firstname: firstname,
+            lastname: lastname,
             email: email,
             username: username,
-            bio: bio,
+            
           },
         });
         return newUser;
@@ -177,6 +178,22 @@ export default {
           },
         });
         return newMovie;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
+    checkCurrentUser: async (_, args, context) => {
+      const user = checkAuth(context);
+      try {
+        if (!user) {
+          errors.general = "User not found";
+          throw new UserInputError("User not found", { errors });
+        }
+        const foundUser = await db.user.findUnique({
+          where: { id: user.id },
+        });
+        return foundUser;
       } catch (error) {
         throw new Error(error);
       }
