@@ -84,6 +84,7 @@ export default {
       }
     },
 
+
     getCast: async (_, args, { movieId }) => {
       try {
         const cast = db.credits.findUnique({
@@ -95,10 +96,42 @@ export default {
         } else {
           throw new Error("Cast not found");
         }
+
+    /* SAVED MOVIES */
+    savedMovies: async (_, args, context) => {
+      const user = checkAuth(context);
+      try {
+        if (!user) {
+          errors.general = "User not found";
+          throw new UserInputError("User not found", { errors });
+        }
+        const opArgs = {
+          where: { saved: true, userId: user.id },
+        };
+        return await db.userMovieConnection.findMany(opArgs);
       } catch (error) {
         throw new Error(error);
       }
     },
+
+    /* DISLIKED MOVIES */
+    dislikedMovies: async (_, args, context) => {
+      const user = checkAuth(context);
+      try {
+        if (!user) {
+          errors.general = "User not found";
+          throw new UserInputError("User not found", { errors });
+        }
+        const opArgs = {
+          where: { disliked: true, userId: user.id },
+        };
+        return await db.userMovieConnection.findMany(opArgs);
+
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
 
     getProviders: async (_, args, { movieId }) => {
       try {
@@ -110,6 +143,43 @@ export default {
         } else {
           throw new Error("Providers not found");
         }
+
+    /* SHOW ALL MOVIES A USER HAS INTERACTED WITH */
+
+    userMovieRecommendations: async (_, {take, skip, myCursor}, context) => {
+      const user = checkAuth(context);
+      try {
+        if (!user) {
+          errors.general = "User not found";
+          throw new UserInputError("User not found", { errors });
+        }
+        const opArgs = {
+          where: { userId: user.id },
+        };
+        const foundMovieConnections = await db.userMovieConnection.findMany(opArgs);
+        let idArray = [];
+        for (let i=0; i < foundMovieConnections.length; i++) {
+          idArray.push(foundMovieConnections[i].id)
+        }
+        console.log(idArray, "====id arr")
+        return db.movie.findMany({
+          take: take,
+          skip: skip,
+          cursor: {
+            categoryId: myCursor,
+          },
+          orderBy: [
+            {
+              categoryId: "asc",
+            },
+          ],
+          where: { 
+            NOT: {
+              id: {in : idArray } 
+            }
+          }
+        })
+
       } catch (error) {
         throw new Error(error);
       }

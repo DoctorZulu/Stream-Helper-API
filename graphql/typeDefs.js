@@ -22,7 +22,7 @@ const typeDefs = gql`
     movies: [Movie]
     title: String
     image: String
-    liked: Boolean
+    disliked: Boolean
     watched: Boolean
     saved: Boolean
   }
@@ -63,6 +63,9 @@ const typeDefs = gql`
   type Query {
     allMovies(take: Int, skip: Int, myCursor: Int): [Movie]
     watchedMovies: [UserMovieConnection]
+    savedMovies: [UserMovieConnection]
+    dislikedMovies: [UserMovieConnection]
+    userMovieRecommendations(take: Int, skip: Int, myCursor: Int): [Movie]
     lastMovie: Movie
     user(userId: ID!): User
     movie(movieId: ID!): Movie
@@ -73,13 +76,14 @@ const typeDefs = gql`
   type Mutation {
     signupUser(signupInput: SignupInput): User!
     signinUser(email: String!, password: String!): User!
-    updateUser(username: String, firstname: String, email: String): User
+    updateUser(firstname: String, lastname: String, username: String,  email: String): User!
     addMovieToUser(
       movieId: ID
       disliked: Boolean
       saved: Boolean
       watched: Boolean
     ): User!
+    checkCurrentUser: User!
     removeMovieToUser(movieId: ID): User!
   }
   input SignupInput {
