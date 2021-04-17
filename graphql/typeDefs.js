@@ -22,6 +22,7 @@ const typeDefs = gql`
     movies: [Movie]
     title: String
     image: String
+    liked: Boolean
     disliked: Boolean
     watched: Boolean
     saved: Boolean
@@ -70,15 +71,21 @@ const typeDefs = gql`
     user(userId: ID!): User
     movie(movieId: ID!): Movie
     userMovieConnection(movieId: ID!): Movie
-    getCast(movieId: ID!): Credits
+    getCast: Movie
     getProviders(movieId: ID!): Movie
   }
   type Mutation {
     signupUser(signupInput: SignupInput): User!
     signinUser(email: String!, password: String!): User!
-    updateUser(firstname: String, lastname: String, username: String,  email: String): User!
+    updateUser(
+      firstname: String
+      lastname: String
+      username: String
+      email: String
+    ): User!
     addMovieToUser(
       movieId: ID
+      liked: Boolean
       disliked: Boolean
       saved: Boolean
       watched: Boolean

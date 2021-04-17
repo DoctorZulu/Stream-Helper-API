@@ -43,7 +43,7 @@ CREATE TABLE "Movie" (
 CREATE TABLE "Credits" (
     "id" SERIAL NOT NULL,
     "movieId" INTEGER,
-    "cast" JSONB,
+    "cast" TEXT,
 
     PRIMARY KEY ("id")
 );
@@ -52,7 +52,7 @@ CREATE TABLE "Credits" (
 CREATE TABLE "WatchProvider" (
     "id" SERIAL NOT NULL,
     "movieId" INTEGER,
-    "providers" JSONB,
+    "providers" TEXT,
 
     PRIMARY KEY ("id")
 );
@@ -65,6 +65,12 @@ CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Movie.id_unique" ON "Movie"("id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Credits_movieId_unique" ON "Credits"("movieId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "WatchProvider_movieId_unique" ON "WatchProvider"("movieId");
 
 -- AddForeignKey
 ALTER TABLE "UserMovieConnection" ADD FOREIGN KEY ("movieId") REFERENCES "Movie"("id") ON DELETE SET NULL ON UPDATE CASCADE;

@@ -131,7 +131,6 @@ export default {
             lastname: lastname,
             email: email,
             username: username,
-            
           },
         });
         return newUser;
@@ -142,7 +141,7 @@ export default {
 
     addMovieToUser: async (
       parent,
-      { movieId, saved, watched, disliked },
+      { movieId, saved, watched, disliked, liked },
       context
     ) => {
       const user = checkAuth(context);
@@ -166,6 +165,7 @@ export default {
           userId: foundUser.id,
           title,
           image,
+          liked: liked,
           watched: watched,
           saved: saved,
           disliked: disliked,

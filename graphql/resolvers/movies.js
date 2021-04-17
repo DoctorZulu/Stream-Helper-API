@@ -84,22 +84,6 @@ export default {
       }
     },
 
-    getCast: async (_, args, { movieId }) => {
-      try {
-        const cast = db.credits.findUnique({
-          where: { movieId: Number(args.movieId) },
-        });
-
-        if (cast) {
-          return cast;
-        } else {
-          throw new Error("Cast not found");
-        }
-      } catch (error) {
-        throw new Error(error);
-      }
-    },
-
     /* SAVED MOVIES */
     savedMovies: async (_, args, context) => {
       const user = checkAuth(context);
@@ -134,15 +118,32 @@ export default {
       }
     },
 
-    getProviders: async (_, args, { movieId }) => {
+    getProviders: async (_, args) => {
+      console.log(movieId);
       try {
-        const providers = db.watchProvider.findUnique({
-          where: { movieId: Number(movieId) },
+        const providers = await db.watchProvider.findUnique({
+          where: { id: 1 },
         });
         if (providers) {
           return providers;
         } else {
           throw new Error("Providers not found");
+        }
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    getCast: async (_, args) => {
+      try {
+        const cast = await db.credits.findUnique({
+          where: { id: 1 },
+          include: { credits: true },
+        });
+
+        if (cast) {
+          return cast;
+        } else {
+          throw new Error("Cast not found");
         }
       } catch (error) {
         throw new Error(error);
@@ -196,6 +197,7 @@ export default {
         console.log(movieId);
         const movie = db.movie.findUnique({
           where: { id: Number(movieId) },
+          include: { Credits: true },
         });
 
         if (movie) {
