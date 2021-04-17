@@ -84,12 +84,43 @@ export default {
       }
     },
 
+    getCast: async (_, args, { movieId }) => {
+      try {
+        const cast = db.credits.findUnique({
+          where: { movieId: Number(movieId) },
+        });
+        if (cast) {
+          return cast;
+        } else {
+          throw new Error("Cast not found");
+        }
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
+    getProviders: async (_, args, { movieId }) => {
+      try {
+        const providers = db.watchProvider.findUnique({
+          where: { movieId: Number(movieId) },
+        });
+        if (providers) {
+          return providers;
+        } else {
+          throw new Error("Providers not found");
+        }
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
     movie: async (parent, { movieId }) => {
       try {
         console.log(movieId);
         const movie = db.movie.findUnique({
           where: { id: Number(movieId) },
         });
+
         if (movie) {
           return movie;
         } else {
