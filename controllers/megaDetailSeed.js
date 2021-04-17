@@ -2032,7 +2032,7 @@ const megaDetailSeed = () => {
     let newMergedData;
 
     for (let i = 0; i < 9; i++) {
-      console.log(json[i]);
+     /*  console.log(json[i]); */
       /*       deconstructed = json[i].results.map((movie) => {
         return movie;
       }); */
@@ -2040,7 +2040,7 @@ const megaDetailSeed = () => {
       fullData.push(deconstructed);
     }
     newMergedData = [].concat.apply([], fullData);
-    console.log(newMergedData);
+    /* console.log(newMergedData); */
 
     /* newMergedData.forEach((movie) => {
       const mainAddMovie = async () => {
