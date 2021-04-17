@@ -56,14 +56,14 @@ model Credits {
   id      Int    @id @default(autoincrement())
   movie   Movie? @relation(fields: [movieId], references: [id])
   movieId Int?
-  cast    Json
+  cast    Json?
 }
 
 model WatchProvider {
   id        Int    @id @default(autoincrement())
   movie     Movie? @relation(fields: [movieId], references: [id])
   movieId   Int?
-  providers Json
+  providers Json?
 }
 
 // model Genre {

@@ -37,27 +37,24 @@ const megaProviderSeed = () => {
     fullData.push(deconstructed);
 
     newMergedData = [].concat.apply([], fullData);
-    let movieIdIndex = 0;
+
     let index = -1;
+
     newMergedData.forEach((movie) => {
+      console.log(movie);
       index++;
-      movieIdIndex++;
-      console.log(ids[index]);
-      const mainAddMovie = async () => {
-        let newMovie = await db.watchProvider.upsert({
-          create: {
+
+      const mainAddProvider = async () => {
+        let newProvider = await db.watchProvider.create({
+          data: {
             movieId: result[index].id,
             providers: movie,
           },
-          update: {},
-          where: {
-            id: movieIdIndex,
-          },
         });
 
-        return newMovie;
+        return newProvider;
       };
-      mainAddMovie();
+      mainAddProvider();
     });
   });
 };

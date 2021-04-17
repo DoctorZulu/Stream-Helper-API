@@ -75,7 +75,7 @@ async function startApolloServer() {
   }); */
 
 megaSeed();
+megaCreditSeed();
 megaProviderSeed();
-/* megaCreditSeed(); */
 startApolloServer();
 /* iterateThroughPages(); */
