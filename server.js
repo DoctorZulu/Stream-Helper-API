@@ -10,6 +10,7 @@ import typeDefs from "./graphql/typeDefs.js";
 import resolvers from "./graphql/resolvers/index.js";
 import megaSeed from "./controllers/megaSeed.js";
 import megaProviderSeed from "./controllers/megaProviderSeed.js";
+import megaCreditSeed from "./controllers/megaCreditSeed.js";
 
 async function startApolloServer() {
   const app = express();
@@ -72,7 +73,9 @@ async function startApolloServer() {
   .catch(function handleError(error) {
     console.log("Error" + error);
   }); */
+
 megaSeed();
+megaCreditSeed();
 megaProviderSeed();
 startApolloServer();
 /* iterateThroughPages(); */
