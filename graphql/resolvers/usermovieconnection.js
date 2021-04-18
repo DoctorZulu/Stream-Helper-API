@@ -73,7 +73,7 @@ export default {
           where: { userId: user.id },
         };
         const foundMovieConnections = await db.userMovieConnection.findMany(
-          opArgs,
+          opArgs
         );
         let idArray = [];
         for (let i = 0; i < foundMovieConnections.length; i++) {
@@ -105,8 +105,8 @@ export default {
   Mutation: {
     addMovieToUser: async (
       parent,
-      { movieId, saved, watched, disliked },
-      context,
+      { movieId, saved, watched, disliked, liked },
+      context
     ) => {
       const user = checkAuth(context);
       try {
@@ -129,6 +129,7 @@ export default {
           userId: foundUser.id,
           title,
           image,
+          liked: liked,
           watched: watched,
           saved: saved,
           disliked: disliked,

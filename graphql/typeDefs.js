@@ -11,6 +11,7 @@ const typeDefs = gql`
     email: String
     token: String
     password: String
+    moviesLiked: [UserMovieConnection]
     moviesSaved: [UserMovieConnection]
     moviesWatched: [UserMovieConnection]
     moviesDisliked: [UserMovieConnection]
