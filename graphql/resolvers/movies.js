@@ -58,31 +58,6 @@ export default {
      * @param {Take: int, skip: int, myCursor: int} param1
      * @returns WATCHED MOVIES IN DB
      */
-    watchedMovies: async (_, args, context /* { take, skip, myCursor } */) => {
-      const user = checkAuth(context);
-      try {
-        if (!user) {
-          errors.general = "User not found";
-          throw new UserInputError("User not found", { errors });
-        }
-        const opArgs = {
-          where: { watched: true, userId: user.id },
-          // take: take,
-          // skip: skip,
-          // cursor: {
-          //   categoryId: myCursor,
-          // },
-          // orderBy: [
-          //   {
-          //     categoryId: "asc",
-          //   },
-          // ],
-        };
-        return await db.userMovieConnection.findMany(opArgs);
-      } catch (error) {
-        throw new Error(error);
-      }
-    },
 
     getCast: async (_, { movieId }) => {
       try {

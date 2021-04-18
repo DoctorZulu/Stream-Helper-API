@@ -43,7 +43,51 @@ export default {
       }
     },
 
-    //USER MOVIES
+    //WATCHED MOVIES
+    watchedMovies: async (_, args, context /* { take, skip, myCursor } */) => {
+      const user = checkAuth(context);
+      try {
+        if (!user) {
+          errors.general = "User not found";
+          throw new UserInputError("User not found", { errors });
+        }
+        const opArgs = {
+          where: { watched: true, userId: user.id },
+          // take: take,
+          // skip: skip,
+          // cursor: {
+          //   categoryId: myCursor,
+          // },
+          // orderBy: [
+          //   {
+          //     categoryId: "asc",
+          //   },
+          // ],
+        };
+        return await db.userMovieConnection.findMany(opArgs);
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
+    //LIKED MOVIES
+    likedMovies: async (_, args, context) => {
+      const user = checkAuth(context);
+      try {
+        if (!user) {
+          errors.general = "User not found";
+          throw new UserInputError("User not found", { errors });
+        }
+
+        return await db.userMovieConnection.findMany({
+          where: { liked: true, userId: user.id },
+        });
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
+    //ALL USER MOVIES
     userMovies: async (_, args, context) => {
       const user = checkAuth(context);
       try {
