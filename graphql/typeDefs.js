@@ -38,7 +38,7 @@ const typeDefs = gql`
     vote_average: Float
     overview: String
     image: String
-    genres: [Genre]
+    genres: Int
     user: [User]
     credits: [Credits]
     watchproviders: [WatchProvider]
