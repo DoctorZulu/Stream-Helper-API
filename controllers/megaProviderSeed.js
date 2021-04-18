@@ -9,7 +9,7 @@ const db = new prisma.PrismaClient({
   errorFormat: "pretty",
 });
 const result = await db.$queryRaw(
-  'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;'
+  'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;',
 );
 
 const megaProviderSeed = () => {
@@ -18,7 +18,7 @@ const megaProviderSeed = () => {
   const urlArray = () => {
     for (let i = 1; i < 51; i++) {
       urls.push(
-        `https://api.themoviedb.org/3/movie/${ids[i]}/watch/providers?api_key=999a045dba2d80d839d8ed4db5942fae`
+        `https://api.themoviedb.org/3/movie/${ids[i]}/watch/providers?api_key=999a045dba2d80d839d8ed4db5942fae`,
       );
     }
   };

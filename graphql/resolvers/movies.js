@@ -84,18 +84,32 @@ export default {
       }
     },
 
-    // LIKED MOVIES
-    likedMovies: async (_, args, context) => {
-      const user = checkAuth(context);
+    getCast: async (_, { movieId }) => {
       try {
-        if (!user) {
-          errors.general = "User not found";
-          throw new UserInputError("User not found", { errors });
+        const cast = await db.credits.findFirst({
+          where: { movieId: Number(movieId) },
+        });
+        console.log(cast);
+        if (cast) {
+          return cast;
+        } else {
+          throw new Error("Cast not found");
         }
-        const opArgs = {
-          where: { liked: true, userId: user.id },
-        };
-        return await db.userMovieConnection.findMany(opArgs);
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
+    getProviders: async (_, { movieId }) => {
+      try {
+        const providers = db.watchProvider.findUnique({
+          where: { movieId: Number(movieId) },
+        });
+        if (providers) {
+          return providers;
+        } else {
+          throw new Error("Providers not found");
+        }
       } catch (error) {
         throw new Error(error);
       }
@@ -130,38 +144,6 @@ export default {
           where: { disliked: true, userId: user.id },
         };
         return await db.userMovieConnection.findMany(opArgs);
-      } catch (error) {
-        throw new Error(error);
-      }
-    },
-
-    getProviders: async (_, args) => {
-      console.log(movieId);
-      try {
-        const providers = await db.watchProvider.findUnique({
-          where: { id: 1 },
-        });
-        if (providers) {
-          return providers;
-        } else {
-          throw new Error("Providers not found");
-        }
-      } catch (error) {
-        throw new Error(error);
-      }
-    },
-    getCast: async (_, args) => {
-      try {
-        const cast = await db.credits.findUnique({
-          where: { id: 1 },
-          include: { credits: true },
-        });
-
-        if (cast) {
-          return cast;
-        } else {
-          throw new Error("Cast not found");
-        }
       } catch (error) {
         throw new Error(error);
       }
@@ -214,7 +196,9 @@ export default {
         console.log(movieId);
         const movie = db.movie.findUnique({
           where: { id: Number(movieId) },
-          include: { Credits: true },
+          include: {
+            credits: true,
+          },
         });
 
         if (movie) {

@@ -40,8 +40,8 @@ const typeDefs = gql`
     image: String
     genres: [Genre]
     user: [User]
-    credits: Credits
-    providers: WatchProvider
+    credits: [Credits]
+    providers: [WatchProvider]
   }
   type Genre {
     id: ID!
@@ -50,7 +50,7 @@ const typeDefs = gql`
   }
 
   type Credits {
-    id: ID!
+    id: ID
     movie: Movie
     cast: String
   }
@@ -69,10 +69,11 @@ const typeDefs = gql`
     dislikedMovies: [UserMovieConnection]
     userMovieRecommendations(take: Int, skip: Int, myCursor: Int): [Movie]
     lastMovie: Movie
-    user(userId: ID!): User
     movie(movieId: ID!): Movie
+    user(userId: ID!): User
+    verifyUser: User
     userMovieConnection(movieId: ID!): Movie
-    getCast: Movie
+    getCast(movieId: ID): Credits
     getProviders(movieId: ID!): Movie
   }
   type Mutation {
