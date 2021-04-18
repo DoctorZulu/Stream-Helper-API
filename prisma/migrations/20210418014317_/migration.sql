@@ -17,6 +17,7 @@ CREATE TABLE "UserMovieConnection" (
     "userId" INTEGER,
     "title" TEXT,
     "image" TEXT,
+    "liked" BOOLEAN DEFAULT false,
     "disliked" BOOLEAN DEFAULT false,
     "saved" BOOLEAN DEFAULT false,
     "watched" BOOLEAN DEFAULT false,
@@ -65,12 +66,6 @@ CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Movie.id_unique" ON "Movie"("id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Credits_movieId_unique" ON "Credits"("movieId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "WatchProvider_movieId_unique" ON "WatchProvider"("movieId");
 
 -- AddForeignKey
 ALTER TABLE "UserMovieConnection" ADD FOREIGN KEY ("movieId") REFERENCES "Movie"("id") ON DELETE SET NULL ON UPDATE CASCADE;

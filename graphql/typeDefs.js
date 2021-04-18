@@ -41,7 +41,7 @@ const typeDefs = gql`
     genres: [Genre]
     user: [User]
     credits: [Credits]
-    providers: [WatchProvider]
+    watchproviders: [WatchProvider]
   }
   type Genre {
     id: ID!
