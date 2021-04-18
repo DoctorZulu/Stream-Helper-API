@@ -39,8 +39,8 @@ const typeDefs = gql`
     image: String
     genres: [Genre]
     user: [User]
-    credits: Credits
-    providers: WatchProvider
+    credits: [Credits]
+    providers: [WatchProvider]
   }
   type Genre {
     id: ID!
@@ -49,7 +49,7 @@ const typeDefs = gql`
   }
 
   type Credits {
-    id: ID!
+    id: ID
     movie: Movie
     cast: String
   }
