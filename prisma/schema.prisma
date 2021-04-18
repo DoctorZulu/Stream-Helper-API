@@ -48,8 +48,8 @@ model Movie {
   image             String?
   overview          String?
   genres            Int?
-  usersMovies       UserMovieConnection[]
-  watchProviders    WatchProvider[]
+  usersmovies       UserMovieConnection[]
+  watchproviders    WatchProvider[]
   credits           Credits[]
 }
 

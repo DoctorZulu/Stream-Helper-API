@@ -122,6 +122,7 @@ export default {
           where: { id: Number(movieId) },
           include: {
             credits: true,
+            watchproviders: true,
           },
         });
 
