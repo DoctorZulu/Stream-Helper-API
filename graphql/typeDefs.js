@@ -22,6 +22,7 @@ const typeDefs = gql`
     movies: [Movie]
     title: String
     image: String
+    liked: Boolean
     disliked: Boolean
     watched: Boolean
     saved: Boolean
@@ -64,6 +65,7 @@ const typeDefs = gql`
     allMovies(take: Int, skip: Int, myCursor: Int): [Movie]
     watchedMovies: [UserMovieConnection]
     savedMovies: [UserMovieConnection]
+    likedMovies: [UserMovieConnection]
     dislikedMovies: [UserMovieConnection]
     userMovieRecommendations(take: Int, skip: Int, myCursor: Int): [Movie]
     lastMovie: Movie
@@ -85,6 +87,7 @@ const typeDefs = gql`
     ): User!
     addMovieToUser(
       movieId: ID
+      liked: Boolean
       disliked: Boolean
       saved: Boolean
       watched: Boolean

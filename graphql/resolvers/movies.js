@@ -162,7 +162,7 @@ export default {
           where: { userId: user.id },
         };
         const foundMovieConnections = await db.userMovieConnection.findMany(
-          opArgs,
+          opArgs
         );
         let idArray = [];
         for (let i = 0; i < foundMovieConnections.length; i++) {
