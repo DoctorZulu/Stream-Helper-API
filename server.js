@@ -9,12 +9,8 @@ import fetch from "node-fetch";
 import typeDefs from "./graphql/typeDefs.js";
 import resolvers from "./graphql/resolvers/index.js";
 import megaSeed from "./controllers/megaSeed.js";
-<<<<<<< HEAD
-// import megaProviderSeed from "./controllers/megaProviderSeed.js";
-=======
 import megaProviderSeed from "./controllers/megaProviderSeed.js";
 import megaCreditSeed from "./controllers/megaCreditSeed.js";
->>>>>>> 47d821d40af2680073e644710fbc656ace011c4d
 
 async function startApolloServer() {
   const app = express();
@@ -66,9 +62,8 @@ async function startApolloServer() {
   return { server, app };
 }
 
-
-/* megaSeed();
-megaCreditSeed();
-megaProviderSeed(); */
+// megaSeed();
+// megaCreditSeed();
+// megaProviderSeed();
 startApolloServer();
 /* iterateThroughPages(); */

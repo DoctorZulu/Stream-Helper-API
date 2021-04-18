@@ -71,13 +71,18 @@ const typeDefs = gql`
     user(userId: ID!): User
     verifyUser: User
     userMovieConnection(movieId: ID!): Movie
-    getCast(movieId: ID!): Credits
+    getCast(movieId: ID): Credits
     getProviders(movieId: ID!): Movie
   }
   type Mutation {
     signupUser(signupInput: SignupInput): User!
     signinUser(email: String!, password: String!): User!
-    updateUser(firstname: String, lastname: String, username: String,  email: String): User!
+    updateUser(
+      firstname: String
+      lastname: String
+      username: String
+      email: String
+    ): User!
     addMovieToUser(
       movieId: ID
       disliked: Boolean
