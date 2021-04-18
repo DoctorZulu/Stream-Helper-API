@@ -196,7 +196,9 @@ export default {
         console.log(movieId);
         const movie = db.movie.findUnique({
           where: { id: Number(movieId) },
-          include: { Credits: {} },
+          include: {
+            credits: true,
+          },
         });
 
         if (movie) {
