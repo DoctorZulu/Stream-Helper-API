@@ -9,7 +9,7 @@ const db = new prisma.PrismaClient({
 });
 
 const result = await db.$queryRaw(
-  'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;'
+  'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;',
 );
 
 const megaCreditSeed = () => {
@@ -18,7 +18,7 @@ const megaCreditSeed = () => {
   const urlArray = () => {
     for (let i = 1; i < 51; i++) {
       urls.push(
-        `https://api.themoviedb.org/3/movie/${ids[i]}/credits?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US`
+        `https://api.themoviedb.org/3/movie/${ids[i]}/credits?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US`,
       );
     }
   };
@@ -46,10 +46,11 @@ const megaCreditSeed = () => {
       const mainAddCredit = async () => {
         let newCredit = await db.credits.create({
           data: {
-            movieId: result[index].id,
+            movieId: movie.id,
             cast: JSON.stringify(movie),
           },
         });
+        // console.log(movie);
 
         return newCredit;
       };

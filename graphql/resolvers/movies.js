@@ -84,16 +84,31 @@ export default {
       }
     },
 
-    getCast: async (_, args, { movieId }) => {
+    getCast: async (_, { movieId }) => {
       try {
-        const cast = db.credits.findUnique({
-          where: { movieId: Number(args.movieId) },
+        const cast = await db.credits.findFirst({
+          where: { movieId: Number(movieId) },
         });
-
+        console.log(cast);
         if (cast) {
           return cast;
         } else {
           throw new Error("Cast not found");
+        }
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
+    getProviders: async (_, { movieId }) => {
+      try {
+        const providers = db.watchProvider.findUnique({
+          where: { movieId: Number(movieId) },
+        });
+        if (providers) {
+          return providers;
+        } else {
+          throw new Error("Providers not found");
         }
       } catch (error) {
         throw new Error(error);
@@ -134,21 +149,6 @@ export default {
       }
     },
 
-    getProviders: async (_, args, { movieId }) => {
-      try {
-        const providers = db.watchProvider.findUnique({
-          where: { movieId: Number(movieId) },
-        });
-        if (providers) {
-          return providers;
-        } else {
-          throw new Error("Providers not found");
-        }
-      } catch (error) {
-        throw new Error(error);
-      }
-    },
-
     /* SHOW ALL MOVIES A USER HAS INTERACTED WITH */
 
     userMovieRecommendations: async (_, { take, skip, myCursor }, context) => {
@@ -162,7 +162,7 @@ export default {
           where: { userId: user.id },
         };
         const foundMovieConnections = await db.userMovieConnection.findMany(
-          opArgs
+          opArgs,
         );
         let idArray = [];
         for (let i = 0; i < foundMovieConnections.length; i++) {
@@ -196,6 +196,7 @@ export default {
         console.log(movieId);
         const movie = db.movie.findUnique({
           where: { id: Number(movieId) },
+          include: { Credits: {} },
         });
 
         if (movie) {
