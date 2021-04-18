@@ -43,6 +43,24 @@ export default {
       }
     },
 
+    //USER MOVIES
+    userMovies: async (_, args, context) => {
+      const user = checkAuth(context);
+      try {
+        if (!user) {
+          errors.general = "User not found";
+          throw new UserInputError("User not found", { errors });
+        }
+
+        return await db.userMovieConnection.findMany({
+          where: { userId: user.id },
+          include: { movie: true },
+        });
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
     /* DISLIKED MOVIES */
     dislikedMovies: async (_, args, context) => {
       const user = checkAuth(context);
@@ -73,7 +91,7 @@ export default {
           where: { userId: user.id },
         };
         const foundMovieConnections = await db.userMovieConnection.findMany(
-          opArgs,
+          opArgs
         );
         let idArray = [];
         for (let i = 0; i < foundMovieConnections.length; i++) {
@@ -106,7 +124,7 @@ export default {
     addMovieToUser: async (
       parent,
       { movieId, saved, watched, disliked },
-      context,
+      context
     ) => {
       const user = checkAuth(context);
       try {
