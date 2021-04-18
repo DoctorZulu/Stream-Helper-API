@@ -51,8 +51,9 @@ const typeDefs = gql`
     allMovies(take: Int, skip: Int, myCursor: Int): [Movie]
     watchedMovies: [UserMovieConnection]
     lastMovie: Movie
-    user(userId: ID!): User
     movie(movieId: ID!): Movie
+    user(userId: ID!): User
+    verifyUser: User
     userMovieConnection(movieId: ID!): Movie
   }
   type Mutation {

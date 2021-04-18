@@ -9,7 +9,7 @@ import fetch from "node-fetch";
 import typeDefs from "./graphql/typeDefs.js";
 import resolvers from "./graphql/resolvers/index.js";
 import megaSeed from "./controllers/megaSeed.js";
-import megaProviderSeed from "./controllers/megaProviderSeed.js";
+// import megaProviderSeed from "./controllers/megaProviderSeed.js";
 
 async function startApolloServer() {
   const app = express();
@@ -47,7 +47,7 @@ async function startApolloServer() {
       signed: false,
       secure: false,
       httpOnly: false,
-    })
+    }),
   );
 
   await server.start();
@@ -73,6 +73,6 @@ async function startApolloServer() {
     console.log("Error" + error);
   }); */
 megaSeed();
-megaProviderSeed();
+// megaProviderSeed();
 startApolloServer();
 /* iterateThroughPages(); */

@@ -31,6 +31,21 @@ export default {
         throw new Error(error);
       }
     },
+    verifyUser: async (_, args, context) => {
+      const user = checkAuth(context);
+      try {
+        if (!user) {
+          errors.general = "User not found";
+          throw new UserInputError("User not found", { errors });
+        }
+        const foundUser = await db.user.findUnique({
+          where: { id: user.id },
+        });
+        return foundUser;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
   },
   Mutation: {
     signupUser: async (
@@ -96,22 +111,6 @@ export default {
       // console.log(req.headers.authorization);
       console.log(req.session);
       return { ...foundUser, token: token };
-    },
-
-    verifyUser: async (_, args, context) => {
-      const user = checkAuth(context);
-      try {
-        if (!user) {
-          errors.general = "User not found";
-          throw new UserInputError("User not found", { errors });
-        }
-        const foundUser = await db.user.findUnique({
-          where: { id: user.id },
-        });
-        return foundUser;
-      } catch (error) {
-        throw new Error(error);
-      }
     },
 
     updateUser: async (
