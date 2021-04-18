@@ -65,6 +65,7 @@ const typeDefs = gql`
     allMovies(take: Int, skip: Int, myCursor: Int): [Movie]
     watchedMovies: [UserMovieConnection]
     savedMovies: [UserMovieConnection]
+    likedMovies: [UserMovieConnection]
     dislikedMovies: [UserMovieConnection]
     userMovieRecommendations(take: Int, skip: Int, myCursor: Int): [Movie]
     lastMovie: Movie

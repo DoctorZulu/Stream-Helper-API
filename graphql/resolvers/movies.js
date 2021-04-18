@@ -84,6 +84,23 @@ export default {
       }
     },
 
+    // LIKED MOVIES
+    likedMovies: async (_, args, context) => {
+      const user = checkAuth(context);
+      try {
+        if (!user) {
+          errors.general = "User not found";
+          throw new UserInputError("User not found", { errors });
+        }
+        const opArgs = {
+          where: { liked: true, userId: user.id },
+        };
+        return await db.userMovieConnection.findMany(opArgs);
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
     /* SAVED MOVIES */
     savedMovies: async (_, args, context) => {
       const user = checkAuth(context);
