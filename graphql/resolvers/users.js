@@ -50,13 +50,13 @@ export default {
   Mutation: {
     signupUser: async (
       parent,
-      { signupInput: { email, password, username } },
+      { signupInput: { email, password, username } }
     ) => {
       try {
         const { valid, errors } = validateRegisterInput(
           username,
           email,
-          password,
+          password
         );
         if (!valid) {
           throw new UserInputError("Errors", { errors });
@@ -116,7 +116,7 @@ export default {
     updateUser: async (
       parent,
       { firstname, lastname, email, username },
-      context,
+      context
     ) => {
       const user = checkAuth(context);
       try {
@@ -141,8 +141,8 @@ export default {
 
     addMovieToUser: async (
       parent,
-      { movieId, saved, watched, disliked },
-      context,
+      { movieId, saved, watched, disliked, liked },
+      context
     ) => {
       const user = checkAuth(context);
       try {
@@ -165,6 +165,7 @@ export default {
           userId: foundUser.id,
           title,
           image,
+          liked: liked,
           watched: watched,
           saved: saved,
           disliked: disliked,
