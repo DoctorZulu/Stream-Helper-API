@@ -34,6 +34,45 @@ export default {
         throw new Error(error);
       }
     },
+
+    /* SHOW ALL MOVIES A USER HAS INTERACTED WITH */
+
+    userMovieRecommendations: async (_, { take, skip, myCursor }, context) => {
+      const user = checkAuth(context);
+      try {
+        if (!user) {
+          errors.general = "User not found";
+          throw new UserInputError("User not found", { errors });
+        }
+        const foundMovieConnections = await db.userMovieConnection.findMany({
+          where: { userId: user.id },
+        });
+        let idArray = [];
+        for (let i = 0; i < foundMovieConnections.length; i++) {
+          idArray.push(foundMovieConnections[i].id);
+        }
+        console.log(idArray, "====id arr");
+        return db.movie.findMany({
+          take: take,
+          skip: skip,
+          cursor: {
+            categoryId: myCursor,
+          },
+          orderBy: [
+            {
+              categoryId: "asc",
+            },
+          ],
+          where: {
+            NOT: {
+              id: { in: idArray },
+            },
+          },
+        });
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
     /**
      * ===============================LAST MOVIE IS DONZO ==================================
      * @param {} _
@@ -58,27 +97,33 @@ export default {
      * @param {Take: int, skip: int, myCursor: int} param1
      * @returns WATCHED MOVIES IN DB
      */
-    watchedMovies: async (_, args, context /* { take, skip, myCursor } */) => {
-      const user = checkAuth(context);
+
+    getCast: async (_, { movieId }) => {
       try {
-        if (!user) {
-          errors.general = "User not found";
-          throw new UserInputError("User not found", { errors });
+        const cast = await db.credits.findFirst({
+          where: { movieId: Number(movieId) },
+        });
+        console.log(cast);
+        if (cast) {
+          return cast;
+        } else {
+          throw new Error("Cast not found");
         }
-        const opArgs = {
-          where: { watched: true, userId: user.id },
-          // take: take,
-          // skip: skip,
-          // cursor: {
-          //   categoryId: myCursor,
-          // },
-          // orderBy: [
-          //   {
-          //     categoryId: "asc",
-          //   },
-          // ],
-        };
-        return await db.userMovieConnection.findMany(opArgs);
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
+    getProviders: async (_, { movieId }) => {
+      try {
+        const providers = db.watchProvider.findUnique({
+          where: { movieId: Number(movieId) },
+        });
+        if (providers) {
+          return providers;
+        } else {
+          throw new Error("Providers not found");
+        }
       } catch (error) {
         throw new Error(error);
       }
@@ -163,7 +208,12 @@ export default {
         console.log(movieId);
         const movie = db.movie.findUnique({
           where: { id: Number(movieId) },
+          include: {
+            credits: true,
+            watchproviders: true,
+          },
         });
+
         if (movie) {
           return movie;
         } else {

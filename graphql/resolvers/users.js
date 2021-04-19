@@ -31,17 +31,17 @@ export default {
         throw new Error(error);
       }
     },
-    userMovieConnection: async (parent, { movieId }, context) => {
-      console.log(movieId);
+    verifyUser: async (_, args, context) => {
       const user = checkAuth(context);
       try {
+        if (!user) {
+          errors.general = "User not found";
+          throw new UserInputError("User not found", { errors });
+        }
         const foundUser = await db.user.findUnique({
           where: { id: user.id },
         });
-        const userMovieConnection = db.userMovieConnection.findUnique({
-          where: { id: Number(movieId), userId: Number(foundUser.id) },
-        });
-        return userMovieConnection;
+        return foundUser;
       } catch (error) {
         throw new Error(error);
       }
@@ -131,7 +131,6 @@ export default {
             lastname: lastname,
             email: email,
             username: username,
-            
           },
         });
         return newUser;
@@ -142,7 +141,7 @@ export default {
 
     addMovieToUser: async (
       parent,
-      { movieId, saved, watched, disliked },
+      { movieId, saved, watched, disliked, liked },
       context
     ) => {
       const user = checkAuth(context);
@@ -166,6 +165,7 @@ export default {
           userId: foundUser.id,
           title,
           image,
+          liked: liked,
           watched: watched,
           saved: saved,
           disliked: disliked,

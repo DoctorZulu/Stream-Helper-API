@@ -32,6 +32,7 @@ model UserMovieConnection {
   userId   Int?
   title    String?
   image    String?
+  liked    Boolean? @default(false)
   disliked Boolean? @default(false)
   saved    Boolean? @default(false)
   watched  Boolean? @default(false)
@@ -47,23 +48,23 @@ model Movie {
   image             String?
   overview          String?
   genres            Int?
-  UsersMovies       UserMovieConnection[]
-  WatchProviders    WatchProvider?
-  Credits           Credits?
+  usersmovies       UserMovieConnection[]
+  watchproviders    WatchProvider[]
+  credits           Credits[]
 }
 
 model Credits {
-  id      Int     @id @default(autoincrement())
-  movie   Movie?  @relation(fields: [movieId], references: [id])
+  id      Int    @id @default(autoincrement())
+  movie   Movie? @relation(fields: [movieId], references: [id])
   movieId Int?
-  cast    String?
+  cast    Json?
 }
 
 model WatchProvider {
   id        Int     @id @default(autoincrement())
   movie     Movie?  @relation(fields: [movieId], references: [id])
   movieId   Int?
-  providers String?
+  providers Json?
 }
 
 // model Genre {

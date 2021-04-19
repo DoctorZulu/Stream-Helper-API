@@ -19,9 +19,10 @@ const typeDefs = gql`
   type UserMovieConnection {
     id: ID
     user: [User]
-    movies: [Movie]
+    movie: [Movie]
     title: String
     image: String
+    liked: Boolean
     disliked: Boolean
     watched: Boolean
     saved: Boolean
@@ -37,10 +38,10 @@ const typeDefs = gql`
     vote_average: Float
     overview: String
     image: String
-    genres: [Genre]
+    genres: Int
     user: [User]
-    credits: Credits
-    providers: WatchProvider
+    credits: [Credits]
+    watchproviders: [WatchProvider]
   }
   type Genre {
     id: ID!
@@ -49,7 +50,7 @@ const typeDefs = gql`
   }
 
   type Credits {
-    id: ID!
+    id: ID
     movie: Movie
     cast: String
   }
@@ -62,23 +63,32 @@ const typeDefs = gql`
   # Top level
   type Query {
     allMovies(take: Int, skip: Int, myCursor: Int): [Movie]
+    userMovies: [UserMovieConnection]
     watchedMovies: [UserMovieConnection]
     savedMovies: [UserMovieConnection]
+    likedMovies: [UserMovieConnection]
     dislikedMovies: [UserMovieConnection]
     userMovieRecommendations(take: Int, skip: Int, myCursor: Int): [Movie]
     lastMovie: Movie
-    user(userId: ID!): User
     movie(movieId: ID!): Movie
+    user(userId: ID!): User
+    verifyUser: User
     userMovieConnection(movieId: ID!): Movie
-    getCast(movieId: ID!): Credits
+    getCast(movieId: ID): Credits
     getProviders(movieId: ID!): Movie
   }
   type Mutation {
     signupUser(signupInput: SignupInput): User!
     signinUser(email: String!, password: String!): User!
-    updateUser(firstname: String, lastname: String, username: String,  email: String): User!
+    updateUser(
+      firstname: String
+      lastname: String
+      username: String
+      email: String
+    ): User!
     addMovieToUser(
       movieId: ID
+      liked: Boolean
       disliked: Boolean
       saved: Boolean
       watched: Boolean

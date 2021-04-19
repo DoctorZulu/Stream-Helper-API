@@ -13,7 +13,7 @@ const megaSeed = () => {
   const urlArray = () => {
     for (let i = 1; i < 20; i++) {
       urls.push(
-        `https://api.themoviedb.org/3/movie/top_rated?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US&page=${i}`
+        `https://api.themoviedb.org/3/movie/top_rated?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US&page=${i}`,
       );
     }
   };
@@ -49,6 +49,7 @@ const megaSeed = () => {
             vote_average: movie.vote_average,
             image: movie.poster_path,
             overview: movie.overview,
+            genres: movie.genre_ids[0] || null,
           },
           update: {},
           where: {

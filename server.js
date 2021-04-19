@@ -62,21 +62,9 @@ async function startApolloServer() {
   return { server, app };
 }
 
-/* Promise.all(promises)
-  .then(function handleData(data) {
-    return fetch("example.api") // should be returned 1 time
-      .then((response) => {
-        if (response.ok) return response.json();
-        throw new Error(response.statusText);
-      });
-  })
-  .catch(function handleError(error) {
-    console.log("Error" + error);
-  }); */
-
-/* megaSeed();
-megaCreditSeed();
-megaProviderSeed(); */
+// megaSeed();
+// megaCreditSeed();
+// megaProviderSeed();
 startApolloServer();
 
 /* iterateThroughPages(); */
