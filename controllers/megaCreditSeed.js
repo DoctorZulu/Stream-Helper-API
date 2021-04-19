@@ -48,6 +48,8 @@ const megaCreditSeed = () => {
           data: {
             movieId: movie.id,
             cast: JSON.stringify(movie),
+            actors: JSON.stringify(movie.cast),
+            crew: JSON.stringify(movie.crew),
           },
         });
         // console.log(movie);
