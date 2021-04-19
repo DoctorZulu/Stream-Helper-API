@@ -58,6 +58,10 @@ const megaProviderSeed = () => {
           data: {
             movieId: idExtracted != null ? Number(idExtracted) : undefined,
             providers: movie != null ? JSON.stringify(movie) : undefined,
+            buy: movie != null ? JSON.stringify(movie.buy) : undefined,
+            rent: movie != null ? JSON.stringify(movie.rent) : undefined,
+            flatrate:
+              movie != null ? JSON.stringify(movie.flatrate) : undefined,
           },
         });
 
