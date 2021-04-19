@@ -37,8 +37,7 @@ const megaProviderSeed = () => {
     fullData.push(deconstructed);
 
     newMergedData = [].concat.apply([], fullData);
-
-    let counter = 0;
+    let counter = 999999;
     newMergedData.forEach((movie) => {
       let slash;
       let dash;
@@ -51,15 +50,19 @@ const megaProviderSeed = () => {
         counter++;
         slash = 0;
         dash = 0;
-        idExtracted = 999999 + counter;
+        idExtracted = null;
       }
       console.log(idExtracted);
 
       const mainAddProvider = async () => {
         let newProvider = await db.watchProvider.create({
           data: {
-            movieId: Number(idExtracted),
-            providers: JSON.stringify(movie),
+            movieId: idExtracted != null ? Number(idExtracted) : undefined,
+            providers: movie != null ? JSON.stringify(movie) : undefined,
+            buy: movie != null ? JSON.stringify(movie.buy) : undefined,
+            rent: movie != null ? JSON.stringify(movie.rent) : undefined,
+            flatrate:
+              movie != null ? JSON.stringify(movie.flatrate) : undefined,
           },
         });
 
