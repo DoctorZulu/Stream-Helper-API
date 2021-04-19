@@ -2,7 +2,6 @@ import express, { json } from "express";
 import prisma from "@prisma/client";
 
 import fetch from "node-fetch";
-import ids from "../data/movieID.js";
 
 const db = new prisma.PrismaClient({
   log: ["info", "warn"],
@@ -16,9 +15,9 @@ const megaProviderSeed = () => {
   let urls = [];
 
   const urlArray = () => {
-    for (let i = 1; i < 51; i++) {
+    for (let i = 1; i < 71; i++) {
       urls.push(
-        `https://api.themoviedb.org/3/movie/${ids[i]}/watch/providers?api_key=999a045dba2d80d839d8ed4db5942fae`,
+        `https://api.themoviedb.org/3/movie/${result[i].id}/watch/providers?api_key=999a045dba2d80d839d8ed4db5942fae`,
       );
     }
   };
@@ -30,7 +29,7 @@ const megaProviderSeed = () => {
     let fullData = [];
     let newMergedData;
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 70; i++) {
       deconstructed.push(json[i].results.US);
     }
 
@@ -38,15 +37,27 @@ const megaProviderSeed = () => {
 
     newMergedData = [].concat.apply([], fullData);
 
-    let index = -1;
-
+    let counter = 0;
     newMergedData.forEach((movie) => {
-      index++;
+      let slash;
+      let dash;
+      let idExtracted;
+      if (movie != undefined && movie.link) {
+        slash = movie.link.split("/", 5);
+        dash = slash[4].split("-");
+        idExtracted = dash[0];
+      } else {
+        counter++;
+        slash = 0;
+        dash = 0;
+        idExtracted = 999999 + counter;
+      }
+      console.log(idExtracted);
 
       const mainAddProvider = async () => {
         let newProvider = await db.watchProvider.create({
           data: {
-            movieId: result[index].id,
+            movieId: Number(idExtracted),
             providers: JSON.stringify(movie),
           },
         });

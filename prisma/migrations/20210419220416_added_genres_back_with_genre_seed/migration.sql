@@ -28,7 +28,7 @@ CREATE TABLE "UserMovieConnection" (
 -- CreateTable
 CREATE TABLE "Movie" (
     "categoryId" SERIAL NOT NULL,
-    "id" INTEGER NOT NULL,
+    "id" INTEGER,
     "title" TEXT,
     "original_language" TEXT,
     "release_date" TEXT,
@@ -44,7 +44,7 @@ CREATE TABLE "Movie" (
 CREATE TABLE "Credits" (
     "id" SERIAL NOT NULL,
     "movieId" INTEGER,
-    "cast" TEXT,
+    "cast" JSONB,
 
     PRIMARY KEY ("id")
 );
@@ -54,6 +54,15 @@ CREATE TABLE "WatchProvider" (
     "id" SERIAL NOT NULL,
     "movieId" INTEGER,
     "providers" TEXT,
+
+    PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Genre" (
+    "id" INTEGER NOT NULL,
+    "name" TEXT,
+    "movieId" INTEGER,
 
     PRIMARY KEY ("id")
 );
@@ -78,3 +87,6 @@ ALTER TABLE "Credits" ADD FOREIGN KEY ("movieId") REFERENCES "Movie"("id") ON DE
 
 -- AddForeignKey
 ALTER TABLE "WatchProvider" ADD FOREIGN KEY ("movieId") REFERENCES "Movie"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Genre" ADD FOREIGN KEY ("movieId") REFERENCES "Movie"("id") ON DELETE SET NULL ON UPDATE CASCADE;
