@@ -17,10 +17,7 @@ CREATE TABLE "UserMovieConnection" (
     "userId" INTEGER,
     "title" TEXT,
     "image" TEXT,
-<<<<<<< HEAD:prisma/migrations/20210417174741_dropped_migrations/migration.sql
-=======
     "liked" BOOLEAN DEFAULT false,
->>>>>>> origin/master:prisma/migrations/20210419033221_restarted_migrations/migration.sql
     "disliked" BOOLEAN DEFAULT false,
     "saved" BOOLEAN DEFAULT false,
     "watched" BOOLEAN DEFAULT false,
@@ -31,7 +28,7 @@ CREATE TABLE "UserMovieConnection" (
 -- CreateTable
 CREATE TABLE "Movie" (
     "categoryId" SERIAL NOT NULL,
-    "id" INTEGER NOT NULL,
+    "id" INTEGER,
     "title" TEXT,
     "original_language" TEXT,
     "release_date" TEXT,
@@ -56,7 +53,7 @@ CREATE TABLE "Credits" (
 CREATE TABLE "WatchProvider" (
     "id" SERIAL NOT NULL,
     "movieId" INTEGER,
-    "providers" JSONB,
+    "providers" TEXT,
 
     PRIMARY KEY ("id")
 );
