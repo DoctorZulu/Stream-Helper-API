@@ -125,8 +125,8 @@ export default {
   Mutation: {
     addMovieToUser: async (
       parent,
-      { movieId, saved, watched, disliked },
-      context,
+      { movieId, saved, watched, disliked, liked },
+      context
     ) => {
       const user = checkAuth(context);
       try {
@@ -149,6 +149,7 @@ export default {
           userId: foundUser.id,
           title,
           image,
+          liked: liked,
           watched: watched,
           saved: saved,
           disliked: disliked,
