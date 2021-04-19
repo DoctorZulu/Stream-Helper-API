@@ -40,7 +40,7 @@ model UserMovieConnection {
 
 model Movie {
   categoryId        Int                   @id @default(autoincrement())
-  id                Int                   @unique
+  id                Int?                   @unique
   title             String?
   original_language String?
   release_date      String?
@@ -64,7 +64,7 @@ model WatchProvider {
   id        Int    @id @default(autoincrement())
   movie     Movie? @relation(fields: [movieId], references: [id])
   movieId   Int?
-  providers Json?
+  providers String?
 }
 
 // model Genre {
