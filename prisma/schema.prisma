@@ -56,7 +56,7 @@ model Movie {
 model Credits {
   id      Int    @id @default(autoincrement())
   movie   Movie? @relation(fields: [movieId], references: [id])
-  movieId Int?
+  movieId Int? @unique
   cast    Json?
   actors String?
   crew String?
