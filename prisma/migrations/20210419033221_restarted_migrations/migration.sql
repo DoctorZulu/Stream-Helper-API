@@ -44,7 +44,7 @@ CREATE TABLE "Movie" (
 CREATE TABLE "Credits" (
     "id" SERIAL NOT NULL,
     "movieId" INTEGER,
-    "cast" TEXT,
+    "cast" JSONB,
 
     PRIMARY KEY ("id")
 );
@@ -53,7 +53,7 @@ CREATE TABLE "Credits" (
 CREATE TABLE "WatchProvider" (
     "id" SERIAL NOT NULL,
     "movieId" INTEGER,
-    "providers" TEXT,
+    "providers" JSONB,
 
     PRIMARY KEY ("id")
 );
