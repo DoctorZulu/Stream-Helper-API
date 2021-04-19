@@ -6,11 +6,11 @@ const db = new prisma.PrismaClient({
 });
 
 async function main() {
-  const action = await db.movie.upsert({
+  const action = await db.genre.upsert({
     where: { id: 28 },
     update: {},
     create: {
-      movieId: 28,
+      id: 28,
       name: "Action",
     },
   });
@@ -18,7 +18,7 @@ async function main() {
     where: { id: 12 },
     update: {},
     create: {
-      movieId: 12,
+      id: 12,
       name: "Adventure",
     },
   });
@@ -26,7 +26,7 @@ async function main() {
     where: { id: 16 },
     update: {},
     create: {
-      movieId: 16,
+      id: 16,
       name: "Animation",
     },
   });
@@ -35,7 +35,7 @@ async function main() {
     where: { id: 35 },
     update: {},
     create: {
-      movieId: 35,
+      id: 35,
       name: "Comedy",
     },
   });
@@ -43,7 +43,7 @@ async function main() {
     where: { id: 80 },
     update: {},
     create: {
-      movieId: 80,
+      id: 80,
       name: "Crime",
     },
   });
@@ -51,7 +51,7 @@ async function main() {
     where: { id: 99 },
     update: {},
     create: {
-      movieId: 99,
+      id: 99,
       name: "Documentary",
     },
   });
@@ -59,7 +59,7 @@ async function main() {
     where: { id: 18 },
     update: {},
     create: {
-      movieId: 18,
+      id: 18,
       name: "Drama",
     },
   });
@@ -67,7 +67,7 @@ async function main() {
     where: { id: 10751 },
     update: {},
     create: {
-      movieId: 10751,
+      id: 10751,
       name: "Family",
     },
   });
@@ -75,7 +75,7 @@ async function main() {
     where: { id: 14 },
     update: {},
     create: {
-      movieId: 14,
+      id: 14,
       name: "Fantasy",
     },
   });
@@ -83,7 +83,7 @@ async function main() {
     where: { id: 36 },
     update: {},
     create: {
-      movieId: 36,
+      id: 36,
       name: "History",
     },
   });
@@ -91,7 +91,7 @@ async function main() {
     where: { id: 27 },
     update: {},
     create: {
-      movieId: 27,
+      id: 27,
       name: "Horror",
     },
   });
@@ -99,7 +99,7 @@ async function main() {
     where: { id: 10402 },
     update: {},
     create: {
-      movieId: 10402,
+      id: 10402,
       name: "Music",
     },
   });
@@ -107,7 +107,7 @@ async function main() {
     where: { id: 9648 },
     update: {},
     create: {
-      movieId: 9648,
+      id: 9648,
       name: "Mystery",
     },
   });
@@ -115,7 +115,7 @@ async function main() {
     where: { id: 10749 },
     update: {},
     create: {
-      movieId: 10749,
+      id: 10749,
       name: "Romance",
     },
   });
@@ -123,7 +123,7 @@ async function main() {
     where: { id: 878 },
     update: {},
     create: {
-      movieId: 878,
+      id: 878,
       name: "Science Fiction",
     },
   });
@@ -131,7 +131,7 @@ async function main() {
     where: { id: 10770 },
     update: {},
     create: {
-      movieId: 10749,
+      id: 10770,
       name: "TV Movie",
     },
   });
@@ -139,7 +139,7 @@ async function main() {
     where: { id: 53 },
     update: {},
     create: {
-      movieId: 53,
+      id: 53,
       name: "Thriller",
     },
   });
@@ -147,7 +147,7 @@ async function main() {
     where: { id: 10752 },
     update: {},
     create: {
-      movieId: 10752,
+      id: 10752,
       name: "War",
     },
   });
@@ -155,7 +155,7 @@ async function main() {
     where: { id: 37 },
     update: {},
     create: {
-      movieId: 37,
+      id: 37,
       name: "Western",
     },
   });
