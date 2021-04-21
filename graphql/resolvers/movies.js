@@ -76,7 +76,11 @@ export default {
       }
     },
 
-    netflixMovieQuery: async (_, { take, skip, myCursor }, context) => {
+    providerMovieQuery: async (
+      _,
+      { take, skip, myCursor, providerId },
+      context,
+    ) => {
       const user = checkAuth(context);
       try {
         if (!user) {
@@ -90,18 +94,17 @@ export default {
         for (let i = 0; i < foundMovieConnections.length; i++) {
           idArray.push(foundMovieConnections[i].id);
         }
-        console.log(idArray.length, "====id arr");
-        var json = { providers: [{ provider_name: "Netflix" }] };
+        // console.log(idArray.length, "====id arr");
         const test2 = await db.movie.findMany({
+          include: { watchproviders: true },
           where: {
             NOT: {
               id: { in: idArray },
             },
             watchproviders: {
-              // select: {
-              contains: "netflix",
-              equals: json,
-              // },
+              some: {
+                providerId: providerId,
+              },
             },
           },
           take: take,
@@ -115,9 +118,9 @@ export default {
             },
           ],
         });
-        console.log(test2);
-        // return test2;
+        return test2;
       } catch (error) {
+        console.log(error);
         throw new Error(error);
       }
     },
