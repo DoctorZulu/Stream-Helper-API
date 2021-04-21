@@ -70,6 +70,7 @@ const typeDefs = gql`
     likedMovies: [UserMovieConnection]
     dislikedMovies: [UserMovieConnection]
     userMovieRecommendations(take: Int, skip: Int, myCursor: Int): [Movie]
+    netflixMovieQuery(take: Int, skip: Int, myCursor: Int): [Movie]
     lastMovie: Movie
     movie(movieId: ID!): Movie
     user(userId: ID!): User
