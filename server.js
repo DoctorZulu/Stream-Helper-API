@@ -64,6 +64,6 @@ async function startApolloServer() {
 
 // megaSeed();
 // megaCreditSeed();
-megaProviderSeed();
+// megaProviderSeed();
 startApolloServer();
 /* iterateThroughPages(); */

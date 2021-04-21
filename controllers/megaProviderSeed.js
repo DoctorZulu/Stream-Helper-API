@@ -61,11 +61,12 @@ const megaProviderSeed = () => {
             providers: movie != null ? JSON.stringify(movie) : undefined,
             buy: movie != null ? JSON.stringify(movie.buy) : undefined,
             rent: movie != null ? JSON.stringify(movie.rent) : undefined,
-            flatrate:
+            flatRate:
               movie != null ? JSON.stringify(movie.flatrate) : undefined,
-            providerId: {
-              create: movie != null ? movie.flatrate[0].provider_id : undefined,
-            },
+            providerId:
+              movie != null && movie.flatrate
+                ? Number(JSON.stringify(movie.flatrate[0].provider_id))
+                : undefined,
           },
         });
         return newProvider;
