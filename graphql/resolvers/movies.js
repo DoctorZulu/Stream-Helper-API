@@ -51,8 +51,13 @@ export default {
         for (let i = 0; i < foundMovieConnections.length; i++) {
           idArray.push(foundMovieConnections[i].id);
         }
-        console.log(idArray, "====id arr");
-        return db.movie.findMany({
+        console.log(idArray.length, "====id arr");
+        const test2 = await db.movie.findMany({
+          where: {
+            NOT: {
+              id: { in: idArray },
+            },
+          },
           take: take,
           skip: skip,
           cursor: {
@@ -63,12 +68,55 @@ export default {
               categoryId: "asc",
             },
           ],
+        });
+
+        return test2;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
+    netflixMovieQuery: async (_, { take, skip, myCursor }, context) => {
+      const user = checkAuth(context);
+      try {
+        if (!user) {
+          errors.general = "User not found";
+          throw new UserInputError("User not found", { errors });
+        }
+        const foundMovieConnections = await db.userMovieConnection.findMany({
+          where: { userId: user.id },
+        });
+        let idArray = [];
+        for (let i = 0; i < foundMovieConnections.length; i++) {
+          idArray.push(foundMovieConnections[i].id);
+        }
+        console.log(idArray.length, "====id arr");
+        var json = { providers: [{ provider_name: "Netflix" }] };
+        const test2 = await db.movie.findMany({
           where: {
             NOT: {
               id: { in: idArray },
             },
+            watchproviders: {
+              // select: {
+              contains: "netflix",
+              equals: json,
+              // },
+            },
           },
+          take: take,
+          skip: skip,
+          cursor: {
+            categoryId: myCursor,
+          },
+          orderBy: [
+            {
+              categoryId: "asc",
+            },
+          ],
         });
+        console.log(test2);
+        // return test2;
       } catch (error) {
         throw new Error(error);
       }
