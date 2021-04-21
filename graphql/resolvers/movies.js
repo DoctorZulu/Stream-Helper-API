@@ -175,12 +175,40 @@ export default {
         const opArgs = {
           where: { userId: user.id },
         };
+
+        /* all movies user interacted with */
         const foundMovieConnections = await db.userMovieConnection.findMany(opArgs);
         let idArray = [];
         for (let i=0; i < foundMovieConnections.length; i++) {
           idArray.push(foundMovieConnections[i].id)
         }
         console.log(idArray, "====id arr")
+
+        /* all movies in general */
+        /* const allMoviesToRemove = await db.movie.findMany({})
+        console.log(allMoviesToRemove, "============") */
+        /* all movies - movies users interacted with */
+
+        const filteredList =  await db.movie.findMany({
+          where: { 
+            NOT: {
+              id: {in : idArray } 
+            }
+          }
+        })
+
+        let filteredArray = [];
+        for (let i=0; i < filteredList.length; i++) {
+          filteredArray.push(filteredList[i].id)
+        }
+
+        console.log(filteredArray, "sd-f-sdf-sd-f-dsf")
+
+        
+
+
+
+        
         return db.movie.findMany({
           take: take,
           skip: skip,
@@ -193,9 +221,11 @@ export default {
             },
           ],
           where: { 
-            NOT: {
-              id: {in : idArray } 
-            }
+          
+              id: {
+                in : filteredArray
+               } 
+           
           }
         })
       } catch (error) {
