@@ -70,7 +70,8 @@ model WatchProvider {
   providers String?
   buy  String?
   rent String?
-  flatrate String?
+  flatRate String?
+  providerId Int?
 }
 
 model Genre {

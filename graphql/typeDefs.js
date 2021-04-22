@@ -59,6 +59,7 @@ const typeDefs = gql`
     id: ID!
     movie: Movie
     providers: String
+    providerId: Int
   }
 
   # Top level
@@ -70,6 +71,12 @@ const typeDefs = gql`
     likedMovies: [UserMovieConnection]
     dislikedMovies: [UserMovieConnection]
     userMovieRecommendations(take: Int, skip: Int, myCursor: Int): [Movie]
+    providerMovieQuery(
+      take: Int
+      skip: Int
+      myCursor: Int
+      providerId: Int
+    ): [Movie]
     lastMovie: Movie
     movie(movieId: ID!): Movie
     user(userId: ID!): User

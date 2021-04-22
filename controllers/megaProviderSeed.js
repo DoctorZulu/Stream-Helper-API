@@ -52,20 +52,24 @@ const megaProviderSeed = () => {
         dash = 0;
         idExtracted = null;
       }
-      console.log(idExtracted);
+      // console.log(idExtracted);
 
       const mainAddProvider = async () => {
+        // console.log(movie.flatrate[0].provider_id);
         let newProvider = await db.watchProvider.create({
           data: {
             movieId: idExtracted != null ? Number(idExtracted) : undefined,
             providers: movie != null ? JSON.stringify(movie) : undefined,
             buy: movie != null ? JSON.stringify(movie.buy) : undefined,
             rent: movie != null ? JSON.stringify(movie.rent) : undefined,
-            flatrate:
+            flatRate:
               movie != null ? JSON.stringify(movie.flatrate) : undefined,
+            providerId:
+              movie != null && movie.flatrate
+                ? Number(JSON.stringify(movie.flatrate[0].provider_id))
+                : undefined,
           },
         });
-
         return newProvider;
       };
       mainAddProvider();
