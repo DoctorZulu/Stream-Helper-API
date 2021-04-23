@@ -84,6 +84,8 @@ const typeDefs = gql`
     userMovieConnection(movieId: ID!): Movie
     getCast(movieId: ID): Credits
     getProviders(movieId: ID!): Movie
+    movieLength: Int!
+    filterLength(providerId: Int!): Int!
   }
   type Mutation {
     signupUser(signupInput: SignupInput): User!
