@@ -51,7 +51,7 @@ export default {
         for (let i = 0; i < foundMovieConnections.length; i++) {
           idArray.push(foundMovieConnections[i].id);
         }
-        console.log(idArray.length, "====id arr");
+    
         const test2 = await db.movie.findMany({
           where: {
             NOT: {
@@ -63,13 +63,13 @@ export default {
           cursor: {
             categoryId: myCursor,
           },
+          
           orderBy: [
             {
               categoryId: "asc",
             },
           ],
         });
-
         return test2;
       } catch (error) {
         throw new Error(error);
@@ -82,6 +82,8 @@ export default {
       context,
     ) => {
       const user = checkAuth(context);
+      console.log("===~~=== CURSOR", myCursor)
+      console.log("===~~=== PROV ID", providerId)
       try {
         if (!user) {
           errors.general = "User not found";
@@ -110,7 +112,7 @@ export default {
           take: take,
           skip: skip,
           cursor: {
-            categoryId: myCursor,
+            categoryId: parseInt(myCursor),
           },
           orderBy: [
             {
@@ -118,9 +120,10 @@ export default {
             },
           ],
         });
+        console.log("/////===~~=== PROV ID", myCursor)
         return test2;
       } catch (error) {
-        console.log(error);
+        console.log(error, "checking");
         throw new Error(error);
       }
     },
@@ -154,7 +157,7 @@ export default {
         const cast = await db.credits.findFirst({
           where: { movieId: Number(movieId) },
         });
-        console.log(cast);
+       
         if (cast) {
           return cast;
         } else {
@@ -233,12 +236,7 @@ export default {
         for (let i=0; i < foundMovieConnections.length; i++) {
           idArray.push(foundMovieConnections[i].id)
         }
-        console.log(idArray, "====id arr")
-
-        /* all movies in general */
-        /* const allMoviesToRemove = await db.movie.findMany({})
-        console.log(allMoviesToRemove, "============") */
-        /* all movies - movies users interacted with */
+       
 
         const filteredList =  await db.movie.findMany({
           where: { 
@@ -252,12 +250,6 @@ export default {
         for (let i=0; i < filteredList.length; i++) {
           filteredArray.push(filteredList[i].id)
         }
-
-        console.log(filteredArray, "sd-f-sdf-sd-f-dsf")
-
-        
-
-
 
         
         return db.movie.findMany({
@@ -286,7 +278,7 @@ export default {
 
     movie: async (parent, { movieId }) => {
       try {
-        console.log(movieId);
+  
         const movie = db.movie.findUnique({
           where: { id: Number(movieId) },
           include: {
