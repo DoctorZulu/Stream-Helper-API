@@ -79,7 +79,7 @@ export default {
     providerMovieQuery: async (
       _,
       { take, skip, myCursor, providerId },
-      context,
+      context
     ) => {
       const user = checkAuth(context);
       try {
@@ -132,12 +132,38 @@ export default {
      */
     lastMovie: async (_, args) => {
       try {
-        const allMovie = await db.movie.findFirst({
+        const allMovie = await db.movie.findLast({
           orderBy: {
             categoryId: "asc",
           },
         });
         return allMovie;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
+    filterLength: async (_, { providerId }) => {
+      try {
+        const allMovie = await db.movie.findMany({
+          where: {
+            watchproviders: {
+              some: {
+                providerId: providerId,
+              },
+            },
+          },
+        });
+        return allMovie.length;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
+    movieLength: async (_, args) => {
+      try {
+        const allMovie = await db.movie.findMany({});
+        return allMovie.length;
       } catch (error) {
         throw new Error(error);
       }
