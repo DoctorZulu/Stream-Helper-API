@@ -7,11 +7,11 @@ const db = new prisma.PrismaClient({
   log: ["info", "warn"],
   errorFormat: "pretty",
 });
-const result = await db.$queryRaw(
-  'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;',
-);
 
 const megaProviderSeed = () => {
+  const result = db.$queryRaw(
+    'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;',
+  );
   let urls = [];
 
   const urlArray = () => {

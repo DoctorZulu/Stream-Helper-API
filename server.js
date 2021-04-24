@@ -69,9 +69,9 @@ const seedFullDataBase = (function() {
   return function() {
       if (!executed) {
           executed = true;
-          megaSeed();
-          setInterval(megaCreditSeed, 3000);
-          setInterval(megaProviderSeed, 5000);
+          setInterval(megaSeed, 10000)
+          setInterval(megaCreditSeed, 15000);
+          setInterval(megaProviderSeed, 20000);
       }
   };
 })();
