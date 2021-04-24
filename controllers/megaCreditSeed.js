@@ -9,10 +9,10 @@ const db = new prisma.PrismaClient({
 });
 
 
+const result = await db.$queryRaw(
+  'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;',
+);
 const megaCreditSeed = () => {
-  const result =  db.$queryRaw(
-    'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;',
-  );
   let urls = [];
 
   const urlArray = () => {
