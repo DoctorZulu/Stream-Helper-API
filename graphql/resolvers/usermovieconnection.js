@@ -126,7 +126,7 @@ export default {
     addMovieToUser: async (
       parent,
       { movieId, saved, watched, disliked, liked },
-      context
+      context,
     ) => {
       const user = checkAuth(context);
       try {
@@ -168,7 +168,6 @@ export default {
     },
 
     removeMovieToUser: async (_, { movieId }, context) => {
-      console.log(movieId);
       const user = checkAuth(context);
       try {
         if (!user) {

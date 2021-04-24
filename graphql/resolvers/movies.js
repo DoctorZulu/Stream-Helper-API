@@ -79,7 +79,7 @@ export default {
     providerMovieQuery: async (
       _,
       { take, skip, myCursor, providerId },
-      context
+      context,
     ) => {
       const user = checkAuth(context);
       console.log("===~~=== CURSOR", myCursor)
@@ -97,7 +97,7 @@ export default {
           idArray.push(foundMovieConnections[i].id);
         }
         // console.log(idArray.length, "====id arr");
-        const test2 = await db.movie.findMany({
+        const filteredMovie = await db.movie.findMany({
           include: { watchproviders: true },
           where: {
             NOT: {
@@ -120,10 +120,8 @@ export default {
             },
           ],
         });
-        console.log("/////===~~=== PROV ID", myCursor)
-        return test2;
+        return filteredMovie;
       } catch (error) {
-        console.log(error, "checking");
         throw new Error(error);
       }
     },
@@ -183,7 +181,6 @@ export default {
         const cast = await db.credits.findFirst({
           where: { movieId: Number(movieId) },
         });
-       
         if (cast) {
           return cast;
         } else {
