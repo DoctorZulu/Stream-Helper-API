@@ -64,8 +64,23 @@ async function startApolloServer() {
   return { server, app };
 }
 
-megaSeed();
+const seedFullDataBase = (function() {
+  let executed = false;
+  return function() {
+      if (!executed) {
+          executed = true;
+          megaSeed();
+          setInterval(megaCreditSeed, 3000);
+          setInterval(megaProviderSeed, 5000);
+      }
+  };
+})();
+seedFullDataBase(); // "do something" happens
+seedFullDataBase(); // nothing happens
+
+
+/* megaSeed();
 megaCreditSeed();
-megaProviderSeed();
+megaProviderSeed(); */
 startApolloServer();
 /* iterateThroughPages(); */
