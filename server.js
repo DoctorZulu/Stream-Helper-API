@@ -53,7 +53,9 @@ async function startApolloServer() {
 
   await server.start();
   server.applyMiddleware({ app, path: "/graphql", cors: false });
-  await new Promise((resolve) => app.listen({ port: 4025 }, resolve));
+  /* heroku deployment */
+  await new Promise((resolve) => app.listen(process.env.PORT || { port: 4025 }, resolve));
+  
   console.log(`
     Server is running
     Listening on port 4025
@@ -62,7 +64,7 @@ async function startApolloServer() {
   return { server, app };
 }
 
-// megaSeed();
+megaSeed();
 // megaCreditSeed();
 // megaProviderSeed();
 startApolloServer();
