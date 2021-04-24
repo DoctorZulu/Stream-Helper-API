@@ -50,13 +50,13 @@ export default {
   Mutation: {
     signupUser: async (
       parent,
-      { signupInput: { email, password, username } }
+      { signupInput: { email, password, username } },
     ) => {
       try {
         const { valid, errors } = validateRegisterInput(
           username,
           email,
-          password
+          password,
         );
         if (!valid) {
           throw new UserInputError("Errors", { errors });
@@ -93,7 +93,6 @@ export default {
       const foundUser = await db.user.findUnique({
         where: { email },
       });
-      console.log(foundUser);
       if (!foundUser) {
         errors.general = "User not found";
         throw new UserInputError("User not found", { errors });
@@ -109,14 +108,13 @@ export default {
       req.session = { token: `Bearer ${token}` };
       // this is the latest and greatest token
       // console.log(req.headers.authorization);
-      console.log(req.session);
       return { ...foundUser, token: token };
     },
 
     updateUser: async (
       parent,
       { firstname, lastname, email, username },
-      context
+      context,
     ) => {
       const user = checkAuth(context);
       try {
@@ -142,7 +140,7 @@ export default {
     addMovieToUser: async (
       parent,
       { movieId, saved, watched, disliked, liked },
-      context
+      context,
     ) => {
       const user = checkAuth(context);
       try {
@@ -200,7 +198,6 @@ export default {
     },
 
     removeMovieToUser: async (_, { movieId }, context) => {
-      console.log(movieId);
       const user = checkAuth(context);
       try {
         if (!user) {

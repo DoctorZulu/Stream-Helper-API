@@ -71,7 +71,7 @@ model WatchProvider {
   buy  String?
   rent String?
   flatRate String?
-  providerId Int?
+  providerId Int
 }
 
 model Genre {
