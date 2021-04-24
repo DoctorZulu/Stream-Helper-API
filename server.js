@@ -54,7 +54,7 @@ async function startApolloServer() {
   await server.start();
   server.applyMiddleware({ app, path: "/graphql", cors: false });
   /* heroku deployment */
-  await new Promise((resolve) => app.listen(process.env.PORT || { port: 4025 }, resolve));
+  await new Promise((resolve) => app.listen({ port: process.env.PORT || 4025 }, resolve));
   
   console.log(`
     Server is running
