@@ -15,7 +15,7 @@ const megaProviderSeed = () => {
   let urls = [];
 
   const urlArray = () => {
-    for (let i = 1; i < 71; i++) {
+    for (let i = 1; i < 201; i++) {
       urls.push(
         `https://api.themoviedb.org/3/movie/${result[i].id}/watch/providers?api_key=999a045dba2d80d839d8ed4db5942fae`,
       );
@@ -29,14 +29,13 @@ const megaProviderSeed = () => {
     let fullData = [];
     let newMergedData;
 
-    for (let i = 0; i < 70; i++) {
+    for (let i = 0; i < 200; i++) {
       deconstructed.push(json[i].results.US);
     }
 
     fullData.push(deconstructed);
 
     newMergedData = [].concat.apply([], fullData);
-    let counter = 999999;
     newMergedData.forEach((movie) => {
       let slash;
       let dash;
@@ -46,7 +45,6 @@ const megaProviderSeed = () => {
         dash = slash[4].split("-");
         idExtracted = dash[0];
       } else {
-        counter++;
         slash = 0;
         dash = 0;
         idExtracted = null;

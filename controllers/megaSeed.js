@@ -61,7 +61,7 @@ const megaSeed = () => {
       mainAddMovie();
     });
 
-    console.log(newMergedData.length);
+    // console.log(newMergedData.length);
 
     /*   let createdMovie = db.movie.createMany({
       data: [
@@ -76,7 +76,7 @@ const megaSeed = () => {
           genres: movie.genre_ids[0],
         },]}) */
   });
-  console.log(data);
+  // console.log(data);
 };
 
 export default megaSeed;

@@ -79,7 +79,7 @@ export default {
     providerMovieQuery: async (
       _,
       { take, skip, myCursor, providerId },
-      context
+      context,
     ) => {
       const user = checkAuth(context);
       try {
@@ -95,7 +95,7 @@ export default {
           idArray.push(foundMovieConnections[i].id);
         }
         // console.log(idArray.length, "====id arr");
-        const test2 = await db.movie.findMany({
+        const filteredMovie = await db.movie.findMany({
           include: { watchproviders: true },
           where: {
             NOT: {
@@ -118,9 +118,8 @@ export default {
             },
           ],
         });
-        return test2;
+        return filteredMovie;
       } catch (error) {
-        console.log(error);
         throw new Error(error);
       }
     },
@@ -180,7 +179,6 @@ export default {
         const cast = await db.credits.findFirst({
           where: { movieId: Number(movieId) },
         });
-        console.log(cast);
         if (cast) {
           return cast;
         } else {
