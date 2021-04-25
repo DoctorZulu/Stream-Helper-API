@@ -42,15 +42,13 @@ async function startApolloServer() {
   
 
   // Disable until depolyment, ill create a check later ---Sean
-/*   const corsOptions = {
-    origin: whitelist,
+  const corsOptions = {
+    origin: '*',
     credentials: true,
-  }; */
+  };
 
-  app.options('*', cors()) 
-  app.use(cors())
   app.use(express.json());
-  /* app.use(cors(corsOptions)); */
+  app.use(cors(corsOptions));
   app.use(cookieParser());
   app.use(
     cookieSession({
