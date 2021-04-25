@@ -45,17 +45,17 @@ const megaCreditSeed = () => {
       index++;
 
       const mainAddCredit = async () => {
-        let newCredit = await db.credits.create({
-          data: {
+        let newCredit = await db.credits.upsert({
+          create: {
             movieId: movie.id,
             cast: JSON.stringify(movie),
             actors: JSON.stringify(movie.cast),
             crew: JSON.stringify(movie.crew),
           },
-         /*  update: {},
+          update: {},
             where: {
               movieId: movie.id,
-            }, */
+            },
         });
         // console.log(movie);
 
