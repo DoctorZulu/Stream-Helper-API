@@ -79,7 +79,8 @@ seedFullDataBase(); // "do something" happens
 seedFullDataBase(); // nothing happens
  */
 
-megaSeed();
+setTimeout(megaSeed(), 3000)
+// megaSeed();
 // megaCreditSeed();
 // megaProviderSeed();
 
