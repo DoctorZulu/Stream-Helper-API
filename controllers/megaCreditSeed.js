@@ -16,7 +16,7 @@ const megaCreditSeed = () => {
   let urls = [];
 
   const urlArray = () => {
-    for (let i = 1; i < 51; i++) {
+    for (let i = 1; i < 400; i++) {
       urls.push(
         `https://api.themoviedb.org/3/movie/${ids[i]}/credits?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US`,
       );
@@ -31,7 +31,7 @@ const megaCreditSeed = () => {
     let fullData = [];
     let newMergedData;
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 399; i++) {
       deconstructed.push(json[i]);
     }
 
@@ -44,17 +44,17 @@ const megaCreditSeed = () => {
       index++;
 
       const mainAddCredit = async () => {
-        let newCredit = await db.credits.upsert({
-          create: {
+        let newCredit = await db.credits.create({
+          data: {
             movieId: movie.id,
             cast: JSON.stringify(movie),
             actors: JSON.stringify(movie.cast),
             crew: JSON.stringify(movie.crew),
           },
-          update: {},
+         /*  update: {},
             where: {
               movieId: movie.id,
-            },
+            }, */
         });
         // console.log(movie);
 

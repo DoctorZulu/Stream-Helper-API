@@ -64,23 +64,24 @@ async function startApolloServer() {
   return { server, app };
 }
 
-const seedFullDataBase = (function() {
+/* const seedFullDataBase = (function() {
   let executed = false;
   return function() {
       if (!executed) {
           executed = true;
-          setTimeout(megaSeed, 10000)
-          setTimeout(megaCreditSeed, 30000);
-          setTimeout(megaProviderSeed, 40000);
+          megaSeed();
+          setTimeout(megaCreditSeed, 50000);
+          setTimeout(megaProviderSeed, 50000);
       }
   };
 })();
 seedFullDataBase(); // "do something" happens
 seedFullDataBase(); // nothing happens
+ */
 
+megaSeed();
+// megaCreditSeed();
+// megaProviderSeed();
 
-/* megaSeed();
-megaCreditSeed();
-megaProviderSeed(); */
 startApolloServer();
 /* iterateThroughPages(); */
