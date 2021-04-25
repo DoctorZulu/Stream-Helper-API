@@ -32,32 +32,33 @@ async function startApolloServer() {
     "https://studio.apollographql.com",
     "http://localhost:3000",
     "http://localhost:4025/graphql",
-    "https://stream-helper.vercel.app/",
-    "http://stream-helper.vercel.app/",
-    "https://stream-helper-git-master-victordoyle.vercel.app/",
-    "https://stream-helper-victordoyle.vercel.app/",
-    "http://stream-helper-api.herokuapp.com/",
-    "https://stream-helper-api.herokuapp.com/",
+    "https://stream-helper.vercel.app",
+    "http://stream-helper.vercel.app",
+    "https://stream-helper-git-master-victordoyle.vercel.app",
+    "https://stream-helper-victordoyle.vercel.app",
+    "http://stream-helper-api.herokuapp.com",
+    "https://stream-helper-api.herokuapp.com",
     "http://stream-helper-api.herokuapp.com/graphql",
     "https://stream-helper-api.herokuapp.com/graphql",
   
   ];
   // Disable until depolyment, ill create a check later ---Sean
-  const corsOptions = {
+/*   const corsOptions = {
     origin: whitelist,
     credentials: true,
     methods: ["GET","PUT", "POST"],
     allowedHeaders: ['Content-Type', 'Authorization'],
-  };
+  }; */
 
 
-  app.use((req, res, next) => {
+ /*  app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     next();
-  });
-
+  }); */
+  
+  app.use(cors({credentials: true, origin: whitelist,}));
   app.use(express.json());
-  app.use(cors(corsOptions));
+/*   app.use(cors(corsOptions)); */
   app.use(cookieParser());
   app.use(
     cookieSession({
