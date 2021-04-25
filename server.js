@@ -32,6 +32,8 @@ async function startApolloServer() {
     "https://studio.apollographql.com",
     "http://localhost:3000",
     "http:localhost:4025/graphql",
+    "https://stream-helper.vercel.app/",
+    "http://stream-helper.vercel.app/",
   ];
 
   // Disable until depolyment, ill create a check later ---Sean
@@ -39,6 +41,13 @@ async function startApolloServer() {
     origin: whitelist,
     credentials: true,
   };
+
+
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+  });
+
   app.use(express.json());
   app.use(cors(corsOptions));
   app.use(cookieParser());
