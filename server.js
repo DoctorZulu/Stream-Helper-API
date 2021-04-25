@@ -28,7 +28,7 @@ async function startApolloServer() {
   //Middleware
   // app.set("trust proxy", true);
 
-/*   const whitelist = [
+  const whitelist = [
     "https://studio.apollographql.com",
     "http://localhost:3000",
     "http:localhost:4025/graphql",
@@ -36,15 +36,15 @@ async function startApolloServer() {
     "http://stream-helper.vercel.app/",
     "https://stream-helper-api.herokuapp.com/",
     "https://stream-helper-api.herokuapp.com/graphql",
-  ]; */
+  ];
 
   
 
   // Disable until depolyment, ill create a check later ---Sean
-/*   const corsOptions = {
+  const corsOptions = {
     origin: whitelist,
     credentials: true,
-  }; */
+  };
 
   app.use(express.json());
   app.use(cors());
