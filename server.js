@@ -82,7 +82,7 @@ seedFullDataBase(); // nothing happens
 // setTimeout(megaSeed(), 3000)
 // megaSeed();
 //megaCreditSeed();
-setTimeout(megaCreditSeed()); 
+setTimeout(megaCreditSeed(), 3000); 
 // megaProviderSeed();
 
 startApolloServer();
