@@ -32,6 +32,8 @@ async function startApolloServer() {
     "https://studio.apollographql.com",
     "http://localhost:3000",
     "http:localhost:4025/graphql",
+    "https://stream-helper.vercel.app/",
+    "http://stream-helper.vercel.app/"
   ];
 
   // Disable until depolyment, ill create a check later ---Sean
