@@ -17,11 +17,7 @@ const megaCreditSeed = () => {
   let urls = [];
 
   const urlArray = () => {
-<<<<<<< HEAD
-    for (let i = 1; i < 400; i++) {
-=======
     for (let i = 1; i < 800; i++) {
->>>>>>> cdf474670d5b359f2f59ff6d7c8800d03b8291a7
       urls.push(
         `https://api.themoviedb.org/3/movie/${ids[i]}/credits?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US`,
       );
@@ -36,11 +32,7 @@ const megaCreditSeed = () => {
     let fullData = [];
     let newMergedData;
 
-<<<<<<< HEAD
-    for (let i = 0; i < 399; i++) {
-=======
     for (let i = 0; i < 799; i++) {
->>>>>>> cdf474670d5b359f2f59ff6d7c8800d03b8291a7
       deconstructed.push(json[i]);
     }
 

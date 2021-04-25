@@ -11,11 +11,7 @@ const megaSeed = () => {
   let urls = [];
   let pageTotal = 430;
   const urlArray = () => {
-<<<<<<< HEAD
-    for (let i = 1; i < 300; i++) {
-=======
     for (let i = 1; i < 400; i++) {
->>>>>>> cdf474670d5b359f2f59ff6d7c8800d03b8291a7
       urls.push(
         `https://api.themoviedb.org/3/movie/top_rated?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US&page=${i}`,
       );
@@ -32,11 +28,7 @@ const megaSeed = () => {
     let fullData = [];
     let newMergedData;
 
-<<<<<<< HEAD
-    for (let i = 0; i < 299; i++) {
-=======
     for (let i = 0; i < 399; i++) {
->>>>>>> cdf474670d5b359f2f59ff6d7c8800d03b8291a7
       /* dataArray.push(json[i]); */
       deconstructed = json[i].results.map((movie) => {
         return movie;
