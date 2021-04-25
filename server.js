@@ -55,17 +55,20 @@ async function startApolloServer() {
     res.header('Access-Control-Allow-Origin', '*');
     next();
   }); */
-  
+
   app.use(cors({credentials: true, origin: whitelist,}));
   app.use(express.json());
-/*   app.use(cors(corsOptions)); */
+
+
   app.use(cookieParser());
+
   app.use(
     cookieSession({
       name: "cookie",
       signed: false,
-      secure: false,
+      secure: true,
       httpOnly: false,
+      domain: "https://stream-helper.vercel.app",
     }),
   );
 
@@ -96,6 +99,28 @@ async function startApolloServer() {
 seedFullDataBase(); // "do something" happens
 seedFullDataBase(); // nothing happens
  */
+
+
+var ExpressCookies = Cookies.withConverter({
+  write: function (value) {
+    // Prepend j: prefix if it is JSON object
+    try {
+      var tmp = JSON.parse(value)
+      if (typeof tmp !== 'object') {
+        throw new Error()
+      }
+      value = 'j:' + JSON.stringify(tmp)
+    } catch (e) {}
+
+    return Cookies.converter.write(value)
+  },
+  read: function (value) {
+    value = Cookies.converter.read(value)
+
+    // Check if the value contains j: prefix otherwise return as is
+    return value.slice(0, 2) === 'j:' ? value.slice(2) : value
+  }
+})
 
 // setTimeout(megaSeed(), 3000)
 // megaSeed();
