@@ -31,11 +31,18 @@ async function startApolloServer() {
   const whitelist = [
     "https://studio.apollographql.com",
     "http://localhost:3000",
-    "http:localhost:4025/graphql",
+    
+    "http://localhost:4025/graphql",
+    /* vercel */
     "https://stream-helper.vercel.app/",
     "http://stream-helper.vercel.app/",
+    /* heroku */
+    "http://stream-helper-api.herokuapp.com/",
     "https://stream-helper-api.herokuapp.com/",
+    /* gql */
+    "http://stream-helper-api.herokuapp.com/graphql",
     "https://stream-helper-api.herokuapp.com/graphql",
+  
   ];
 
   
@@ -47,7 +54,7 @@ async function startApolloServer() {
   };
 
   app.use(express.json());
-  app.use(cors());
+  app.use(cors(corsOptions));
   app.use(cookieParser());
   app.use(
     cookieSession({
