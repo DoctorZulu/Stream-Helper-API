@@ -61,14 +61,13 @@ async function startApolloServer() {
 
 
   app.use(cookieParser());
-
+  
   app.use(
     cookieSession({
       name: "cookie",
       signed: false,
-      secure: true,
+      secure: false,
       httpOnly: false,
-      domain: "https://stream-helper.vercel.app",
     }),
   );
 
