@@ -84,7 +84,7 @@ export default {
       }
     },
 
-    signinUser: async (parent, { email, password }, { req }) => {
+    signinUser: async (parent, { email, password }, { req, res }) => {
       console.log("attempted sign in");
       const { errors, valid } = validateLoginInput(email, password);
       if (!valid) {
@@ -106,7 +106,7 @@ export default {
       
       // cookies
       req.session = { token: `Bearer ${token}` };
-      console.log("TEST ==============", req.header)
+      console.log("TEST ==============", res)
       // this is the latest and greatest token
       // console.log(req.headers.authorization);
       return { ...foundUser, token: token };

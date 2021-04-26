@@ -63,7 +63,7 @@ async function startApolloServer() {
     cookieSession({
       name: "cookie",
       signed: false,
-      secure: false,
+      secure: true,
       httpOnly: true,
     }),
   );
