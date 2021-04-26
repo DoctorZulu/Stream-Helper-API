@@ -106,7 +106,7 @@ export default {
       
       // cookies
       req.session = { token: `Bearer ${token}` };
-      console.log(req.session, "COOKIE CHECK")
+      console.log("TEST ==============", req.header)
       // this is the latest and greatest token
       // console.log(req.headers.authorization);
       return { ...foundUser, token: token };
