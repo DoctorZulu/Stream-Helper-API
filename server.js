@@ -100,10 +100,12 @@ seedFullDataBase(); // nothing happens
  */
 
 // setTimeout(megaSeed(), 3000)
-// megaSeed();
-// megaCreditSeed();
 
-// megaProviderSeed();
+
+// megaSeed();
+
+// megaCreditSeed();
+megaProviderSeed();
 
 startApolloServer();
 

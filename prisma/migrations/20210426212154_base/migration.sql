@@ -28,7 +28,7 @@ CREATE TABLE "UserMovieConnection" (
 -- CreateTable
 CREATE TABLE "Movie" (
     "categoryId" SERIAL NOT NULL,
-    "id" INTEGER NOT NULL,
+    "id" INTEGER,
     "title" TEXT,
     "original_language" TEXT,
     "release_date" TEXT,
@@ -45,6 +45,8 @@ CREATE TABLE "Credits" (
     "id" SERIAL NOT NULL,
     "movieId" INTEGER,
     "cast" JSONB,
+    "actors" TEXT,
+    "crew" TEXT,
 
     PRIMARY KEY ("id")
 );
@@ -53,7 +55,20 @@ CREATE TABLE "Credits" (
 CREATE TABLE "WatchProvider" (
     "id" SERIAL NOT NULL,
     "movieId" INTEGER,
-    "providers" JSONB,
+    "providers" TEXT,
+    "buy" TEXT,
+    "rent" TEXT,
+    "flatRate" TEXT,
+    "providerId" INTEGER NOT NULL,
+
+    PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Genre" (
+    "id" INTEGER NOT NULL,
+    "name" TEXT,
+    "movieId" INTEGER,
 
     PRIMARY KEY ("id")
 );
@@ -67,6 +82,9 @@ CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
 -- CreateIndex
 CREATE UNIQUE INDEX "Movie.id_unique" ON "Movie"("id");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Credits.movieId_unique" ON "Credits"("movieId");
+
 -- AddForeignKey
 ALTER TABLE "UserMovieConnection" ADD FOREIGN KEY ("movieId") REFERENCES "Movie"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
@@ -78,3 +96,6 @@ ALTER TABLE "Credits" ADD FOREIGN KEY ("movieId") REFERENCES "Movie"("id") ON DE
 
 -- AddForeignKey
 ALTER TABLE "WatchProvider" ADD FOREIGN KEY ("movieId") REFERENCES "Movie"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Genre" ADD FOREIGN KEY ("movieId") REFERENCES "Movie"("id") ON DELETE SET NULL ON UPDATE CASCADE;

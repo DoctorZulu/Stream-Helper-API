@@ -16,23 +16,30 @@ const result = await db.$queryRaw(
 const megaCreditSeed = () => {
   let urls = [];
 
+
   const urlArray = () => {
-    for (let i = 1; i < 800; i++) {
+    for (let i = 1; i < 2950; i++) {
       urls.push(
-        `https://api.themoviedb.org/3/movie/${ids[i]}/credits?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US`,
-      );
-    }
-  };
-  urlArray();
+        `http://api.themoviedb.org/3/movie/${result[i].id}/credits?api_key=ef1238b54f2a84b577b966e1ac3e38d5&language=en-US`,
+        );
+      }
+    };
 
-  let promises = urls.map((url) => fetch(url).then((res) => res.json()));
 
+
+    urlArray();
+
+  let promises = urls.map((url) => fetch(url).then((res) => 
+  res.json()));
+
+
+  let callback = function(){
   Promise.all(promises).then((json) => {
     let deconstructed = [];
     let fullData = [];
     let newMergedData;
 
-    for (let i = 0; i < 799; i++) {
+    for (let i = 0; i < 2949; i++) {
       deconstructed.push(json[i]);
     }
 
@@ -57,13 +64,16 @@ const megaCreditSeed = () => {
               movieId: movie.id,
             },
         });
-        // console.log(movie);
 
         return newCredit;
       };
       mainAddCredit();
+      setTimeout(callback, 5000);
     });
   });
+  setTimeout(callback, 5000);
 };
+};
+
 
 export default megaCreditSeed;
