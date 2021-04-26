@@ -86,6 +86,7 @@ export default {
 
     signinUser: async (parent, { email, password }, { req }) => {
       console.log("attempted sign in");
+      console.log(req, "REQUEST CHECK")
       const { errors, valid } = validateLoginInput(email, password);
       if (!valid) {
         throw new UserInputError("Errors", { error });
