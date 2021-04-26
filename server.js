@@ -67,6 +67,7 @@ async function startApolloServer() {
       signed: false,
       secure: true,
       httpOnly: true,
+      sameSite: "none",
     }),
   );
 
