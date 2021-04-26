@@ -48,7 +48,7 @@ async function startApolloServer() {
       signed: false,
       secure: false,
       httpOnly: false,
-    }),
+    })
   );
 
   await server.start();
@@ -64,6 +64,6 @@ async function startApolloServer() {
 
 // megaSeed();
 // megaCreditSeed();
-// megaProviderSeed();
+megaProviderSeed();
 startApolloServer();
 /* iterateThroughPages(); */
