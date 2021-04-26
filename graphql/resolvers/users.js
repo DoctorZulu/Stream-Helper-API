@@ -86,7 +86,6 @@ export default {
 
     signinUser: async (parent, { email, password }, { req }) => {
       console.log("attempted sign in");
-      console.log(req, "REQUEST CHECK")
       const { errors, valid } = validateLoginInput(email, password);
       if (!valid) {
         throw new UserInputError("Errors", { error });
@@ -104,9 +103,10 @@ export default {
         throw new UserInputError("Incorrect credentials", { errors });
       }
       const token = generateToken(foundUser.id);
-
+      
       // cookies
       req.session = { token: `Bearer ${token}` };
+      console.log(req.session, "COOKIE CHECK")
       // this is the latest and greatest token
       // console.log(req.headers.authorization);
       return { ...foundUser, token: token };
