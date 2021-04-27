@@ -28,53 +28,46 @@ async function startApolloServer() {
   //Middleware
   // app.set("trust proxy", true);
 
- /*  const whitelist = [
+  const whitelist = [
     "https://studio.apollographql.com",
     "http://localhost:3000",
     "http://localhost:4025/graphql",
-    "https://stream-helper.vercel.app/",
-    "http://stream-helper.vercel.app/",
-    "https://stream-helper-git-master-victordoyle.vercel.app/",
-    "https://stream-helper-victordoyle.vercel.app/",
-    "http://stream-helper-api.herokuapp.com/",
-    "https://stream-helper-api.herokuapp.com/",
+    "https://stream-helper.vercel.app",
+    "http://stream-helper.vercel.app",
+    "https://stream-helper-git-master-victordoyle.vercel.app",
+    "https://stream-helper-victordoyle.vercel.app",
+    "http://stream-helper-api.herokuapp.com",
+    "https://stream-helper-api.herokuapp.com",
     "http://stream-helper-api.herokuapp.com/graphql",
     "https://stream-helper-api.herokuapp.com/graphql",
   
-  ]; */
-
-  
-
+  ];
   // Disable until depolyment, ill create a check later ---Sean
-  const corsOptions = {
-    origin: [
-      "https://studio.apollographql.com",
-      "http://localhost:3000",
-      "http://localhost:4025/graphql",
-      "https://stream-helper.vercel.app/",
-      "http://stream-helper.vercel.app/",
-      "https://stream-helper-git-master-victordoyle.vercel.app/",
-      "https://stream-helper-victordoyle.vercel.app/",
-      "http://stream-helper-api.herokuapp.com/",
-      "https://stream-helper-api.herokuapp.com/",
-      "http://stream-helper-api.herokuapp.com/graphql",
-      "https://stream-helper-api.herokuapp.com/graphql",
-    
-    ] ,
+/*   const corsOptions = {
+    origin: whitelist,
     credentials: true,
     methods: ["GET","PUT", "POST"],
     allowedHeaders: ['Content-Type', 'Authorization'],
-  };
+  }; */
 
+
+ /*  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+  }); */
+  app.use(cors({credentials: true, origin: whitelist,}));
   app.use(express.json());
-  app.use(cors(corsOptions));
+/*   app.use(cors(corsOptions)); */
   app.use(cookieParser());
+
+  app.set('trust proxy', 1) 
   app.use(
     cookieSession({
       name: "cookie",
       signed: false,
-      secure: false,
-      httpOnly: false,
+      secure: true,
+      httpOnly: true,
+      sameSite: "none",
     }),
   );
 
@@ -107,10 +100,13 @@ seedFullDataBase(); // nothing happens
  */
 
 // setTimeout(megaSeed(), 3000)
-// megaSeed();
-// megaCreditSeed();
 
+
+// megaSeed();
+
+// megaCreditSeed();
 // megaProviderSeed();
 
 startApolloServer();
+
 /* iterateThroughPages(); */
