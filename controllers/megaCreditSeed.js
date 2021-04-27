@@ -16,12 +16,13 @@ const megaCreditSeed = () => {
   let urls = [];
 
   const urlArray = () => {
-    for (let i = 1; i < 3000; i++) {
+    for (let i = 7001; i < 7980; i++) {
       urls.push(
-        `https://api.themoviedb.org/3/movie/${ids[i]}/credits?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US`
+        `http://api.themoviedb.org/3/movie/${result[i].id}/credits?api_key=ef1238b54f2a84b577b966e1ac3e38d5&language=en-US`
       );
     }
   };
+
   urlArray();
 
   let promises = urls.map((url) => fetch(url).then((res) => res.json()));
@@ -31,7 +32,7 @@ const megaCreditSeed = () => {
     let fullData = [];
     let newMergedData;
 
-    for (let i = 0; i < 2999; i++) {
+    for (let i = 0; i < 979; i++) {
       deconstructed.push(json[i]);
     }
 
@@ -44,15 +45,18 @@ const megaCreditSeed = () => {
       index++;
 
       const mainAddCredit = async () => {
-        let newCredit = await db.credits.create({
-          data: {
+        let newCredit = await db.credits.upsert({
+          create: {
             movieId: movie.id,
             cast: JSON.stringify(movie),
             actors: JSON.stringify(movie.cast),
             crew: JSON.stringify(movie.crew),
           },
+          update: {},
+          where: {
+            movieId: movie.id,
+          },
         });
-        // console.log(movie);
 
         return newCredit;
       };

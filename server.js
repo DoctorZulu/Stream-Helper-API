@@ -31,29 +31,51 @@ async function startApolloServer() {
   const whitelist = [
     "https://studio.apollographql.com",
     "http://localhost:3000",
-    "http:localhost:4025/graphql",
+    "http://localhost:4025/graphql",
+    "https://stream-helper.vercel.app",
+    "http://stream-helper.vercel.app",
+    "https://stream-helper-git-master-victordoyle.vercel.app",
+    "https://stream-helper-victordoyle.vercel.app",
+    "http://stream-helper-api.herokuapp.com",
+    "https://stream-helper-api.herokuapp.com",
+    "http://stream-helper-api.herokuapp.com/graphql",
+    "https://stream-helper-api.herokuapp.com/graphql",
   ];
-
   // Disable until depolyment, ill create a check later ---Sean
-  const corsOptions = {
+  /*   const corsOptions = {
     origin: whitelist,
     credentials: true,
-  };
+    methods: ["GET","PUT", "POST"],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  }; */
+
+  /*  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+  }); */
+  app.use(cors({ credentials: true, origin: whitelist }));
   app.use(express.json());
-  app.use(cors(corsOptions));
+  /*   app.use(cors(corsOptions)); */
   app.use(cookieParser());
+
+  app.set("trust proxy", 1);
   app.use(
     cookieSession({
       name: "cookie",
       signed: false,
-      secure: false,
-      httpOnly: false,
+      secure: true,
+      httpOnly: true,
+      sameSite: "none",
     })
   );
 
   await server.start();
   server.applyMiddleware({ app, path: "/graphql", cors: false });
-  await new Promise((resolve) => app.listen({ port: 4025 }, resolve));
+  /* heroku deployment */
+  await new Promise((resolve) =>
+    app.listen({ port: process.env.PORT || 4025 }, resolve)
+  );
+
   console.log(`
     Server is running
     Listening on port 4025
@@ -62,8 +84,27 @@ async function startApolloServer() {
   return { server, app };
 }
 
+/* const seedFullDataBase = (function() {
+  let executed = false;
+  return function() {
+      if (!executed) {
+          executed = true;
+          megaSeed();
+          setTimeout(megaCreditSeed, 50000);
+          setTimeout(megaProviderSeed, 50000);
+      }
+  };
+})();
+seedFullDataBase(); // "do something" happens
+seedFullDataBase(); // nothing happens
+ */
+
+// setTimeout(megaSeed(), 3000)
+
 // megaSeed();
-// megaCreditSeed();
-megaProviderSeed();
+
+megaCreditSeed();
+// megaProviderSeed();
 startApolloServer();
+
 /* iterateThroughPages(); */

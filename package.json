@@ -1,12 +1,16 @@
 {
   "name": "stream-helper-api",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.15.0"
+    },
   "description": "backend for Stream Helper",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon run server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
