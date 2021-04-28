@@ -67,11 +67,10 @@ async function startApolloServer() {
       name: "cookie",
       signed: false,
       secure: true,
-      httpOnly: true,
+      httpOnly: false,
       sameSite: "none",
       domain: "stream-helper.vercel.app",
-/*       maxAge: 60000 * 180,
-      expires: 60000 * 180, */
+
     }),
   );
 
