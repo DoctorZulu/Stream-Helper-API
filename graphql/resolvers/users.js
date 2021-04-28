@@ -103,7 +103,7 @@ export default {
         throw new UserInputError("Incorrect credentials", { errors });
       }
       const token = generateToken(foundUser.id);
-
+      
       // cookies
       req.session = { token: `Bearer ${token}` };
       // this is the latest and greatest token
