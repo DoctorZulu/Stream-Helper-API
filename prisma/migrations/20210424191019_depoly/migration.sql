@@ -58,7 +58,8 @@ CREATE TABLE "WatchProvider" (
     "providers" TEXT,
     "buy" TEXT,
     "rent" TEXT,
-    "flatrate" TEXT,
+    "flatRate" TEXT,
+    "providerId" INTEGER NOT NULL,
 
     PRIMARY KEY ("id")
 );
