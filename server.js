@@ -68,6 +68,8 @@ async function startApolloServer() {
       secure: true,
       httpOnly: true,
       sameSite: "none",
+      domain: "https://stream-helper.vercel.app",
+      maxAge: 60000 * 180,
     }),
   );
 
