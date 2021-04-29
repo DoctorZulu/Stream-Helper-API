@@ -40,6 +40,11 @@ async function startApolloServer() {
     "https://stream-helper-api.herokuapp.com",
     "http://stream-helper-api.herokuapp.com/graphql",
     "https://stream-helper-api.herokuapp.com/graphql",
+    "https://www.flixalways.com",
+    "http://www.flixalways.com",
+    "https://flixalways.com",
+    "http://flixalways.com",
+
   
   ];
   // Disable until depolyment, ill create a check later ---Sean
@@ -69,7 +74,7 @@ async function startApolloServer() {
       secure: true,
       httpOnly: false,
       sameSite: "none",
-      domain: "stream-helper.vercel.app",
+      
 
     }),
   );
