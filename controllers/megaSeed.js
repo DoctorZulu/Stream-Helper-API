@@ -41,7 +41,7 @@ const megaSeed = () => {
     newMergedData.forEach((movie) => {
       const mainAddMovie = async () => {
         let newMovie = await db.movie.upsert({
-          create: {
+          data: {
             id: movie.id,
             title: movie.title,
             original_language: movie.original_language,

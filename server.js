@@ -103,8 +103,8 @@ seedFullDataBase(); // nothing happens
 
 // megaSeed();
 
-megaCreditSeed();
-// megaProviderSeed();
+// megaCreditSeed();
+megaProviderSeed();
 startApolloServer();
 
 /* iterateThroughPages(); */

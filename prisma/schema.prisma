@@ -55,23 +55,23 @@ model Movie {
 }
 
 model Credits {
-  id      Int    @id @default(autoincrement())
-  movie   Movie? @relation(fields: [movieId], references: [id])
-  movieId Int? @unique
+  id      Int     @id @default(autoincrement())
+  movie   Movie?  @relation(fields: [movieId], references: [id])
+  movieId Int?    @unique
   cast    Json?
-  actors String?
-  crew String?
+  actors  String?
+  crew    String?
 }
 
 model WatchProvider {
-  id        Int     @id @default(autoincrement())
-  movie     Movie?  @relation(fields: [movieId], references: [id])
-  movieId   Int?
-  providers String?
-  buy  String?
-  rent String?
-  flatRate String?
-  providerId Int
+  id         Int     @id @default(autoincrement())
+  movie      Movie?  @relation(fields: [movieId], references: [id])
+  movieId    Int?
+  providers  String?
+  buy        String?
+  rent       String?
+  flatRate   String?
+  providerId Int?
 }
 
 model Genre {
