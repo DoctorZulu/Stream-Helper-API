@@ -1,22 +1,19 @@
 import express, { json } from "express";
 import prisma from "@prisma/client";
 import fetch from "node-fetch";
-import ids from "../data/movieID.js";
 
 const db = new prisma.PrismaClient({
   log: ["info", "warn"],
   errorFormat: "pretty",
 });
-
 const result = await db.$queryRaw(
   'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;'
 );
-
 const megaCreditSeed = () => {
   let urls = [];
 
   const urlArray = () => {
-    for (let i = 7001; i < 7980; i++) {
+    for (let i = 1; i < 20; i++) {
       urls.push(
         `http://api.themoviedb.org/3/movie/${result[i].id}/credits?api_key=ef1238b54f2a84b577b966e1ac3e38d5&language=en-US`
       );
@@ -32,18 +29,14 @@ const megaCreditSeed = () => {
     let fullData = [];
     let newMergedData;
 
-    for (let i = 0; i < 979; i++) {
+    for (let i = 0; i < 19; i++) {
       deconstructed.push(json[i]);
     }
-
     fullData.push(deconstructed);
-
     newMergedData = [].concat.apply([], fullData);
-
     let index = -1;
     newMergedData.forEach((movie) => {
       index++;
-
       const mainAddCredit = async () => {
         let newCredit = await db.credits.upsert({
           create: {
@@ -57,7 +50,6 @@ const megaCreditSeed = () => {
             movieId: movie.id,
           },
         });
-
         return newCredit;
       };
       mainAddCredit();

@@ -59,6 +59,7 @@ async function startApolloServer() {
   app.use(cookieParser());
 
   app.set("trust proxy", 1);
+
   app.use(
     cookieSession({
       name: "cookie",
@@ -66,6 +67,9 @@ async function startApolloServer() {
       secure: true,
       httpOnly: true,
       sameSite: "none",
+      domain: "stream-helper.vercel.app",
+      /*       maxAge: 60000 * 180,
+      expires: 60000 * 180, */
     })
   );
 
@@ -105,6 +109,7 @@ seedFullDataBase(); // nothing happens
 
 // megaCreditSeed();
 megaProviderSeed();
+
 startApolloServer();
 
 /* iterateThroughPages(); */
