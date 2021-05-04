@@ -36,6 +36,7 @@ export default {
         }
         const opArgs = {
           where: { saved: true, userId: user.id },
+          include: { movie: true },
         };
         return await db.userMovieConnection.findMany(opArgs);
       } catch (error) {
@@ -53,6 +54,7 @@ export default {
         }
         const opArgs = {
           where: { watched: true, userId: user.id },
+          include: { movie: true },
           // take: take,
           // skip: skip,
           // cursor: {
