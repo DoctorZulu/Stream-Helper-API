@@ -38,6 +38,10 @@ async function startApolloServer() {
     "https://stream-helper-api.herokuapp.com",
     "http://stream-helper-api.herokuapp.com/graphql",
     "https://stream-helper-api.herokuapp.com/graphql",
+    "http://flixalways.com",
+    "https://flixalways.com",
+    "http://www.flixalways.com",
+    "https://www.flixalways.com",
   ];
 
   app.use(cors({ credentials: true, origin: whitelist }));
