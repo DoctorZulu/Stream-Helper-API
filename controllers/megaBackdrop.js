@@ -40,9 +40,7 @@ const megaBackdropSeed = () => {
             id: movie.id,
           },
           data: {
-            backdrop: movie.backdrops[0]
-              ? JSON.stringify(movie.backdrops[0].file_path)
-              : null,
+            backdrop: movie.backdrops[0] ? movie.backdrops[0].file_path : null,
           },
         });
         return newBackdrop;
