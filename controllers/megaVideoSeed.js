@@ -12,7 +12,7 @@ const megaVideoSeed = () => {
   let urls = [];
 
   const urlArray = () => {
-    for (let i = 1; i < 6500; i++) {
+    for (let i = 1; i < 7150; i++) {
       urls.push(
         `https://api.themoviedb.org/3/movie/${result[i].id}/videos?api_key=ef1238b54f2a84b577b966e1ac3e38d5&language=en-US`,
       );
@@ -31,7 +31,7 @@ const megaVideoSeed = () => {
     let fullData = [];
     let newMergedData;
 
-    for (let i = 0; i < 6499; i++) {
+    for (let i = 0; i < 7149; i++) {
       deconstructed.push(json[i]);
     }
     fullData.push(deconstructed);
