@@ -43,6 +43,12 @@ export default {
     },
   },
   Mutation: {
+    /**
+     *
+     * @param {_} parent
+     * @param { email, password, username } param1
+     * @returns Signed up user in DB
+     */
     signupUser: async (
       parent,
       { signupInput: { email, password, username } },
