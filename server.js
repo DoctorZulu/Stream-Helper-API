@@ -7,11 +7,12 @@ import fetch from "node-fetch";
 import db from "./utils/generatePrisma.js";
 import typeDefs from "./graphql/typeDefs.js";
 import resolvers from "./graphql/resolvers/index.js";
-import megaSeed from "./controllers/megaSeed.js";
-import megaProviderSeed from "./controllers/megaProviderSeed.js";
+// import megaSeed from "./controllers/megaSeed.js";
+// import megaProviderSeed from "./controllers/megaProviderSeed.js";
 import megaCreditSeed from "./controllers/megaCreditSeed.js";
-import megaVideoSeed from "./controllers/megaVideoSeed.js";
-import megaBackdropSeed from "./controllers/megaBackdrop.js";
+// import megaVideoSeed from "./controllers/megaVideoSeed.js";
+// import megaBackdropSeed from "./controllers/megaBackdrop.js";
+import userSeed from "./prisma/users.js";
 
 async function startApolloServer() {
   const app = express();
@@ -73,11 +74,14 @@ async function startApolloServer() {
 }
 // process.on("warning", (e) => console.warn(e.stack));
 
-/* megaSeed(); */
-/* megaCreditSeed(); */
-megaProviderSeed();
+// megaSeed();
+// megaCreditSeed();
+// megaProviderSeed();
 // megaVideoSeed();
 // megaBackdropSeed();
+
+// one timer
+userSeed();
 
 startApolloServer();
 
