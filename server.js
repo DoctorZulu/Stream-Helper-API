@@ -42,6 +42,8 @@ async function startApolloServer() {
     "https://flixalways.com",
     "http://www.flixalways.com",
     "https://www.flixalways.com",
+    "server1.flixalways.com",
+    "server1.flixalways.com/graphql"
   ];
 
   app.use(cors({ credentials: true, origin: whitelist }));
