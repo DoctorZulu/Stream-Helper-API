@@ -13,9 +13,9 @@ const megaVideoSeed = () => {
   let urls = [];
 
   const urlArray = () => {
-    for (let i = 1; i < 100; i++) {
+    for (let i = 1; i < 50; i++) {
       urls.push(
-        `https://api.themoviedb.org/3/movie/${result[i].id}/images?api_key=ef1238b54f2a84b577b966e1ac3e38d5`,
+        `https://api.themoviedb.org/3/movie/${result[i].id}/videos?api_key=ef1238b54f2a84b577b966e1ac3e38d5&language=en-US`,
       );
     }
   };
@@ -32,7 +32,7 @@ const megaVideoSeed = () => {
     let fullData = [];
     let newMergedData;
 
-    for (let i = 0; i < 99; i++) {
+    for (let i = 0; i < 49; i++) {
       deconstructed.push(json[i]);
     }
     fullData.push(deconstructed);
@@ -40,14 +40,24 @@ const megaVideoSeed = () => {
     let index = -1;
     newMergedData.forEach((movie) => {
       index++;
-      // console.log(movie.backdrops[0].file_path);
+      console.log(
+        movie.results[0] ? JSON.stringify(movie.results[0].key) : null,
+      );
       const mainAddVideo = async () => {
         let newVideo = await db.movie.update({
           where: {
             id: movie.id,
           },
           data: {
-            video: movie ? JSON.stringify(/* Object */) : null,
+            trailers1: movie.results[0]
+              ? JSON.stringify(movie.results[0].key)
+              : null,
+            trailers2: movie.results[1]
+              ? JSON.stringify(movie.results[1].key)
+              : null,
+            trailers3: movie.results[2]
+              ? JSON.stringify(movie.results[2].key)
+              : null,
           },
         });
         return newVideo;

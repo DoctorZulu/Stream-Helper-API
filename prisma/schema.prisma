@@ -49,6 +49,9 @@ model Movie {
   backdrop          String?
   overview          String?
   genres            Int?
+  trailers1 String?
+  trailers2 String?
+  trailers3 String?
   usersmovies       UserMovieConnection[]
   watchproviders    WatchProvider[]
   credits           Credits[]

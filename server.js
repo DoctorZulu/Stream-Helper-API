@@ -8,9 +8,9 @@ import fetch from "node-fetch";
 
 import typeDefs from "./graphql/typeDefs.js";
 import resolvers from "./graphql/resolvers/index.js";
-import megaSeed from "./controllers/megaSeed.js";
-import megaProviderSeed from "./controllers/megaProviderSeed.js";
-import megaCreditSeed from "./controllers/megaCreditSeed.js";
+// import megaSeed from "./controllers/megaSeed.js";
+// import megaProviderSeed from "./controllers/megaProviderSeed.js";
+// import megaCreditSeed from "./controllers/megaCreditSeed.js";
 import megaVideoSeed from "./controllers/megaVideoSeed.js";
 import megaBackdropSeed from "./controllers/megaBackdrop.js";
 
@@ -85,7 +85,7 @@ async function startApolloServer() {
     studio.apollographql.com/dev`);
   return { server, app };
 }
-
+process.on("warning", (e) => console.warn(e.stack));
 /* const seedFullDataBase = (function() {
   let executed = false;
   return function() {
@@ -104,11 +104,10 @@ seedFullDataBase(); // nothing happens
 // setTimeout(megaSeed(), 3000)
 
 // megaSeed();
-
 // megaCreditSeed();
 // megaProviderSeed();
-// megaVideoSeed();
-megaBackdropSeed();
+megaVideoSeed();
+// megaBackdropSeed();
 
 startApolloServer();
 
