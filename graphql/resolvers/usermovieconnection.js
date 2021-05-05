@@ -1,12 +1,7 @@
-import prisma from "@prisma/client";
+import db from "../../utils/generatePrisma.js";
 import { UserInputError } from "apollo-server-errors";
 
 import checkAuth from "../../utils/check-auth.js";
-
-const db = new prisma.PrismaClient({
-  log: ["info", "warn"],
-  errorFormat: "pretty",
-});
 
 export default {
   Query: {
