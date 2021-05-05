@@ -1,11 +1,10 @@
-import express, { json } from "express";
-import prisma from "@prisma/client";
 import fetch from "node-fetch";
+import db from "../utils/generatePrisma.js";
 
-const db = new prisma.PrismaClient({
-  log: ["info", "warn"],
-  errorFormat: "pretty",
-});
+// const db = new prisma.PrismaClient({
+//   log: ["info", "warn"],
+//   errorFormat: "pretty",
+// });
 const result = await db.$queryRaw(
   'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;',
 );
@@ -13,7 +12,7 @@ const megaVideoSeed = () => {
   let urls = [];
 
   const urlArray = () => {
-    for (let i = 1; i < 50; i++) {
+    for (let i = 1; i < 6500; i++) {
       urls.push(
         `https://api.themoviedb.org/3/movie/${result[i].id}/videos?api_key=ef1238b54f2a84b577b966e1ac3e38d5&language=en-US`,
       );
@@ -32,7 +31,7 @@ const megaVideoSeed = () => {
     let fullData = [];
     let newMergedData;
 
-    for (let i = 0; i < 49; i++) {
+    for (let i = 0; i < 6499; i++) {
       deconstructed.push(json[i]);
     }
     fullData.push(deconstructed);
@@ -40,9 +39,9 @@ const megaVideoSeed = () => {
     let index = -1;
     newMergedData.forEach((movie) => {
       index++;
-      console.log(
-        movie.results[0] ? JSON.stringify(movie.results[0].key) : null,
-      );
+      // console.log(
+      //   movie.results[0] ? JSON.stringify(movie.results[0].key) : null,
+      // );
       const mainAddVideo = async () => {
         let newVideo = await db.movie.update({
           where: {

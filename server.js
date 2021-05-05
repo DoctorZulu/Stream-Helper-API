@@ -1,25 +1,25 @@
 import express from "express";
-import prisma from "@prisma/client";
+// import prisma from "@prisma/client";
 import cors from "cors";
 import { ApolloServer } from "apollo-server-express";
 import cookieSession from "cookie-session";
 import cookieParser from "cookie-parser";
 import fetch from "node-fetch";
-
+import db from "./utils/generatePrisma.js";
 import typeDefs from "./graphql/typeDefs.js";
 import resolvers from "./graphql/resolvers/index.js";
-// import megaSeed from "./controllers/megaSeed.js";
-// import megaProviderSeed from "./controllers/megaProviderSeed.js";
-// import megaCreditSeed from "./controllers/megaCreditSeed.js";
+import megaSeed from "./controllers/megaSeed.js";
+import megaProviderSeed from "./controllers/megaProviderSeed.js";
+import megaCreditSeed from "./controllers/megaCreditSeed.js";
 import megaVideoSeed from "./controllers/megaVideoSeed.js";
 import megaBackdropSeed from "./controllers/megaBackdrop.js";
 
 async function startApolloServer() {
   const app = express();
-  const db = new prisma.PrismaClient({
-    log: ["info", "warn"],
-    errorFormat: "pretty",
-  });
+  // const db = new prisma.PrismaClient({
+  //   log: ["info", "warn"],
+  //   errorFormat: "pretty",
+  // });
 
   const server = new ApolloServer({
     resolvers,
@@ -106,8 +106,8 @@ seedFullDataBase(); // nothing happens
 // megaSeed();
 // megaCreditSeed();
 // megaProviderSeed();
-megaVideoSeed();
-// megaBackdropSeed();
+// megaVideoSeed();
+megaBackdropSeed();
 
 startApolloServer();
 

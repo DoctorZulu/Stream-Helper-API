@@ -1,13 +1,7 @@
 import express, { json } from "express";
-import prisma from "@prisma/client";
-
+import db from "../utils/generatePrisma.js";
 import fetch from "node-fetch";
 import ids from "../data/movieID.js";
-
-const db = new prisma.PrismaClient({
-  log: ["info", "warn"],
-  errorFormat: "pretty",
-});
 
 const result = await db.$queryRaw(
   'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;',

@@ -1,11 +1,5 @@
-import express, { json } from "express";
-import prisma from "@prisma/client";
+import db from "../utils/generatePrisma.js";
 import fetch from "node-fetch";
-
-const db = new prisma.PrismaClient({
-  log: ["info", "warn"],
-  errorFormat: "pretty",
-});
 
 const megaSeed = () => {
   let urls = [];

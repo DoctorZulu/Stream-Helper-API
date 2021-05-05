@@ -1,11 +1,6 @@
-import express, { json } from "express";
-import prisma from "@prisma/client";
+import db from "../utils/generatePrisma.js";
 import fetch from "node-fetch";
 
-const db = new prisma.PrismaClient({
-  log: ["info", "warn"],
-  errorFormat: "pretty",
-});
 const result = await db.$queryRaw(
   'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;',
 );
@@ -13,7 +8,7 @@ const megaBackdropSeed = () => {
   let urls = [];
 
   const urlArray = () => {
-    for (let i = 1; i < 100; i++) {
+    for (let i = 1; i < 7000; i++) {
       urls.push(
         `https://api.themoviedb.org/3/movie/${result[i].id}/images?api_key=ef1238b54f2a84b577b966e1ac3e38d5`,
       );
@@ -30,7 +25,7 @@ const megaBackdropSeed = () => {
     let fullData = [];
     let newMergedData;
 
-    for (let i = 0; i < 99; i++) {
+    for (let i = 0; i < 6999; i++) {
       deconstructed.push(json[i]);
     }
     fullData.push(deconstructed);
