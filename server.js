@@ -38,6 +38,12 @@ async function startApolloServer() {
     "https://stream-helper-api.herokuapp.com",
     "http://stream-helper-api.herokuapp.com/graphql",
     "https://stream-helper-api.herokuapp.com/graphql",
+    "http://flixalways.com",
+    "https://flixalways.com",
+    "http://www.flixalways.com",
+    "https://www.flixalways.com",
+    "server1.flixalways.com",
+    "server1.flixalways.com/graphql"
   ];
 
   app.use(cors({ credentials: true, origin: whitelist }));
@@ -51,7 +57,7 @@ async function startApolloServer() {
       name: "cookie",
       signed: false,
       secure: true,
-      httpOnly: true,
+      httpOnly: false,
       sameSite: "none",
       // domain: "stream-helper.vercel.app",
       /*       maxAge: 60000 * 180,
@@ -85,5 +91,3 @@ async function startApolloServer() {
 // userSeed();
 
 startApolloServer();
-
-/* iterateThroughPages(); */

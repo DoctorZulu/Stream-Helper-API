@@ -10,7 +10,7 @@ const megaCreditSeed = () => {
   const urlArray = () => {
     for (let i = 1; i < 8570; i++) {
       urls.push(
-        `http://api.themoviedb.org/3/movie/${result[i].id}/credits?api_key=ef1238b54f2a84b577b966e1ac3e38d5&language=en-US`,
+        `http://api.themoviedb.org/3/movie/${result[i].id}/credits?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US`,
       );
     }
   };
