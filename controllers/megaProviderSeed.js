@@ -1,13 +1,7 @@
 import express, { json } from "express";
-import prisma from "@prisma/client";
-
+import db from "../utils/generatePrisma.js";
 import fetch from "node-fetch";
 import ids from "../data/movieID.js";
-
-const db = new prisma.PrismaClient({
-  log: ["info", "warn"],
-  errorFormat: "pretty",
-});
 
 const result = await db.$queryRaw(
   'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;',
@@ -17,7 +11,7 @@ const megaProviderSeed = () => {
   let urls = [];
 
   const urlArray = () => {
-    for (let i = 1; i < 200; i++) {
+    for (let i = 1; i < 7950; i++) {
       urls.push(
         `https://api.themoviedb.org/3/movie/${result[i].id}/watch/providers?api_key=ef1238b54f2a84b577b966e1ac3e38d5`,
       );
@@ -31,7 +25,7 @@ const megaProviderSeed = () => {
     let fullData = [];
     let newMergedData;
 
-    for (let i = 0; i < 199; i++) {
+    for (let i = 0; i < 7949; i++) {
       deconstructed.push(json[i].results.US);
     }
 
