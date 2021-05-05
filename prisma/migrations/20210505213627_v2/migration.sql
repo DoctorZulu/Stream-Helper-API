@@ -37,6 +37,9 @@ CREATE TABLE "Movie" (
     "backdrop" TEXT,
     "overview" TEXT,
     "genres" INTEGER,
+    "trailers1" TEXT,
+    "trailers2" TEXT,
+    "trailers3" TEXT,
 
     PRIMARY KEY ("categoryId")
 );
