@@ -11,6 +11,7 @@ import resolvers from "./graphql/resolvers/index.js";
 import megaSeed from "./controllers/megaSeed.js";
 import megaProviderSeed from "./controllers/megaProviderSeed.js";
 import megaCreditSeed from "./controllers/megaCreditSeed.js";
+import megaBackdropSeed from "./controllers/megaBackdrop.js";
 
 async function startApolloServer() {
   const app = express();
@@ -105,6 +106,7 @@ seedFullDataBase(); // nothing happens
 
 // megaCreditSeed();
 // megaProviderSeed();
+megaBackdropSeed();
 
 startApolloServer();
 

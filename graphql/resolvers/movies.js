@@ -51,7 +51,7 @@ export default {
         for (let i = 0; i < foundMovieConnections.length; i++) {
           idArray.push(foundMovieConnections[i].id);
         }
-    
+
         const test2 = await db.movie.findMany({
           where: {
             NOT: {
@@ -63,7 +63,7 @@ export default {
           cursor: {
             categoryId: myCursor,
           },
-          
+
           orderBy: [
             {
               categoryId: "asc",
@@ -82,8 +82,8 @@ export default {
       context,
     ) => {
       const user = checkAuth(context);
-      console.log("===~~=== CURSOR", myCursor)
-      console.log("===~~=== PROV ID", providerId)
+      console.log("===~~=== CURSOR", myCursor);
+      console.log("===~~=== PROV ID", providerId);
       try {
         if (!user) {
           errors.general = "User not found";
@@ -242,7 +242,7 @@ export default {
 
     /* SHOW ALL MOVIES A USER HAS INTERACTED WITH */
 
-    userMovieRecommendations: async (_, {take, skip, myCursor}, context) => {
+    userMovieRecommendations: async (_, { take, skip, myCursor }, context) => {
       const user = checkAuth(context);
       try {
         if (!user) {
@@ -254,27 +254,27 @@ export default {
         };
 
         /* all movies user interacted with */
-        const foundMovieConnections = await db.userMovieConnection.findMany(opArgs);
+        const foundMovieConnections = await db.userMovieConnection.findMany(
+          opArgs,
+        );
         let idArray = [];
-        for (let i=0; i < foundMovieConnections.length; i++) {
-          idArray.push(foundMovieConnections[i].id)
+        for (let i = 0; i < foundMovieConnections.length; i++) {
+          idArray.push(foundMovieConnections[i].id);
         }
-       
 
-        const filteredList =  await db.movie.findMany({
-          where: { 
+        const filteredList = await db.movie.findMany({
+          where: {
             NOT: {
-              id: {in : idArray } 
-            }
-          }
-        })
+              id: { in: idArray },
+            },
+          },
+        });
 
         let filteredArray = [];
-        for (let i=0; i < filteredList.length; i++) {
-          filteredArray.push(filteredList[i].id)
+        for (let i = 0; i < filteredList.length; i++) {
+          filteredArray.push(filteredList[i].id);
         }
 
-        
         return db.movie.findMany({
           take: take,
           skip: skip,
@@ -286,14 +286,12 @@ export default {
               categoryId: "asc",
             },
           ],
-          where: { 
-          
-              id: {
-                in : filteredArray
-               } 
-           
-          }
-        })
+          where: {
+            id: {
+              in: filteredArray,
+            },
+          },
+        });
       } catch (error) {
         throw new Error(error);
       }
@@ -301,7 +299,6 @@ export default {
 
     movie: async (parent, { movieId }) => {
       try {
-  
         const movie = db.movie.findUnique({
           where: { id: Number(movieId) },
           include: {

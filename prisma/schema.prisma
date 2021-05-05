@@ -46,6 +46,7 @@ model Movie {
   release_date      String?
   vote_average      Float?
   image             String?
+  backdrop          String?
   overview          String?
   genres            Int?
   usersmovies       UserMovieConnection[]
