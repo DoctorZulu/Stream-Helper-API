@@ -9,11 +9,11 @@ import typeDefs from "./graphql/typeDefs.js";
 import resolvers from "./graphql/resolvers/index.js";
 // import megaSeed from "./controllers/megaSeed.js";
 // import megaProviderSeed from "./controllers/megaProviderSeed.js";
-import megaCreditSeed from "./controllers/megaCreditSeed.js";
+/* import megaCreditSeed from "./controllers/megaCreditSeed.js"; */
 // import megaVideoSeed from "./controllers/megaVideoSeed.js";
 // import megaBackdropSeed from "./controllers/megaBackdrop.js";
-import userSeed from "./prisma/users.js";
-
+/* import userSeed from "./prisma/users.js";
+ */
 async function startApolloServer() {
   const app = express();
 
@@ -81,6 +81,6 @@ async function startApolloServer() {
 // megaBackdropSeed();
 
 // one timer
-userSeed();
+/* userSeed(); */
 
 startApolloServer();
