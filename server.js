@@ -84,5 +84,3 @@ async function startApolloServer() {
 userSeed();
 
 startApolloServer();
-
-/* iterateThroughPages(); */
