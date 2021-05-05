@@ -1,5 +1,4 @@
 import express from "express";
-// import prisma from "@prisma/client";
 import cors from "cors";
 import { ApolloServer } from "apollo-server-express";
 import cookieSession from "cookie-session";
@@ -16,10 +15,6 @@ import megaBackdropSeed from "./controllers/megaBackdrop.js";
 
 async function startApolloServer() {
   const app = express();
-  // const db = new prisma.PrismaClient({
-  //   log: ["info", "warn"],
-  //   errorFormat: "pretty",
-  // });
 
   const server = new ApolloServer({
     resolvers,
@@ -43,18 +38,7 @@ async function startApolloServer() {
     "http://stream-helper-api.herokuapp.com/graphql",
     "https://stream-helper-api.herokuapp.com/graphql",
   ];
-  // Disable until depolyment, ill create a check later ---Sean
-  /*   const corsOptions = {
-    origin: whitelist,
-    credentials: true,
-    methods: ["GET","PUT", "POST"],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  }; */
 
-  /*  app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    next();
-  }); */
   app.use(cors({ credentials: true, origin: whitelist }));
   app.use(express.json());
   /*   app.use(cors(corsOptions)); */
@@ -85,29 +69,13 @@ async function startApolloServer() {
     studio.apollographql.com/dev`);
   return { server, app };
 }
-process.on("warning", (e) => console.warn(e.stack));
-/* const seedFullDataBase = (function() {
-  let executed = false;
-  return function() {
-      if (!executed) {
-          executed = true;
-          megaSeed();
-          setTimeout(megaCreditSeed, 50000);
-          setTimeout(megaProviderSeed, 50000);
-      }
-  };
-})();
-seedFullDataBase(); // "do something" happens
-seedFullDataBase(); // nothing happens
- */
-
-// setTimeout(megaSeed(), 3000)
+// process.on("warning", (e) => console.warn(e.stack));
 
 // megaSeed();
 // megaCreditSeed();
-// megaProviderSeed();
+megaProviderSeed();
 // megaVideoSeed();
-megaBackdropSeed();
+// megaBackdropSeed();
 
 startApolloServer();
 
