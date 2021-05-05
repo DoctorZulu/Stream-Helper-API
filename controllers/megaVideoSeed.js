@@ -48,15 +48,9 @@ const megaVideoSeed = () => {
             id: movie.id,
           },
           data: {
-            trailers1: movie.results[0]
-              ? JSON.stringify(movie.results[0].key)
-              : null,
-            trailers2: movie.results[1]
-              ? JSON.stringify(movie.results[1].key)
-              : null,
-            trailers3: movie.results[2]
-              ? JSON.stringify(movie.results[2].key)
-              : null,
+            trailers1: movie.results[0] ? movie.results[0].key : null,
+            trailers2: movie.results[1] ? movie.results[1].key : null,
+            trailers3: movie.results[2] ? movie.results[2].key : null,
           },
         });
         return newVideo;
