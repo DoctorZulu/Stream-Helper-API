@@ -108,7 +108,7 @@ seedFullDataBase(); // nothing happens
 // megaSeed();
 
 // megaCreditSeed();
-megaProviderSeed();
+// megaProviderSeed();
 
 startApolloServer();
 

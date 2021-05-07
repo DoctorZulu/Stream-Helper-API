@@ -86,6 +86,7 @@ const typeDefs = gql`
     getProviders(movieId: ID!): Movie
     movieLength: Int!
     filterLength(providerId: Int!): Int!
+    movieSearch(title: String!): String
   }
   type Mutation {
     signupUser(signupInput: SignupInput): User!
