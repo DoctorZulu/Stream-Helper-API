@@ -1,17 +1,12 @@
 import bcrypt from "bcryptjs";
 import generateToken from "../../utils/generateToken.js";
-import prisma from "@prisma/client";
 import checkAuth from "../../utils/check-auth.js";
 import { UserInputError } from "apollo-server-errors";
 import {
   validateRegisterInput,
   validateLoginInput,
 } from "../../utils/validators.js";
-
-const db = new prisma.PrismaClient({
-  log: ["info", "warn"],
-  errorFormat: "pretty",
-});
+import db from "../../utils/generatePrisma.js";
 
 export default {
   Query: {
@@ -48,6 +43,12 @@ export default {
     },
   },
   Mutation: {
+    /**
+     *
+     * @param {_} parent
+     * @param { email, password, username } param1
+     * @returns Signed up user in DB
+     */
     signupUser: async (
       parent,
       { signupInput: { email, password, username } },
@@ -103,7 +104,7 @@ export default {
         throw new UserInputError("Incorrect credentials", { errors });
       }
       const token = generateToken(foundUser.id);
-      
+
       // cookies
       req.session = { token: `Bearer ${token}` };
       // this is the latest and greatest token

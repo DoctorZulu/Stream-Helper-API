@@ -1,12 +1,7 @@
-import prisma from "@prisma/client";
+import db from "../../utils/generatePrisma.js";
 import { UserInputError } from "apollo-server-errors";
 
 import checkAuth from "../../utils/check-auth.js";
-
-const db = new prisma.PrismaClient({
-  log: ["info", "warn"],
-  errorFormat: "pretty",
-});
 
 export default {
   Query: {
@@ -36,6 +31,7 @@ export default {
         }
         const opArgs = {
           where: { saved: true, userId: user.id },
+          include: { movie: true },
         };
         return await db.userMovieConnection.findMany(opArgs);
       } catch (error) {
@@ -51,20 +47,10 @@ export default {
           errors.general = "User not found";
           throw new UserInputError("User not found", { errors });
         }
-        const opArgs = {
+        return await db.userMovieConnection.findMany({
           where: { watched: true, userId: user.id },
-          // take: take,
-          // skip: skip,
-          // cursor: {
-          //   categoryId: myCursor,
-          // },
-          // orderBy: [
-          //   {
-          //     categoryId: "asc",
-          //   },
-          // ],
-        };
-        return await db.userMovieConnection.findMany(opArgs);
+          include: { movie: true },
+        });
       } catch (error) {
         throw new Error(error);
       }

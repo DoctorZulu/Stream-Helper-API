@@ -1,23 +1,21 @@
 import express from "express";
-import prisma from "@prisma/client";
 import cors from "cors";
 import { ApolloServer } from "apollo-server-express";
 import cookieSession from "cookie-session";
 import cookieParser from "cookie-parser";
-import fetch from "node-fetch";
-
+// import fetch from "node-fetch";
+// import db from "./utils/generatePrisma.js";
 import typeDefs from "./graphql/typeDefs.js";
 import resolvers from "./graphql/resolvers/index.js";
-import megaSeed from "./controllers/megaSeed.js";
-import megaProviderSeed from "./controllers/megaProviderSeed.js";
-import megaCreditSeed from "./controllers/megaCreditSeed.js";
+// import megaSeed from "./controllers/megaSeed.js";
+// import megaProviderSeed from "./controllers/megaProviderSeed.js";
+// import megaCreditSeed from "./controllers/megaCreditSeed.js";
+// import megaVideoSeed from "./controllers/megaVideoSeed.js";
+// import megaBackdropSeed from "./controllers/megaBackdrop.js";
+// import userSeed from "./prisma/users.js";
 
 async function startApolloServer() {
   const app = express();
-  const db = new prisma.PrismaClient({
-    log: ["info", "warn"],
-    errorFormat: "pretty",
-  });
 
   const server = new ApolloServer({
     resolvers,
@@ -40,42 +38,32 @@ async function startApolloServer() {
     "https://stream-helper-api.herokuapp.com",
     "http://stream-helper-api.herokuapp.com/graphql",
     "https://stream-helper-api.herokuapp.com/graphql",
+    "http://flixalways.com",
+    "https://flixalways.com",
+    "http://www.flixalways.com",
+    "https://www.flixalways.com",
+    "server1.flixalways.com",
+    "server1.flixalways.com/graphql",
   ];
-  // Disable until depolyment, ill create a check later ---Sean
-  /*   const corsOptions = {
-    origin: whitelist,
-    credentials: true,
-    methods: ["GET","PUT", "POST"],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  }; */
 
-  /*  app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    next();
-  }); */
   app.use(cors({ credentials: true, origin: whitelist }));
   app.use(express.json());
-  /*   app.use(cors(corsOptions)); */
   app.use(cookieParser());
 
   app.set("trust proxy", 1);
-
   app.use(
     cookieSession({
       name: "cookie",
       signed: false,
       secure: true,
-      httpOnly: true,
+      httpOnly: false,
       sameSite: "none",
-      domain: "stream-helper.vercel.app",
-      /*       maxAge: 60000 * 180,
-      expires: 60000 * 180, */
     })
   );
 
   await server.start();
   server.applyMiddleware({ app, path: "/graphql", cors: false });
-  /* heroku deployment */
+  /* heroku deployment ¸Ç◊ÎÇ˛  */
   await new Promise((resolve) =>
     app.listen({ port: process.env.PORT || 4025 }, resolve)
   );
@@ -87,29 +75,15 @@ async function startApolloServer() {
     studio.apollographql.com/dev`);
   return { server, app };
 }
-
-/* const seedFullDataBase = (function() {
-  let executed = false;
-  return function() {
-      if (!executed) {
-          executed = true;
-          megaSeed();
-          setTimeout(megaCreditSeed, 50000);
-          setTimeout(megaProviderSeed, 50000);
-      }
-  };
-})();
-seedFullDataBase(); // "do something" happens
-seedFullDataBase(); // nothing happens
- */
-
-// setTimeout(megaSeed(), 3000)
+// process.on("warning", (e) => console.warn(e.stack));
 
 // megaSeed();
-
 // megaCreditSeed();
 // megaProviderSeed();
+// megaVideoSeed();
+// megaBackdropSeed();
+
+// one timer
+// userSeed();
 
 startApolloServer();
-
-/* iterateThroughPages(); */
