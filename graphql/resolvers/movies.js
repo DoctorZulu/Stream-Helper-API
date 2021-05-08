@@ -311,9 +311,16 @@ export default {
         throw new Error(error);
       }
     },
-    movieSearch: async (parent, { title }) => {
+    movieSearch: async (parent, { movieTitle }) => {
       try {
-        const movie = await db.$queryRaw`SELECT DISTINCT FROM "Movie" WHERE UPPER("title") LIKE UPPER(${title})`;
+        const movie = await db.movie.findMany({
+          where: {
+            title: {
+              contains: movieTitle,
+              mode: "insensitive",
+            },
+          },
+        });
         console.log(movie);
 
         if (movie) {
