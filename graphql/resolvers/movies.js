@@ -74,7 +74,7 @@ export default {
     providerMovieQuery: async (
       _,
       { take, skip, myCursor, providerId },
-      context
+      context,
     ) => {
       const user = checkAuth(context);
       console.log("===~~=== CURSOR", myCursor);
@@ -250,7 +250,7 @@ export default {
 
         /* all movies user interacted with */
         const foundMovieConnections = await db.userMovieConnection.findMany(
-          opArgs
+          opArgs,
         );
         let idArray = [];
         for (let i = 0; i < foundMovieConnections.length; i++) {
@@ -322,7 +322,6 @@ export default {
             },
           },
         });
-        console.log(movie);
 
         if (movie) {
           return movie;
