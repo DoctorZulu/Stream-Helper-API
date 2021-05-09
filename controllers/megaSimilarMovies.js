@@ -1,16 +1,19 @@
+/* similar movies */
+/* https://api.themoviedb.org/3/movie/13/similar?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US&page=1 */
+
 import db from "../utils/generatePrisma.js";
 import fetch from "node-fetch";
 
 const result = await db.$queryRaw(
   'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;',
 );
-const megaCreditSeed = () => {
+const megaSimilarMovies = () => {
   let urls = [];
 
   const urlArray = () => {
     for (let i = 1; i < 8570; i++) {
       urls.push(
-        `http://api.themoviedb.org/3/movie/${result[i].id}/credits?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US`,
+          `https://api.themoviedb.org/3/movie/${result[i].id}/similar?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US&page=1`,
       );
     }
   };
@@ -56,4 +59,4 @@ const megaCreditSeed = () => {
 };
 // };
 
-export default megaCreditSeed;
+export default megaSimilarMovies;
