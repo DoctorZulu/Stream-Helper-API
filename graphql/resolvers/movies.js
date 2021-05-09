@@ -314,6 +314,7 @@ export default {
     movieSearch: async (parent, { movieTitle }) => {
       try {
         const movie = await db.movie.findMany({
+          take: 10,
           where: {
             title: {
               contains: movieTitle,
