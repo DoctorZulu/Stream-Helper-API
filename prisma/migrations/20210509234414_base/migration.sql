@@ -34,8 +34,14 @@ CREATE TABLE "Movie" (
     "release_date" TEXT,
     "vote_average" DOUBLE PRECISION,
     "image" TEXT,
+    "backdrop" TEXT,
     "overview" TEXT,
     "genres" INTEGER,
+    "trailers1" TEXT,
+    "trailers2" TEXT,
+    "trailers3" TEXT,
+    "similarMovies" JSONB,
+    "movieKeywords" TEXT,
 
     PRIMARY KEY ("categoryId")
 );
@@ -59,7 +65,7 @@ CREATE TABLE "WatchProvider" (
     "buy" TEXT,
     "rent" TEXT,
     "flatRate" TEXT,
-    "providerId" INTEGER NOT NULL,
+    "providerId" INTEGER,
 
     PRIMARY KEY ("id")
 );
