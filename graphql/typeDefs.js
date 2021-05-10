@@ -40,6 +40,7 @@ const typeDefs = gql`
     overview: String
     image: String
     genres: Int
+    movieKeywords: String
     backdrop: String
     trailers1: String
     trailers2: String

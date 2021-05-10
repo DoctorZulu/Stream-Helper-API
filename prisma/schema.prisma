@@ -49,9 +49,11 @@ model Movie {
   backdrop          String?
   overview          String?
   genres            Int?
-  trailers1 String?
-  trailers2 String?
-  trailers3 String?
+  trailers1         String?
+  trailers2         String?
+  trailers3         String?
+  similarMovies     Json?
+  movieKeywords     String?
   usersmovies       UserMovieConnection[]
   watchproviders    WatchProvider[]
   credits           Credits[]
@@ -84,3 +86,4 @@ model Genre {
   Movie   Movie?  @relation(fields: [movieId], references: [id])
   movieId Int?
 }
+

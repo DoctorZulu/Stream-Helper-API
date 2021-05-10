@@ -4,13 +4,13 @@ import fetch from "node-fetch";
 const result = await db.$queryRaw(
   'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;',
 );
-const megaCreditSeed = () => {
+const megaKeywordSeed = () => {
   let urls = [];
 
   const urlArray = () => {
     for (let i = 1; i < 8570; i++) {
       urls.push(
-        `http://api.themoviedb.org/3/movie/${result[i].id}/credits?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US`,
+        `https://api.themoviedb.org/3/movie/${result[i].id}/keywords?api_key=999a045dba2d80d839d8ed4db5942fae`,
       );
     }
   };
@@ -19,7 +19,6 @@ const megaCreditSeed = () => {
 
   let promises = urls.map((url) => fetch(url).then((res) => res.json()));
 
-  // let callback = function () {
   Promise.all(promises).then((json) => {
     let deconstructed = [];
     let fullData = [];
@@ -31,29 +30,26 @@ const megaCreditSeed = () => {
     fullData.push(deconstructed);
     newMergedData = [].concat.apply([], fullData);
     let index = -1;
+
+    /* console.log(newMergedData, "here") */
     newMergedData.forEach((movie) => {
       index++;
-      const mainAddCredit = async () => {
-        let newCredit = await db.credits.upsert({
-          create: {
-            movieId: movie.id,
-            cast: JSON.stringify(movie),
-            actors: JSON.stringify(movie.cast),
-            crew: JSON.stringify(movie.crew),
-          },
-          update: {},
+     
+      const mainAddKeywords = async () => {
+        let newMovieKeywords = await db.movie.update({
           where: {
-            movieId: movie.id,
+            id: movie.id,
+          },
+          data: {
+            movieKeywords: movie.keywords ? JSON.stringify(movie.keywords) : null,
           },
         });
-        return newCredit;
+        console.log(movie.keywords)
+        return newMovieKeywords;
       };
-      mainAddCredit();
-      // setTimeout(callback, 1000);
+      mainAddKeywords();
     });
   });
-  // setTimeout(callback, 1000);
 };
-// };
 
-export default megaCreditSeed;
+export default megaKeywordSeed;
