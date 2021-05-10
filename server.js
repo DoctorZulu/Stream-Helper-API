@@ -14,7 +14,7 @@ import resolvers from "./graphql/resolvers/index.js";
 // import megaBackdropSeed from "./controllers/megaBackdrop.js";
 /* import userSeed from "./prisma/users.js";  */
 // import megaSimilarMovies from "./controllers/megaSimilarMovies.js";
-import megaKeywordSeed from "./controllers/megaKeywordSeed.js";
+// import megaKeywordSeed from "./controllers/megaKeywordSeed.js";
 
 async function startApolloServer() {
   const app = express();
@@ -84,7 +84,7 @@ process.on("warning", (e) => console.warn(e.stack));
 // megaVideoSeed();
 // megaBackdropSeed();
 // megaSimilarMovies();
-megaKeywordSeed();
+// megaKeywordSeed();
 // one timer
 // userSeed();
 
