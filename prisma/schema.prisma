@@ -49,13 +49,16 @@ model Movie {
   backdrop          String?
   overview          String?
   genres            Int?
-  trailers1 String?
-  trailers2 String?
-  trailers3 String?
+  trailers1         String?
+  trailers2         String?
+  trailers3         String?
+  movieKeywords     String?
+  similarMovies     Json?
   usersmovies       UserMovieConnection[]
   watchproviders    WatchProvider[]
   credits           Credits[]
   Genre             Genre[]
+
 }
 
 model Credits {
