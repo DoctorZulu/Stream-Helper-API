@@ -1,15 +1,15 @@
 import db from "../utils/generatePrisma.js";
 import fetch from "node-fetch";
 const result = await db.$queryRaw(
-  'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;'
+  'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;',
 );
 const megaSimilarMovies = () => {
   let urls = [];
   let idArray = [];
   const urlArray = () => {
-    for (let i = 1; i < 50; i++) {
+    for (let i = 1; i < 8570; i++) {
       urls.push(
-        `https://api.themoviedb.org/3/movie/${result[i].id}/similar?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US&page=1`
+        `https://api.themoviedb.org/3/movie/${result[i].id}/similar?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US&page=1`,
       );
       idArray.push(result[i].id);
     }
@@ -21,7 +21,7 @@ const megaSimilarMovies = () => {
     let fullData = [];
     let newMergedData;
     console.log(result, "JSON res");
-    for (let i = 0; i < 49; i++) {
+    for (let i = 0; i < 8569; i++) {
       deconstructed.push(json[i]);
     }
     fullData.push(deconstructed);

@@ -4,7 +4,7 @@ import fetch from "node-fetch";
 import ids from "../data/movieID.js";
 
 const result = await db.$queryRaw(
-  'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;'
+  'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;',
 );
 
 const megaProviderSeed = () => {
@@ -13,7 +13,7 @@ const megaProviderSeed = () => {
   const urlArray = () => {
     for (let i = 1; i < 8570; i++) {
       urls.push(
-        `https://api.themoviedb.org/3/movie/${result[i].id}/watch/providers?api_key=ef1238b54f2a84b577b966e1ac3e38d5`
+        `https://api.themoviedb.org/3/movie/${result[i].id}/watch/providers?api_key=ef1238b54f2a84b577b966e1ac3e38d5`,
       );
     }
   };
@@ -49,8 +49,8 @@ const megaProviderSeed = () => {
 
       const mainAddProvider = async () => {
         // console.log(movie.flatrate[0].provider_id);
-        let newProvider = await db.watchProvider.upsert({
-          create: {
+        let newProvider = await db.watchProvider.create({
+          data: {
             movieId: idExtracted != null ? Number(idExtracted) : undefined,
             providers: movie != null ? JSON.stringify(movie) : undefined,
             buy: movie != null ? JSON.stringify(movie.buy) : undefined,
@@ -62,10 +62,10 @@ const megaProviderSeed = () => {
                 ? Number(JSON.stringify(movie.flatrate[0].provider_id))
                 : undefined,
           },
-          update: {},
-          where: {
-            movieId: idExtracted != null ? Number(idExtracted) : undefined,
-          },
+          // update: {},
+          // where: {
+          //   movieId: idExtracted != null ? Number(idExtracted) : undefined,
+          // },
         });
         return newProvider;
       };

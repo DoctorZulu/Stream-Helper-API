@@ -40,8 +40,6 @@ CREATE TABLE "Movie" (
     "trailers1" TEXT,
     "trailers2" TEXT,
     "trailers3" TEXT,
-    "similarMovies" JSONB,
-    "movieKeywords" TEXT,
 
     PRIMARY KEY ("categoryId")
 );

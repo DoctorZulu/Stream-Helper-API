@@ -7,13 +7,13 @@ import cookieParser from "cookie-parser";
 // import db from "./utils/generatePrisma.js";
 import typeDefs from "./graphql/typeDefs.js";
 import resolvers from "./graphql/resolvers/index.js";
-import megaSeed from "./controllers/megaSeed.js";
-import megaProviderSeed from "./controllers/megaProviderSeed.js";
-import megaCreditSeed from "./controllers/megaCreditSeed.js";
-import megaVideoSeed from "./controllers/megaVideoSeed.js";
-import megaBackdropSeed from "./controllers/megaBackdrop.js";
+// import megaSeed from "./controllers/megaSeed.js";
+// import megaProviderSeed from "./controllers/megaProviderSeed.js";
+// import megaCreditSeed from "./controllers/megaCreditSeed.js";
+// import megaVideoSeed from "./controllers/megaVideoSeed.js";
+// import megaBackdropSeed from "./controllers/megaBackdrop.js";
 /* import userSeed from "./prisma/users.js";  */
-import megaSimilarMovies from "./controllers/megaSimilarMovies.js";
+// import megaSimilarMovies from "./controllers/megaSimilarMovies.js";
 import megaKeywordSeed from "./controllers/megaKeywordSeed.js";
 
 async function startApolloServer() {
@@ -59,14 +59,14 @@ async function startApolloServer() {
       secure: true,
       httpOnly: false,
       sameSite: "none",
-    })
+    }),
   );
 
   await server.start();
   server.applyMiddleware({ app, path: "/graphql", cors: false });
   /* heroku deployment ¸Ç◊ÎÇ˛  */
   await new Promise((resolve) =>
-    app.listen({ port: process.env.PORT || 4025 }, resolve)
+    app.listen({ port: process.env.PORT || 4025 }, resolve),
   );
 
   console.log(`
@@ -78,13 +78,13 @@ async function startApolloServer() {
 }
 process.on("warning", (e) => console.warn(e.stack));
 
-/* megaSeed(); */
+// megaSeed();
 // megaCreditSeed();
 // megaProviderSeed();
 // megaVideoSeed();
 // megaBackdropSeed();
-/* megaSimilarMovies(); */
-/* megaKeywordSeed(); */
+// megaSimilarMovies();
+megaKeywordSeed();
 // one timer
 // userSeed();
 

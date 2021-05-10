@@ -1,18 +1,12 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-// TO HIT IMAGE URL https://www.themoviedb.org/t/p/w300_and_h450_bestv2/{FILE.JPG}
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
-//======== MODELS =============
-
-// USERS
 model User {
   id        Int                   @id @default(autoincrement())
   firstname String?
@@ -21,14 +15,11 @@ model User {
   email     String?               @unique
   password  String?
   movies    UserMovieConnection[]
-
 }
 
 model UserMovieConnection {
   id       Int      @id @default(autoincrement())
-  movie    Movie?   @relation(fields: [movieId], references: [id])
   movieId  Int?
-  user     User?    @relation(fields: [userId], references: [id])
   userId   Int?
   title    String?
   image    String?
@@ -36,6 +27,8 @@ model UserMovieConnection {
   disliked Boolean? @default(false)
   saved    Boolean? @default(false)
   watched  Boolean? @default(false)
+  movie    Movie?   @relation(fields: [movieId], references: [id])
+  user     User?    @relation(fields: [userId], references: [id])
 }
 
 model Movie {
@@ -52,38 +45,37 @@ model Movie {
   trailers1         String?
   trailers2         String?
   trailers3         String?
-  movieKeywords     String?
-  similarMovies     Json?
+  similarMovies Json?
+  movieKeywords String?
+  credits           Credits?
+  Genre             Genre[]
   usersmovies       UserMovieConnection[]
   watchproviders    WatchProvider[]
-  credits           Credits[]
-  Genre             Genre[]
-
 }
 
 model Credits {
   id      Int     @id @default(autoincrement())
-  movie   Movie?  @relation(fields: [movieId], references: [id])
   movieId Int?    @unique
   cast    Json?
   actors  String?
   crew    String?
+  movie   Movie?  @relation(fields: [movieId], references: [id])
 }
 
 model WatchProvider {
   id         Int     @id @default(autoincrement())
-  movie      Movie?  @relation(fields: [movieId], references: [id])
   movieId    Int?
   providers  String?
   buy        String?
   rent       String?
   flatRate   String?
   providerId Int?
+  movie      Movie?  @relation(fields: [movieId], references: [id])
 }
 
 model Genre {
   id      Int     @id
   name    String?
-  Movie   Movie?  @relation(fields: [movieId], references: [id])
   movieId Int?
+  Movie   Movie?  @relation(fields: [movieId], references: [id])
 }
