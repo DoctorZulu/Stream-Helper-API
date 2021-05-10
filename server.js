@@ -7,13 +7,15 @@ import cookieParser from "cookie-parser";
 // import db from "./utils/generatePrisma.js";
 import typeDefs from "./graphql/typeDefs.js";
 import resolvers from "./graphql/resolvers/index.js";
-// import megaSeed from "./controllers/megaSeed.js";
-// import megaProviderSeed from "./controllers/megaProviderSeed.js";
-// import megaCreditSeed from "./controllers/megaCreditSeed.js";
-// import megaVideoSeed from "./controllers/megaVideoSeed.js";
-// import megaBackdropSeed from "./controllers/megaBackdrop.js";
-// import userSeed from "./prisma/users.js";
-
+/* import megaSeed from "./controllers/megaSeed.js";
+import megaProviderSeed from "./controllers/megaProviderSeed.js";
+import megaCreditSeed from "./controllers/megaCreditSeed.js";
+import megaVideoSeed from "./controllers/megaVideoSeed.js";
+import megaBackdropSeed from "./controllers/megaBackdrop.js"; */
+/* import userSeed from "./prisma/users.js"; */
+/* import megaSimilarMovies from "./controllers/megaSimilarMovies.js";
+import megaKeywordSeed from "./controllers/megaKeywordSeed.js";
+ */
 async function startApolloServer() {
   const app = express();
 
@@ -75,14 +77,15 @@ async function startApolloServer() {
     studio.apollographql.com/dev`);
   return { server, app };
 }
-// process.on("warning", (e) => console.warn(e.stack));
+process.on("warning", (e) => console.warn(e.stack));
 
-// megaSeed();
+/* megaSeed(); */
 // megaCreditSeed();
 // megaProviderSeed();
 // megaVideoSeed();
 // megaBackdropSeed();
-
+/* megaSimilarMovies(); */
+/* megaKeywordSeed(); */
 // one timer
 // userSeed();
 
