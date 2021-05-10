@@ -52,25 +52,13 @@ model Movie {
   trailers1         String?
   trailers2         String?
   trailers3         String?
-  similarMovies     Json?
   movieKeywords     String?
+  similarMovies     Json?
   usersmovies       UserMovieConnection[]
   watchproviders    WatchProvider[]
   credits           Credits[]
   Genre             Genre[]
-  similarMovie      SimilarMovie[]
-}
 
-model SimilarMovie {
-  categoryId        Int     @id @default(autoincrement())
-  id                Int?    @unique
-  title             String?
-  original_language String?
-  release_date      String?
-  vote_average      Float?
-  image             String?
-  Movie             Movie?  @relation(fields: [movieCategoryId], references: [categoryId])
-  movieCategoryId   Int?
 }
 
 model Credits {

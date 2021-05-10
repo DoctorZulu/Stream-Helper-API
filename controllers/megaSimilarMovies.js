@@ -32,15 +32,16 @@ const megaSimilarMovies = () => {
       index++;
       console.log(similarMovie, "results ");
       const mainAddSimilar = async () => {
-        let newSimilarMovie = await db.movie.update({
-          where: {
-            id: idArray[index],
-          },
+        let newSimilarMovie = await db.similarmovie.update({
           data: {
             similarMovies: similarMovie.results ? similarMovie.results : null,
           },
+          update: {},
+          where: {
+            refMovieId: idArray[index],
+          },
         });
-        /* console.log(newSimilarMovie, "here"); */
+
         return newSimilarMovie;
       };
       mainAddSimilar();
