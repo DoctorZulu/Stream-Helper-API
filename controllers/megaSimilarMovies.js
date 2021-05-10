@@ -30,7 +30,7 @@ const megaSimilarMovies = () => {
 
     newMergedData.forEach((similarMovie) => {
       index++;
-      console.log(similarMovie, "results ");
+
       const mainAddSimilar = async () => {
         let newSimilarMovie = await db.movie.update({
           data: {

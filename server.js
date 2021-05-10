@@ -83,7 +83,7 @@ process.on("warning", (e) => console.warn(e.stack));
 // megaProviderSeed();
 // megaVideoSeed();
 // megaBackdropSeed();
-megaSimilarMovies();
+/* megaSimilarMovies(); */
 /* megaKeywordSeed(); */
 // one timer
 // userSeed();

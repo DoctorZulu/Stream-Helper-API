@@ -2,7 +2,7 @@ import db from "../utils/generatePrisma.js";
 import fetch from "node-fetch";
 
 const result = await db.$queryRaw(
-  'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;',
+  'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;'
 );
 const megaKeywordSeed = () => {
   let urls = [];
@@ -10,7 +10,7 @@ const megaKeywordSeed = () => {
   const urlArray = () => {
     for (let i = 1; i < 8570; i++) {
       urls.push(
-        `https://api.themoviedb.org/3/movie/${result[i].id}/keywords?api_key=999a045dba2d80d839d8ed4db5942fae`,
+        `https://api.themoviedb.org/3/movie/${result[i].id}/keywords?api_key=999a045dba2d80d839d8ed4db5942fae`
       );
     }
   };
@@ -34,17 +34,19 @@ const megaKeywordSeed = () => {
     /* console.log(newMergedData, "here") */
     newMergedData.forEach((movie) => {
       index++;
-     
+
       const mainAddKeywords = async () => {
         let newMovieKeywords = await db.movie.update({
           where: {
             id: movie.id,
           },
           data: {
-            movieKeywords: movie.keywords ? JSON.stringify(movie.keywords) : null,
+            movieKeywords: movie.keywords
+              ? JSON.stringify(movie.keywords)
+              : null,
           },
         });
-        console.log(movie.keywords)
+
         return newMovieKeywords;
       };
       mainAddKeywords();
