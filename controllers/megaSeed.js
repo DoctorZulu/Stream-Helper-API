@@ -1,6 +1,5 @@
 import db from "../utils/generatePrisma.js";
 import fetch from "node-fetch";
-
 const megaSeed = () => {
   let urls = [];
   let pageTotal = 430;
@@ -11,27 +10,21 @@ const megaSeed = () => {
       );
     }
   };
-
   urlArray();
   let data = [];
-
   let promises = urls.map((url) => fetch(url).then((res) => res.json()));
-
   Promise.all(promises).then((json) => {
     let deconstructed = [];
     let fullData = [];
     let newMergedData;
-
     for (let i = 0; i < 429; i++) {
       /* dataArray.push(json[i]); */
       deconstructed = json[i].results.map((movie) => {
         return movie;
       });
-
       fullData.push(deconstructed);
     }
     newMergedData = [].concat.apply([], fullData);
-
     newMergedData.forEach((movie) => {
       const mainAddMovie = async () => {
         let newMovie = await db.movie.upsert({
@@ -55,9 +48,7 @@ const megaSeed = () => {
       };
       mainAddMovie();
     });
-
     // console.log(newMergedData.length);
-
     /*   let createdMovie = db.movie.createMany({
       data: [
         {
@@ -73,5 +64,4 @@ const megaSeed = () => {
   });
   // console.log(data);
 };
-
 export default megaSeed;

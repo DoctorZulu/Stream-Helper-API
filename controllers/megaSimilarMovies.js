@@ -27,18 +27,17 @@ const megaSimilarMovies = () => {
     fullData.push(deconstructed);
     newMergedData = [].concat.apply([], fullData);
     let index = -1;
-    /*  console.log(newMergedData, "here") */
+
     newMergedData.forEach((similarMovie) => {
       index++;
       console.log(similarMovie, "results ");
       const mainAddSimilar = async () => {
-        let newSimilarMovie = await db.similarmovie.update({
+        let newSimilarMovie = await db.movie.update({
           data: {
             similarMovies: similarMovie.results ? similarMovie.results : null,
           },
-          update: {},
           where: {
-            refMovieId: idArray[index],
+            id: idArray[index],
           },
         });
 
