@@ -47,7 +47,7 @@ model Movie {
   trailers3         String?
   similarMovies Json?
   movieKeywords String?
-  credits           Credits?
+  credits           Credits[]
   Genre             Genre[]
   usersmovies       UserMovieConnection[]
   watchproviders    WatchProvider[]

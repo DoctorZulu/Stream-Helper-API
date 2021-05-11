@@ -20,7 +20,6 @@ const megaSimilarMovies = () => {
     let deconstructed = [];
     let fullData = [];
     let newMergedData;
-    console.log(result, "JSON res");
     for (let i = 0; i < 8569; i++) {
       deconstructed.push(json[i]);
     }
@@ -28,13 +27,19 @@ const megaSimilarMovies = () => {
     newMergedData = [].concat.apply([], fullData);
     let index = -1;
 
-    newMergedData.forEach((similarMovie) => {
+    newMergedData.forEach((similarMovies) => {
       index++;
-
+      let similarMovie = [];
+      for (let j = 0; j < 8; j++) {
+        similarMovie.push({
+          id: similarMovies.results[j].id,
+          poster_path: similarMovies.results[j].poster_path,
+        });
+      }
       const mainAddSimilar = async () => {
         let newSimilarMovie = await db.movie.update({
           data: {
-            similarMovies: similarMovie.results ? similarMovie.results : null,
+            similarMovies: similarMovie ? similarMovie : null,
           },
           where: {
             id: idArray[index],
