@@ -1,61 +1,55 @@
 import db from "../utils/generatePrisma.js";
 import fetch from "node-fetch";
-
 const result = await db.$queryRaw(
   'SELECT ID FROM "Movie" ORDER BY "categoryId" ASC;',
 );
 const megaSimilarMovies = () => {
   let urls = [];
-
+  let idArray = [];
   const urlArray = () => {
-    for (let i = 1; i < 50; i++) {
+    for (let i = 1; i < 8570; i++) {
       urls.push(
         `https://api.themoviedb.org/3/movie/${result[i].id}/similar?api_key=999a045dba2d80d839d8ed4db5942fae&language=en-US&page=1`,
       );
+      idArray.push(result[i].id);
     }
   };
-
   urlArray();
-
   let promises = urls.map((url) => fetch(url).then((res) => res.json()));
-
   Promise.all(promises).then((json) => {
     let deconstructed = [];
     let fullData = [];
     let newMergedData;
-    console.log(result, "JSON res")
-
-    for (let i = 0; i < 49; i++) {
+    for (let i = 0; i < 8569; i++) {
       deconstructed.push(json[i]);
     }
     fullData.push(deconstructed);
     newMergedData = [].concat.apply([], fullData);
     let index = -1;
 
- 
-    newMergedData.forEach((similarMovie) => {
+    newMergedData.forEach((similarMovies) => {
       index++;
-      let baseMovieIds = []
-      for (let i = 1; i < 50; i++) {
-        baseMovieIds.push(result[i].id)
+      let similarMovie = [];
+      for (let j = 0; j < 8; j++) {
+        similarMovie.push({
+          id: similarMovies.results[j].id,
+          poster_path: similarMovies.results[j].poster_path,
+        });
       }
-  
-   
       const mainAddSimilar = async () => {
         let newSimilarMovie = await db.movie.update({
-          where: {
-            id: movie.id,
-          },
           data: {
-            similarMovies: movie.results ? movie.results : null,
+            similarMovies: similarMovie ? similarMovie : null,
+          },
+          where: {
+            id: idArray[index],
           },
         });
-        console.log(newSimilarMovie, "here")
+
         return newSimilarMovie;
       };
       mainAddSimilar();
     });
   });
 };
-
 export default megaSimilarMovies;
