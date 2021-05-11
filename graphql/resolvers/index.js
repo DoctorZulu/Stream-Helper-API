@@ -1,6 +1,7 @@
 import usersResolvers from "./users.js";
 import movieResolvers from "./movies.js";
 import userMovieConnection from "./usermovieconnection.js";
+import GraphQLJSON from "graphql-type-json";
 
 export default {
   Query: {
@@ -12,4 +13,5 @@ export default {
     ...usersResolvers.Mutation,
     ...userMovieConnection.Mutation,
   },
+  JSON: GraphQLJSON
 };
