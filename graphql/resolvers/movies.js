@@ -293,6 +293,7 @@ export default {
     },
 
     movie: async (parent, { movieId }) => {
+    
       try {
         const movie = db.movie.findUnique({
           where: { id: Number(movieId) },
@@ -302,6 +303,7 @@ export default {
           },
         });
 
+        
         if (movie) {
           return movie;
         } else {
