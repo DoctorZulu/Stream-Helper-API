@@ -83,7 +83,7 @@ const typeDefs = gql`
       take: Int
       skip: Int
       myCursor: Int
-      providerId: Int
+      providerId: [ProviderIds]
     ): [Movie]
     lastMovie: Movie
     movie(movieId: ID!): Movie
@@ -121,6 +121,10 @@ const typeDefs = gql`
     # firstname: String!
     # lastname: String
     password: String!
+  }
+
+  input ProviderIds {
+    id: ID
   }
 `;
 
