@@ -70,16 +70,26 @@ export default {
         throw new Error(error);
       }
     },
-
+    /**
+     *
+     * @param {*} _
+     * @param {*} param1
+     * @param {*} context
+     * @returns Movies from providers
+     */
     providerMovieQuery: async (
       _,
       { take, skip, myCursor, providerId },
       context,
     ) => {
-      const user = checkAuth(context);
-      console.log("===~~=== CURSOR", myCursor);
-      console.log("===~~=== PROV ID", providerId);
       try {
+        const user = checkAuth(context);
+        let arrayOfIds;
+        if (providerId) {
+          arrayOfIds = providerId.map((provider) => {
+            return parseInt(provider.id);
+          });
+        }
         if (!user) {
           errors.general = "User not found";
           throw new UserInputError("User not found", { errors });
@@ -91,32 +101,54 @@ export default {
         for (let i = 0; i < foundMovieConnections.length; i++) {
           idArray.push(foundMovieConnections[i].id);
         }
-        // console.log(idArray.length, "====id arr");
-        const filteredMovie = await db.movie.findMany({
-          include: { watchproviders: true },
-          where: {
-            NOT: {
-              id: { in: idArray },
-            },
-            watchproviders: {
-              some: {
-                providerId: providerId,
+        if (arrayOfIds) {
+          const filteredMovie = await db.movie.findMany({
+            include: { watchproviders: true },
+            where: {
+              NOT: {
+                id: { in: idArray },
+              },
+              watchproviders: {
+                some: {
+                  providerId: { in: [...arrayOfIds] },
+                },
               },
             },
-          },
-          take: take,
-          skip: skip,
-          cursor: {
-            categoryId: parseInt(myCursor),
-          },
-          orderBy: [
-            {
-              categoryId: "asc",
+            take: take,
+            skip: skip,
+            cursor: {
+              categoryId: parseInt(myCursor),
             },
-          ],
-        });
-        return filteredMovie;
+            orderBy: [
+              {
+                categoryId: "asc",
+              },
+            ],
+          });
+          return filteredMovie;
+        } else {
+          const test2 = await db.movie.findMany({
+            where: {
+              NOT: {
+                id: { in: idArray },
+              },
+            },
+            take: take,
+            skip: skip,
+            cursor: {
+              categoryId: myCursor,
+            },
+
+            orderBy: [
+              {
+                categoryId: "asc",
+              },
+            ],
+          });
+          return test2;
+        }
       } catch (error) {
+        // console.log(error);
         throw new Error(error);
       }
     },

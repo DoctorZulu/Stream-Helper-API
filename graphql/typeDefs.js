@@ -1,7 +1,9 @@
 import { gql } from "apollo-server";
+import GraphQLJSON from "graphql-type-json";
 
 const typeDefs = gql`
   scalar Date
+  scalar JSON
 
   type User {
     id: ID
@@ -41,6 +43,7 @@ const typeDefs = gql`
     image: String
     genres: Int
     movieKeywords: String
+    similarMovies: JSON
     backdrop: String
     trailers1: String
     trailers2: String
@@ -80,7 +83,7 @@ const typeDefs = gql`
       take: Int
       skip: Int
       myCursor: Int
-      providerId: Int
+      providerId: [ProviderIds]
     ): [Movie]
     lastMovie: Movie
     movie(movieId: ID!): Movie
@@ -118,6 +121,10 @@ const typeDefs = gql`
     # firstname: String!
     # lastname: String
     password: String!
+  }
+
+  input ProviderIds {
+    id: ID
   }
 `;
 
