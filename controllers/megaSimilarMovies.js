@@ -32,8 +32,10 @@ const megaSimilarMovies = () => {
       let similarMovie = [];
       for (let j = 0; j < 8; j++) {
         similarMovie.push({
-          id: similarMovies.results[j].id,
-          poster_path: similarMovies.results[j].poster_path,
+          id: similarMovies.results[j] ? similarMovies.results[j].id : null,
+          poster_path: similarMovies.results[j]
+            ? similarMovies.results[j].poster_path
+            : null,
         });
       }
       const mainAddSimilar = async () => {
