@@ -93,7 +93,7 @@ const typeDefs = gql`
     getCast(movieId: ID): Credits
     getProviders(movieId: ID!): Movie
     movieLength: Int!
-    filterLength(providerId: Int!): Int!
+    filterLength(providerId: [ProviderIds]): Int!
     movieSearch(movieTitle: String): [Movie]
   }
   type Mutation {
