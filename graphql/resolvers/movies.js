@@ -170,14 +170,25 @@ export default {
         throw new Error(error);
       }
     },
-
+    /**
+     *
+     * @param {*} _
+     * @param {*} providersId:{ id: Int}
+     * @returns Returns length of arrays needed for Pagination
+     */
     filterLength: async (_, { providerId }) => {
       try {
+        let arrayOfIds;
+        if (providerId) {
+          arrayOfIds = providerId.map((provider) => {
+            return parseInt(provider.id);
+          });
+        }
         const allMovie = await db.movie.findMany({
           where: {
             watchproviders: {
               some: {
-                providerId: providerId,
+                providerId: { in: [...arrayOfIds] },
               },
             },
           },
