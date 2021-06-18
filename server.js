@@ -78,6 +78,13 @@ async function startApolloServer() {
 }
 process.on("warning", (e) => console.warn(e.stack));
 
+
+var StatsD = require('hot-shots');
+var dogstatsd = new StatsD();
+
+// Increment a counter.
+dogstatsd.increment('page.views')
+
 // megaSeed();
 // megaCreditSeed();
 // megaProviderSeed();

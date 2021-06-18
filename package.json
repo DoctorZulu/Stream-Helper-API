@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "pm2-runtime start ecosystem.config.js --env production",
     "dev": "nodemon server.js"
   },
   "repository": {
@@ -37,6 +37,7 @@
     "flat": "^5.0.2",
     "graphql": "^15.5.0",
     "graphql-type-json": "^0.3.2",
+    "hot-shots": "^8.3.2",
     "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.6.1"
   },
